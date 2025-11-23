@@ -3,8 +3,8 @@ export default function Home() {
     <div className="bg-[var(--bg-primary)] text-[var(--text-primary)]">
       <main className="relative">
         {/* Home Section */}
-        <section 
-          id="home" 
+        <section
+          id="home"
           className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)]"
         >
           <div className="text-center px-8">
@@ -18,8 +18,8 @@ export default function Home() {
         </section>
 
         {/* Demo Section */}
-        <section 
-          id="demo" 
+        <section
+          id="demo"
           className="min-h-screen flex items-center justify-center bg-[var(--bg-secondary)]"
         >
           <div className="text-center px-8">
@@ -33,8 +33,8 @@ export default function Home() {
         </section>
 
         {/* Updates Section */}
-        <section 
-          id="updates" 
+        <section
+          id="updates"
           className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--bg-secondary)] to-[var(--bg-tertiary)]"
         >
           <div className="text-center px-8">
@@ -48,8 +48,8 @@ export default function Home() {
         </section>
 
         {/* About Section */}
-        <section 
-          id="about" 
+        <section
+          id="about"
           className="min-h-screen flex items-center justify-center bg-[var(--bg-tertiary)]"
         >
           <div className="text-center px-8">
@@ -63,8 +63,8 @@ export default function Home() {
         </section>
 
         {/* Contact Section */}
-        <section 
-          id="contact" 
+        <section
+          id="contact"
           className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--bg-tertiary)] to-[var(--bg-secondary)]"
         >
           <div className="text-center px-8">
@@ -78,8 +78,8 @@ export default function Home() {
         </section>
 
         {/* FAQ Section */}
-        <section 
-          id="faq" 
+        <section
+          id="faq"
           className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)]"
         >
           <div className="text-center px-8">

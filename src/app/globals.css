@@ -60,6 +60,9 @@
   --z-fixed: 1030;
   --z-modal: 1050;
   --z-tooltip: 1070;
+
+  /* Text Filter */
+  --text-filter-color: #ffffff;
 }
 
 /* =============== DARK MODE =============== */
@@ -88,13 +91,16 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+
+  /* Text Filter */
+  /* --text-filter-color: #0a0a0a; */
 }
 
 /* =============== THEME TRANSITION =============== */
 *,
 *::before,
 *::after {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: 0s ease;
 }
 
 /* =============== BASE STYLES =============== */
@@ -110,6 +116,28 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
 }
+
+/* =============== TEXT FILTER =============== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+label,
+button,
+input,
+textarea,
+li,
+strong,
+em,
+small {
+  filter: drop-shadow(0 0 0.3rem var(--bg-primary)) drop-shadow(0 0 0.3rem var(--bg-primary));
+}
+
 
 /* =============== SCROLLBAR =============== */
 body::-webkit-scrollbar {
@@ -129,7 +157,25 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: var(--text-primary);
 }
 
-/* =============== HAMBURGER =============== */
+/* Mobile overlay scrollbar */
+.fixed.inset-0::-webkit-scrollbar {
+  width: 0rem;
+}
+
+.fixed.inset-0::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fixed.inset-0::-webkit-scrollbar-thumb {
+  background-color: var(--text-secondary);
+  border-radius: 5rem;
+}
+
+.fixed.inset-0::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-primary);
+}
+
+
 .burger {
   position: relative;
   z-index: 50;
@@ -160,15 +206,6 @@ body::-webkit-scrollbar-thumb:hover {
   transform-origin: center;
 }
 
-/* =============== NO SCROLL =============== */
-.no-scroll {
-  overflow: hidden;
-}
-
-.no-scroll::-webkit-scrollbar {
-  display: none;
-}
-
 /* =============== NAV LINK ANIMATION =============== */
 .nav-link::before {
   content: '';
@@ -176,7 +213,7 @@ body::-webkit-scrollbar-thumb:hover {
   bottom: 0;
   right: 0;
   width: 0;
-  height: 2px;
+  height: 0.2rem;
   background: linear-gradient(to right, var(--primary), var(--secondary));
   transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const THEME_STORAGE_KEY = "theme";
@@ -66,33 +66,34 @@ export const ThemeSwitcher = () => {
         setTheme((prev) => (prev === "light" ? "dark" : "light"));
     };
 
-    const sunAnimation = useMemo(
-        () => ({
-            scale: theme === "light" ? 1 : 0,
-            rotate: theme === "light" ? 0 : 180,
-        }),
-        [theme]
-    );
-
-    const moonAnimation = useMemo(
-        () => ({
-            scale: theme === "dark" ? 1 : 0,
-            rotate: theme === "dark" ? 0 : -180,
-        }),
-        [theme]
-    );
+    const iconVariants = {
+        initial: { scale: 0, rotate: -180 },
+        animate: { scale: 1, rotate: 0 },
+        exit: { scale: 0, rotate: 180 }
+    };
 
     if (!mounted) {
         return <div className="w-16 h-16" aria-hidden="true" />;
     }
 
     return (
-        <button type="button" onClick={toggleTheme} className="theme-toggle" aria-label="Toggle theme">
+        <motion.button
+            type="button"
+            onClick={toggleTheme}
+            className="theme-toggle"
+            aria-label="Toggle theme"
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.9, rotate: 15 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        >
             {theme === "light" ? (
                 <motion.svg
-                    initial={false}
-                    animate={sunAnimation}
-                    transition={{ duration: 0.3 }}
+                    key="sun"
+                    variants={iconVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -115,9 +116,12 @@ export const ThemeSwitcher = () => {
                 </motion.svg>
             ) : (
                 <motion.svg
-                    initial={false}
-                    animate={moonAnimation}
-                    transition={{ duration: 0.3 }}
+                    key="moon"
+                    variants={iconVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -131,6 +135,6 @@ export const ThemeSwitcher = () => {
                     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
                 </motion.svg>
             )}
-        </button>
+        </motion.button>
     );
 };

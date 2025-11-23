@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Hamburger } from "@/shared/ui/Hamburger/Hamburger";
 import { ThemeSwitcher } from "@/shared/ui/ThemeSwitcher/ThemeSwitcher";
+import GlassSurface from "@/shared/ui/GlassSurface/GlassSurface";
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -72,9 +73,8 @@ export const Header = () => {
         }
     };
 
-    // Lista linków (bez "Home")
+    // Lista linków (bez "Home" - logo działa jako link do home)
     const navLinks = [
-        { name: "Home", href: "/home" },
         { name: "Demo", href: "/demo" },
         { name: "Updates", href: "/updates" },
         { name: "About", href: "/about" },
@@ -85,10 +85,24 @@ export const Header = () => {
     return (
         <>
             <header className="fixed top-0 left-0 w-full h-[15rem] z-[1030] flex items-center justify-center px-12">
-                <div className={`w-full max-w-[140rem] h-[9rem] rounded-full px-16 transition-all duration-300 ${isScrolled
-                    ? 'bg-[var(--bg-secondary)] backdrop-blur-md shadow-[var(--shadow-lg)] border border-[var(--border-primary)]'
-                    : 'bg-[var(--bg-primary)] border border-[var(--border-primary)]'
-                    }`}>
+                <GlassSurface
+                    width="100%"
+                    height="9rem"
+                    borderRadius={50}
+                    borderWidth={0.07}
+                    brightness={50}
+                    opacity={0.93}
+                    blur={11}
+                    displace={0.5}
+                    backgroundOpacity={0.1}
+                    saturation={1}
+                    distortionScale={-180}
+                    redOffset={0}
+                    greenOffset={10}
+                    blueOffset={20}
+                    className={`max-w-[140rem] px-16 transition-all duration-300 ${isScrolled ? 'shadow-[var(--shadow-lg)]' : ''}`}
+                    style={{ boxShadow: 'none' }}
+                >
 
                     {/* Dodano 'relative', aby elementy absolute pozycjonowały się względem nav */}
                     <nav className="relative flex items-center justify-between w-full h-full">
@@ -133,7 +147,7 @@ export const Header = () => {
                             </div>
                         </div>
                     </nav>
-                </div>
+                </GlassSurface>
             </header>
 
             {/* Mobile Navigation Overlay */}
