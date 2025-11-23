@@ -10,15 +10,17 @@ export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
+    // Nasłuchiwanie scrolla dla efektu tła
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 0);
+            setIsScrolled(window.scrollY > 20);
         };
 
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Blokowanie scrollowania body gdy menu mobilne jest otwarte
     useEffect(() => {
         if (isOpen) {
             document.body.classList.add("no-scroll");
@@ -28,7 +30,7 @@ export const Header = () => {
         return () => document.body.classList.remove("no-scroll");
     }, [isOpen]);
 
-    // Handle resize - close menu on any resize
+    // Zamykanie menu przy zmianie rozmiaru okna
     useEffect(() => {
         const handleResize = () => {
             if (isOpen) {
@@ -42,6 +44,7 @@ export const Header = () => {
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
+    // Obsługa smooth scroll
     const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
 
@@ -49,72 +52,87 @@ export const Header = () => {
             setIsOpen(false);
         }
 
-        // Smooth scroll to section
-        const targetId = href.replace('/#', '');
+        const targetId = href.replace('/', '');
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
-            const headerHeight = 100; // Approximate header height
-            const targetOffset = targetElement.offsetTop;
-            const scrollTo = targetOffset - headerHeight;
+            const elementTop = targetElement.offsetTop;
+            const elementHeight = targetElement.offsetHeight;
+            const windowHeight = window.innerHeight;
+
+            // Oblicz pozycję aby wyśrodkować sekcję
+            const scrollTo = elementTop - (windowHeight / 2) + (elementHeight / 2);
 
             window.scrollTo({
                 top: scrollTo,
                 behavior: 'smooth'
             });
+        } else if (targetId === 'home' || href === '/') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
+    // Lista linków (bez "Home")
     const navLinks = [
-        { name: "Home", href: "/#home" },
-        { name: "Demo", href: "/#demo" },
-        { name: "Updates", href: "/#updates" },
-        { name: "About Us", href: "/#about" },
-        { name: "Contact Us", href: "/#contact" },
-        { name: "FAQ", href: "/#faq" },
+        { name: "Home", href: "/home" },
+        { name: "Demo", href: "/demo" },
+        { name: "Updates", href: "/updates" },
+        { name: "About", href: "/about" },
+        { name: "Contact", href: "/contact" },
+        { name: "FAQ", href: "/faq" },
     ];
 
     return (
         <>
-            <header
-                className={`header-shell fixed top-3 left-1/2 -translate-x-1/2 z-[1000] w-[80%] max-w-7xl rounded-full px-4 py-2 md:px-6 transition-all duration-300 ${isScrolled ? 'header--scrolled' : ''}`}
-            >
-                <div className="nav flex items-center justify-between h-11 md:h-12">
-                    {/* Logo - zawsze widoczne */}
-                    <Link href="/" className="nav__logo flex items-center shrink-0 pl-6 md:pl-10 text-[var(--text-primary)]">
-                        <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-[var(--accent-gradient-start)] to-[var(--accent-gradient-end)] bg-clip-text text-transparent tracking-tight whitespace-nowrap">
-                            MangaShift
-                        </span>
-                    </Link>
+            <header className="fixed top-0 left-0 w-full h-[15rem] z-[1030] flex items-center justify-center px-12">
+                <div className={`w-full max-w-[140rem] h-[9rem] rounded-full px-16 transition-all duration-300 ${isScrolled
+                    ? 'bg-[var(--bg-secondary)] backdrop-blur-md shadow-[var(--shadow-lg)] border border-[var(--border-primary)]'
+                    : 'bg-[var(--bg-primary)] border border-[var(--border-primary)]'
+                    }`}>
 
-                    {/* Desktop Navigation - zawsze widoczna na desktop */}
-                    <nav className="hidden lg:flex items-center justify-center lg:flex-1">
-                        <ul className="nav__list flex items-center gap-2 xl:gap-8 list-none m-0 p-0">
-                            {navLinks.map((link) => (
-                                <li key={link.name} className="nav__item shrink-0">
-                                    <Link
-                                        href={link.href}
-                                        onClick={(e) => handleNavLinkClick(e, link.href)}
-                                        className="nav__link navlink relative inline-block py-2 px-3 text-sm font-semibold whitespace-nowrap transition-all duration-200"
-                                    >
-                                        {link.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
+                    {/* Dodano 'relative', aby elementy absolute pozycjonowały się względem nav */}
+                    <nav className="relative flex items-center justify-between w-full h-full">
+
+                        {/* Logo - Działa teraz jak Home */}
+                        <Link
+                            href="/home"
+                            onClick={(e) => handleNavLinkClick(e, "/home")}
+                            className="z-[1030] whitespace-nowrap pl-4 cursor-pointer"
+                        >
+                            <span className="text-[2.8rem] font-extrabold bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text text-transparent tracking-tight">
+                                MangaShift
+                            </span>
+                        </Link>
+
+                        {/* Desktop Navigation - Wyśrodkowana absolutnie */}
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block">
+                            <ul className="flex items-center gap-12 list-none">
+                                {navLinks.map((link) => (
+                                    <li key={link.name}>
+                                        <Link
+                                            href={link.href}
+                                            onClick={(e) => handleNavLinkClick(e, link.href)}
+                                            className="nav-link relative inline-block py-2 text-[2.5rem] font-semibold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="flex items-center gap-8 z-[1030]">
+                            {/* Theme Toggle - Desktop */}
+                            <div className="hidden lg:flex items-center justify-center">
+                                <ThemeSwitcher />
+                            </div>
+                            {/* Hamburger - Mobile */}
+                            <div className="lg:hidden">
+                                <Hamburger isOpen={isOpen} toggle={toggleMenu} />
+                            </div>
+                        </div>
                     </nav>
-
-                    {/* Right Side Actions */}
-                    <div className="flex items-center gap-3 shrink-0 pr-2 md:pr-4 text-[var(--icon-primary)]">
-                        {/* ThemeSwitcher - tylko na desktop */}
-                        <div className="hidden lg:block">
-                            <ThemeSwitcher />
-                        </div>
-                        {/* Hamburger - tylko na mobile */}
-                        <div className="lg:hidden">
-                            <Hamburger isOpen={isOpen} toggle={toggleMenu} />
-                        </div>
-                    </div>
                 </div>
             </header>
 
@@ -126,37 +144,48 @@ export const Header = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="mobile-navbar fixed inset-0 z-[999] lg:hidden pt-20"
+                        className="fixed inset-0 z-[1020] bg-[var(--bg-primary)] pt-[18rem] px-12 pb-12 overflow-y-auto"
                     >
-                        <div className="flex flex-col items-center justify-start h-full px-6 py-8 overflow-y-auto">
-                            <nav className="flex flex-col items-center gap-5 w-full max-w-md mb-8">
-                                {navLinks.map((link, index) => (
-                                    <motion.div
-                                        key={link.name}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.05 + 0.1 }}
-                                        className="w-full text-center"
-                                    >
-                                        <Link
-                                            href={link.href}
-                                            onClick={(e) => handleNavLinkClick(e, link.href)}
-                                            className="navlink block py-4 text-3xl font-bold transition-colors text-[var(--text-primary)]"
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    </motion.div>
-                                ))}
-                            </nav>
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.4 }}
-                                className="mt-auto mb-8 flex justify-center"
+                        <ul className="flex flex-col items-center gap-8 mb-4 list-none">
+                            <motion.li
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 }}
                             >
-                                <ThemeSwitcher />
-                            </motion.div>
-                        </div>
+                                <Link
+                                    href="/home"
+                                    onClick={(e) => handleNavLinkClick(e, "/home")}
+                                    className="block text-[3.5rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                >
+                                    Home
+                                </Link>
+                            </motion.li>
+
+                            {navLinks.map((link, index) => (
+                                <motion.li
+                                    key={link.name}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.05 + 0.15 }}
+                                >
+                                    <Link
+                                        href={link.href}
+                                        onClick={(e) => handleNavLinkClick(e, link.href)}
+                                        className="block text-[3.5rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </motion.li>
+                            ))}
+                        </ul>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.4 }}
+                            className="flex justify-center mt-auto"
+                        >
+                            <ThemeSwitcher />
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

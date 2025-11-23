@@ -69,7 +69,6 @@ export const ThemeSwitcher = () => {
     const sunAnimation = useMemo(
         () => ({
             scale: theme === "light" ? 1 : 0,
-            opacity: theme === "light" ? 1 : 0,
             rotate: theme === "light" ? 0 : 180,
         }),
         [theme]
@@ -78,20 +77,22 @@ export const ThemeSwitcher = () => {
     const moonAnimation = useMemo(
         () => ({
             scale: theme === "dark" ? 1 : 0,
-            opacity: theme === "dark" ? 1 : 0,
             rotate: theme === "dark" ? 0 : -180,
         }),
         [theme]
     );
 
     if (!mounted) {
-        return <div className="theme-toggle theme-toggle--placeholder" aria-hidden="true" />;
+        return <div className="w-16 h-16" aria-hidden="true" />;
     }
 
     return (
         <button type="button" onClick={toggleTheme} className="theme-toggle" aria-label="Toggle theme">
-            <motion.div initial={false} animate={sunAnimation} transition={{ duration: 0.3 }} className="theme-toggle__icon">
-                <svg
+            {theme === "light" ? (
+                <motion.svg
+                    initial={false}
+                    animate={sunAnimation}
+                    transition={{ duration: 0.3 }}
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -111,11 +112,12 @@ export const ThemeSwitcher = () => {
                     <path d="M20 12h2" />
                     <path d="m6.34 17.66-1.41 1.41" />
                     <path d="m19.07 4.93-1.41 1.41" />
-                </svg>
-            </motion.div>
-
-            <motion.div initial={false} animate={moonAnimation} transition={{ duration: 0.3 }} className="theme-toggle__icon">
-                <svg
+                </motion.svg>
+            ) : (
+                <motion.svg
+                    initial={false}
+                    animate={moonAnimation}
+                    transition={{ duration: 0.3 }}
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -127,8 +129,8 @@ export const ThemeSwitcher = () => {
                     strokeLinejoin="round"
                 >
                     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                </svg>
-            </motion.div>
+                </motion.svg>
+            )}
         </button>
     );
 };
