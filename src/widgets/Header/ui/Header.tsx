@@ -100,6 +100,7 @@ export const Header = () => {
                     redOffset={0}
                     greenOffset={10}
                     blueOffset={20}
+                    mixBlendMode="lighten"
                     className={`max-w-[140rem] px-16 transition-all duration-300 ${isScrolled ? 'shadow-[var(--shadow-lg)]' : ''}`}
                     style={{ boxShadow: 'none' }}
                 >

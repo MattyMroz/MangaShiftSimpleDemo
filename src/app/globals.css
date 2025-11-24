@@ -118,6 +118,7 @@ body {
 }
 
 /* =============== TEXT FILTER =============== */
+/* Usunięto globalny filtr drop-shadow, który powodował błędy renderowania i problemy z wydajnością na mobile */
 h1,
 h2,
 h3,
