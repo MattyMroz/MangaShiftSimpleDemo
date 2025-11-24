@@ -161,7 +161,7 @@ export const Header = () => {
                         transition={{ duration: 0.3 }}
                         className="fixed inset-0 z-[1020] bg-[var(--bg-primary)] pt-[18rem] px-12 pb-12 overflow-y-auto"
                     >
-                        <ul className="flex flex-col items-center gap-4 mb-0 list-none">
+                        <ul className="flex flex-col items-center gap-6 mb-2 list-none">
                             <motion.li
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -170,7 +170,7 @@ export const Header = () => {
                                 <Link
                                     href="/home"
                                     onClick={(e) => handleNavLinkClick(e, "/home")}
-                                    className="block text-[2.5rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                    className="block text-[2.8rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
                                 >
                                     Home
                                 </Link>
@@ -186,7 +186,7 @@ export const Header = () => {
                                     <Link
                                         href={link.href}
                                         onClick={(e) => handleNavLinkClick(e, link.href)}
-                                        className="block text-[2.5rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                        className="block text-[2.8rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
                                     >
                                         {link.name}
                                     </Link>
