@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Montserrat, Inter } from "next/font/google";
 import { Header } from "@/widgets/Header/ui/Header";
 import SplashCursor from "@/shared/ui/SplashCursor/SplashCursor";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="pl-PL" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${montserrat.variable} ${inter.variable} antialiased`}
       >
         <SplashCursor
           SIM_RESOLUTION={128} // Rozdzielczość symulacji
@@ -46,7 +46,7 @@ export default function RootLayout({
           TRANSPARENT={true} // Przezroczystość włączona/wyłączona
         />
         <Header />
-        <main className="min-h-screen">
+        <main className="min-h-screen relative z-10">
           {children}
         </main>
       </body>

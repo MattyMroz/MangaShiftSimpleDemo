@@ -109,12 +109,42 @@ html {
   scroll-behavior: smooth;
 }
 
+/* =============== Z-INDEX PLAN =============== */
+/*
+   z-50 (1030): Header, Modals, Overlays (Najwyżej)
+   z-10: Main Content, Text, Buttons (Interaktywne elementy)
+   z-0: SplashCursor (Efekty wizualne pod treścią)
+   auto: Body Background (Najniżej)
+*/
+
 body {
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   font-size: 1.6rem;
   line-height: 1.6;
   color: var(--text-primary);
   background-color: var(--bg-primary);
+  position: relative;
+  /* z-index removed to allow SplashCursor (z-0) to be visible above body bg but below content */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  font-family: var(--font-montserrat), system-ui, -apple-system, sans-serif;
+}
+
+input,
+button,
+textarea {
+  font-size: inherit;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 /* =============== TEXT FILTER =============== */
