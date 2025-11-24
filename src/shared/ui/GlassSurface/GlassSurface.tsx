@@ -176,10 +176,13 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     }, [borderWidth, borderRadius, brightness, opacity, blur, mixBlendMode, redGradId, blueGradId]);
 
     const updateDisplacementMap = useCallback(() => {
-        feImageRef.current?.setAttribute('href', generateDisplacementMap());
+        if (!feImageRef.current) return;
+        feImageRef.current.setAttribute('href', generateDisplacementMap());
     }, [generateDisplacementMap]);
 
     useEffect(() => {
+        if (!isSVGSupported) return;
+        
         updateDisplacementMap();
         [
             { ref: redChannelRef, offset: redOffset },
@@ -195,6 +198,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
         gaussianBlurRef.current?.setAttribute('stdDeviation', displace.toString());
     }, [
+        isSVGSupported,
         width,
         height,
         borderRadius,
@@ -214,7 +218,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     ]);
 
     useEffect(() => {
-        if (!containerRef.current) return;
+        if (!containerRef.current || !isSVGSupported) return;
 
         const resizeObserver = new ResizeObserver(() => {
             setTimeout(updateDisplacementMap, 0);
@@ -225,25 +229,13 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         return () => {
             resizeObserver.disconnect();
         };
-    }, [updateDisplacementMap]);
+    }, [updateDisplacementMap, isSVGSupported]);
 
     useEffect(() => {
-        if (!containerRef.current) return;
-
-        const resizeObserver = new ResizeObserver(() => {
+        if (isSVGSupported) {
             setTimeout(updateDisplacementMap, 0);
-        });
-
-        resizeObserver.observe(containerRef.current);
-
-        return () => {
-            resizeObserver.disconnect();
-        };
-    }, [updateDisplacementMap]);
-
-    useEffect(() => {
-        setTimeout(updateDisplacementMap, 0);
-    }, [width, height, updateDisplacementMap]);
+        }
+    }, [width, height, updateDisplacementMap, isSVGSupported]);
 
     const getContainerStyles = (): React.CSSProperties => {
         if (!isMounted) {
