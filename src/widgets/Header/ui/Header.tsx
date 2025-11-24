@@ -84,7 +84,7 @@ export const Header = () => {
 
     return (
         <>
-            <header className="fixed top-0 left-0 w-full h-[15rem] z-[1030] flex items-center justify-center px-4 md:px-12">
+            <header className="fixed top-0 left-0 w-full h-[10rem] md:h-[15rem] z-[1030] flex items-center justify-center px-4 md:px-12">
                 <GlassSurface
                     width="100%"
                     height="9rem"
@@ -105,21 +105,18 @@ export const Header = () => {
                     style={{ boxShadow: 'none' }}
                 >
 
-                    {/* Dodano 'relative', aby elementy absolute pozycjonowały się względem nav */}
                     <nav className="relative flex items-center justify-between w-full h-full">
 
-                        {/* Logo - Działa teraz jak Home */}
                         <Link
                             href="/home"
                             onClick={(e) => handleNavLinkClick(e, "/home")}
-                            className="z-[1030] whitespace-nowrap pl-4 cursor-pointer"
+                            className="z-[1030] whitespace-nowrap pl-6 md:pl-4 cursor-pointer"
                         >
-                            <span className="text-[2.8rem] font-extrabold text-[var(--text-primary)] tracking-tight">
+                            <span className="text-[2.4rem] md:text-[2.8rem] font-bold text-[var(--text-primary)] tracking-tighter font-[family-name:var(--font-inter)]">
                                 MangaShift
                             </span>
                         </Link>
 
-                        {/* Desktop Navigation - Wyśrodkowana absolutnie */}
                         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block">
                             <ul className="flex items-center gap-12 list-none">
                                 {navLinks.map((link) => (
@@ -127,7 +124,7 @@ export const Header = () => {
                                         <Link
                                             href={link.href}
                                             onClick={(e) => handleNavLinkClick(e, link.href)}
-                                            className="nav-link relative inline-block py-2 text-[2.5rem] font-semibold text-[var(--text-primary)] transition-all duration-300"
+                                            className="nav-link relative inline-block py-2 text-[2rem] font-semibold text-[var(--text-primary)] transition-all duration-300"
                                         >
                                             {link.name}
                                         </Link>
@@ -136,13 +133,10 @@ export const Header = () => {
                             </ul>
                         </div>
 
-                        {/* Actions */}
                         <div className="flex items-center gap-8 z-[1030]">
-                            {/* Theme Toggle - Desktop */}
                             <div className="hidden lg:flex items-center justify-center">
                                 <ThemeSwitcher />
                             </div>
-                            {/* Hamburger - Mobile */}
                             <div className="lg:hidden">
                                 <Hamburger isOpen={isOpen} toggle={toggleMenu} />
                             </div>

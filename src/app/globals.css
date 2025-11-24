@@ -1,34 +1,26 @@
 @import "tailwindcss";
 
-/* =============== VARIABLES CSS =============== */
 :root {
-  /* =============== LIGHT MODE =============== */
-  /* Brand Colors */
   --primary: #dc2626;
   --primary-hover: #b91c1c;
   --secondary: #ec4899;
   --secondary-hover: #db2777;
 
-  /* Background */
-  --bg-primary: #ffffff;
+  --bg-primary: #fcfcfc;
   --bg-secondary: #f5f5f5;
   --bg-tertiary: #e5e5e5;
 
-  /* Text */
-  --text-primary: #0a0a0a;
+  --text-primary: #1a1a1a;
   --text-secondary: #525252;
   --text-tertiary: #a3a3a3;
 
-  /* Border */
   --border-primary: #e5e5e5;
   --border-secondary: #d4d4d8;
 
-  /* Shadow */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 
-  /* Font Sizes */
   --text-xs: 1.2rem;
   --text-sm: 1.4rem;
   --text-base: 1.6rem;
@@ -39,7 +31,6 @@
   --text-4xl: 3.6rem;
   --text-5xl: 4.8rem;
 
-  /* Spacing */
   --spacing-xs: 0.4rem;
   --spacing-sm: 0.8rem;
   --spacing-md: 1.6rem;
@@ -47,75 +38,53 @@
   --spacing-xl: 3.2rem;
   --spacing-2xl: 4.8rem;
 
-  /* Border Radius */
   --radius-sm: 0.4rem;
   --radius-md: 0.8rem;
   --radius-lg: 1.2rem;
   --radius-xl: 1.6rem;
   --radius-full: 9999px;
 
-  /* Z-Index */
   --z-dropdown: 1000;
   --z-sticky: 1020;
   --z-fixed: 1030;
   --z-modal: 1050;
   --z-tooltip: 1070;
 
-  /* Text Filter */
   --text-filter-color: #ffffff;
 }
 
-/* =============== DARK MODE =============== */
 [data-theme="dark"] {
-  /* Brand Colors */
   --primary: #ff4500;
   --primary-hover: #ff6347;
   --secondary: #ff1493;
   --secondary-hover: #ff69b4;
 
-  /* Background */
   --bg-primary: #0a0a0a;
   --bg-secondary: #171717;
   --bg-tertiary: #262626;
 
-  /* Text */
   --text-primary: #fafafa;
   --text-secondary: #a3a3a3;
   --text-tertiary: #525252;
 
-  /* Border */
   --border-primary: #262626;
   --border-secondary: #3f3f46;
 
-  /* Shadow */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
-
-  /* Text Filter */
-  /* --text-filter-color: #0a0a0a; */
 }
 
-/* =============== THEME TRANSITION =============== */
 *,
 *::before,
 *::after {
   transition: 0s ease;
 }
 
-/* =============== BASE STYLES =============== */
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
 }
-
-/* =============== Z-INDEX PLAN =============== */
-/*
-   z-50 (1030): Header, Modals, Overlays (Najwyżej)
-   z-10: Main Content, Text, Buttons (Interaktywne elementy)
-   z-0: SplashCursor (Efekty wizualne pod treścią)
-   auto: Body Background (Najniżej)
-*/
 
 body {
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
@@ -124,7 +93,6 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   position: relative;
-  /* z-index removed to allow SplashCursor (z-0) to be visible above body bg but below content */
 }
 
 h1,
@@ -147,29 +115,6 @@ textarea {
   cursor: pointer;
 }
 
-/* =============== TEXT FILTER =============== */
-/* h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a,
-span,
-label,
-button,
-input,
-textarea,
-li,
-strong,
-em,
-small {
-  filter: drop-shadow(0 0 0.3rem var(--bg-primary)) drop-shadow(0 0 0.3rem var(--bg-primary));
-} */
-
-
-/* =============== SCROLLBAR =============== */
 body::-webkit-scrollbar {
   width: .8rem;
 }
@@ -187,7 +132,6 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: var(--text-primary);
 }
 
-/* Mobile overlay scrollbar */
 .fixed.inset-0::-webkit-scrollbar {
   width: 0rem;
 }
@@ -236,7 +180,6 @@ body::-webkit-scrollbar-thumb:hover {
   transform-origin: center;
 }
 
-/* =============== NAV LINK ANIMATION =============== */
 .nav-link::before {
   content: '';
   position: absolute;
@@ -256,7 +199,6 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* =============== THEME TOGGLE =============== */
 .theme-toggle {
   position: relative;
   display: flex;
@@ -281,7 +223,6 @@ body::-webkit-scrollbar-thumb:hover {
   height: 2.7rem;
 }
 
-/* Mobile overlay theme toggle */
 @media (max-width: 1024px) {
   .fixed.inset-0 .theme-toggle {
     width: 8rem;
