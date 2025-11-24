@@ -96,6 +96,11 @@ export const Hamburger = ({ isOpen, toggle }: HamburgerProps) => {
     }, [isOpen]);
 
     const handleMouseEnter = () => {
+        // Disable hover effect on touch devices to prevent sticky hover state
+        if (window.matchMedia && !window.matchMedia('(hover: hover)').matches) {
+            return;
+        }
+
         isHovered.current = true;
         if (isChangingState.current) return;
         gsap.killTweensOf([bar1Ref.current, bar2Ref.current, bar3Ref.current]);

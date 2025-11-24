@@ -84,7 +84,7 @@ export const Header = () => {
 
     return (
         <>
-            <header className="fixed top-0 left-0 w-full h-[15rem] z-[1030] flex items-center justify-center px-12">
+            <header className="fixed top-0 left-0 w-full h-[15rem] z-[1030] flex items-center justify-center px-4 md:px-12">
                 <GlassSurface
                     width="100%"
                     height="9rem"
@@ -101,7 +101,7 @@ export const Header = () => {
                     greenOffset={10}
                     blueOffset={20}
                     mixBlendMode="lighten"
-                    className={`max-w-[140rem] px-16 transition-all duration-300 ${isScrolled ? 'shadow-[var(--shadow-lg)]' : ''}`}
+                    className={`max-w-[140rem] px-6 md:px-16 transition-all duration-300 ${isScrolled ? 'shadow-[var(--shadow-lg)]' : ''}`}
                     style={{ boxShadow: 'none' }}
                 >
 
@@ -161,7 +161,7 @@ export const Header = () => {
                         transition={{ duration: 0.3 }}
                         className="fixed inset-0 z-[1020] bg-[var(--bg-primary)] pt-[18rem] px-12 pb-12 overflow-y-auto"
                     >
-                        <ul className="flex flex-col items-center gap-8 mb-4 list-none">
+                        <ul className="flex flex-col items-center gap-4 mb-0 list-none">
                             <motion.li
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -170,7 +170,7 @@ export const Header = () => {
                                 <Link
                                     href="/home"
                                     onClick={(e) => handleNavLinkClick(e, "/home")}
-                                    className="block text-[3.5rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                    className="block text-[2.5rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
                                 >
                                     Home
                                 </Link>
@@ -186,7 +186,7 @@ export const Header = () => {
                                     <Link
                                         href={link.href}
                                         onClick={(e) => handleNavLinkClick(e, link.href)}
-                                        className="block text-[3.5rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                        className="block text-[2.5rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
                                     >
                                         {link.name}
                                     </Link>
