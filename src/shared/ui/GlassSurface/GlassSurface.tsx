@@ -293,12 +293,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                 } else {
                     return {
                         ...baseStyles,
-                        background: 'rgba(255, 255, 255, 0.1)',
-                        backdropFilter: 'blur(12px) saturate(1.8) brightness(1.2)',
-                        WebkitBackdropFilter: 'blur(12px) saturate(1.8) brightness(1.2)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`
+                        background: 'rgba(0, 0, 0, 0.6)',
+                        backdropFilter: 'blur(5px)',
+                        WebkitBackdropFilter: 'blur(5px)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        boxShadow: '0 4px 30px rgba(255, 255, 255, 0.1)'
                     };
                 }
             } else {
@@ -313,14 +312,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                 } else {
                     return {
                         ...baseStyles,
-                        background: 'rgba(255, 255, 255, 0.25)',
-                        backdropFilter: 'blur(12px) saturate(1.8) brightness(1.1)',
-                        WebkitBackdropFilter: 'blur(12px) saturate(1.8) brightness(1.1)',
-                        border: '1px solid rgba(255, 255, 255, 0.3)',
-                        boxShadow: `0 8px 32px 0 rgba(31, 38, 135, 0.2),
-                        0 2px 16px 0 rgba(31, 38, 135, 0.1),
-                        inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.2)`
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        backdropFilter: 'blur(5px)',
+                        WebkitBackdropFilter: 'blur(5px)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
                     };
                 }
             }
@@ -340,59 +336,61 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
             className={`${glassSurfaceClasses} ${focusVisibleClasses} ${className}`}
             style={getContainerStyles()}
         >
-            <svg
-                className="w-full h-full pointer-events-none absolute inset-0 opacity-0 -z-10"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <defs>
-                    <filter id={filterId} colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
-                        <feImage ref={feImageRef} x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" />
+            {isSVGSupported && (
+                <svg
+                    className="w-full h-full pointer-events-none absolute inset-0 opacity-0 -z-10"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <defs>
+                        <filter id={filterId} colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
+                            <feImage ref={feImageRef} x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" />
 
-                        <feDisplacementMap ref={redChannelRef} in="SourceGraphic" in2="map" id="redchannel" result="dispRed" />
-                        <feColorMatrix
-                            in="dispRed"
-                            type="matrix"
-                            values="1 0 0 0 0
+                            <feDisplacementMap ref={redChannelRef} in="SourceGraphic" in2="map" id="redchannel" result="dispRed" />
+                            <feColorMatrix
+                                in="dispRed"
+                                type="matrix"
+                                values="1 0 0 0 0
                       0 0 0 0 0
                       0 0 0 0 0
                       0 0 0 1 0"
-                            result="red"
-                        />
+                                result="red"
+                            />
 
-                        <feDisplacementMap
-                            ref={greenChannelRef}
-                            in="SourceGraphic"
-                            in2="map"
-                            id="greenchannel"
-                            result="dispGreen"
-                        />
-                        <feColorMatrix
-                            in="dispGreen"
-                            type="matrix"
-                            values="0 0 0 0 0
+                            <feDisplacementMap
+                                ref={greenChannelRef}
+                                in="SourceGraphic"
+                                in2="map"
+                                id="greenchannel"
+                                result="dispGreen"
+                            />
+                            <feColorMatrix
+                                in="dispGreen"
+                                type="matrix"
+                                values="0 0 0 0 0
                       0 1 0 0 0
                       0 0 0 0 0
                       0 0 0 1 0"
-                            result="green"
-                        />
+                                result="green"
+                            />
 
-                        <feDisplacementMap ref={blueChannelRef} in="SourceGraphic" in2="map" id="bluechannel" result="dispBlue" />
-                        <feColorMatrix
-                            in="dispBlue"
-                            type="matrix"
-                            values="0 0 0 0 0
+                            <feDisplacementMap ref={blueChannelRef} in="SourceGraphic" in2="map" id="bluechannel" result="dispBlue" />
+                            <feColorMatrix
+                                in="dispBlue"
+                                type="matrix"
+                                values="0 0 0 0 0
                       0 0 0 0 0
                       0 0 1 0 0
                       0 0 0 1 0"
-                            result="blue"
-                        />
+                                result="blue"
+                            />
 
-                        <feBlend in="red" in2="green" mode="screen" result="rg" />
-                        <feBlend in="rg" in2="blue" mode="screen" result="output" />
-                        <feGaussianBlur ref={gaussianBlurRef} in="output" stdDeviation="0.7" />
-                    </filter>
-                </defs>
-            </svg>
+                            <feBlend in="red" in2="green" mode="screen" result="rg" />
+                            <feBlend in="rg" in2="blue" mode="screen" result="output" />
+                            <feGaussianBlur ref={gaussianBlurRef} in="output" stdDeviation="0.7" />
+                        </filter>
+                    </defs>
+                </svg>
+            )}
 
             <div className="w-full h-full flex items-center justify-center p-2 rounded-[inherit] relative z-10">
                 {children}
