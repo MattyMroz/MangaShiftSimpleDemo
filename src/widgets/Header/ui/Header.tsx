@@ -114,7 +114,7 @@ export const Header = () => {
                             onClick={(e) => handleNavLinkClick(e, "/home")}
                             className="z-[1030] whitespace-nowrap pl-4 cursor-pointer"
                         >
-                            <span className="text-[2.8rem] font-extrabold bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text text-transparent tracking-tight">
+                            <span className="text-[2.8rem] font-extrabold text-[var(--text-primary)] tracking-tight">
                                 MangaShift
                             </span>
                         </Link>
@@ -127,7 +127,7 @@ export const Header = () => {
                                         <Link
                                             href={link.href}
                                             onClick={(e) => handleNavLinkClick(e, link.href)}
-                                            className="nav-link relative inline-block py-2 text-[2.5rem] font-semibold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                            className="nav-link relative inline-block py-2 text-[2.5rem] font-semibold text-[var(--text-primary)] transition-all duration-300"
                                         >
                                             {link.name}
                                         </Link>
@@ -170,7 +170,7 @@ export const Header = () => {
                                 <Link
                                     href="/home"
                                     onClick={(e) => handleNavLinkClick(e, "/home")}
-                                    className="block text-[2.8rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                    className="block text-[2.8rem] font-bold text-[var(--text-primary)] transition-all duration-300"
                                 >
                                     Home
                                 </Link>
@@ -186,7 +186,7 @@ export const Header = () => {
                                     <Link
                                         href={link.href}
                                         onClick={(e) => handleNavLinkClick(e, link.href)}
-                                        className="block text-[2.8rem] font-bold text-[var(--text-primary)] bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text transition-all duration-300 hover:text-transparent"
+                                        className="block text-[2.8rem] font-bold text-[var(--text-primary)] transition-all duration-300"
                                     >
                                         {link.name}
                                     </Link>

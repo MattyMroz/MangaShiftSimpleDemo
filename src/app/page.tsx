@@ -5,10 +5,10 @@ export default function Home() {
         {/* Home Section */}
         <section
           id="home"
-          className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)]"
+          className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)]"
         >
           <div className="text-center px-8">
-            <h1 className="text-[6rem] font-bold mb-8 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text text-transparent">
+            <h1 className="text-[6rem] font-bold mb-8 text-[var(--text-primary)]">
               Home Section
             </h1>
             <p className="text-[2.4rem] text-[var(--text-secondary)]">
@@ -23,7 +23,7 @@ export default function Home() {
           className="min-h-screen flex items-center justify-center bg-[var(--bg-secondary)]"
         >
           <div className="text-center px-8">
-            <h2 className="text-[5rem] font-bold mb-6 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text text-transparent">
+            <h2 className="text-[5rem] font-bold mb-6 text-[var(--text-primary)]">
               Demo Section
             </h2>
             <p className="text-[2rem] text-[var(--text-secondary)]">
@@ -35,10 +35,10 @@ export default function Home() {
         {/* Updates Section */}
         <section
           id="updates"
-          className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--bg-secondary)] to-[var(--bg-tertiary)]"
+          className="min-h-screen flex items-center justify-center bg-[var(--bg-secondary)]"
         >
           <div className="text-center px-8">
-            <h2 className="text-[5rem] font-bold mb-6 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text text-transparent">
+            <h2 className="text-[5rem] font-bold mb-6 text-[var(--text-primary)]">
               Updates Section
             </h2>
             <p className="text-[2rem] text-[var(--text-secondary)]">
@@ -53,7 +53,7 @@ export default function Home() {
           className="min-h-screen flex items-center justify-center bg-[var(--bg-tertiary)]"
         >
           <div className="text-center px-8">
-            <h2 className="text-[5rem] font-bold mb-6 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text text-transparent">
+            <h2 className="text-[5rem] font-bold mb-6 text-[var(--text-primary)]">
               About Section
             </h2>
             <p className="text-[2rem] text-[var(--text-secondary)]">
@@ -65,10 +65,10 @@ export default function Home() {
         {/* Contact Section */}
         <section
           id="contact"
-          className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--bg-tertiary)] to-[var(--bg-secondary)]"
+          className="min-h-screen flex items-center justify-center bg-[var(--bg-tertiary)]"
         >
           <div className="text-center px-8">
-            <h2 className="text-[5rem] font-bold mb-6 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text text-transparent">
+            <h2 className="text-[5rem] font-bold mb-6 text-[var(--text-primary)]">
               Contact Section
             </h2>
             <p className="text-[2rem] text-[var(--text-secondary)]">
@@ -83,7 +83,7 @@ export default function Home() {
           className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)]"
         >
           <div className="text-center px-8">
-            <h2 className="text-[5rem] font-bold mb-6 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text text-transparent">
+            <h2 className="text-[5rem] font-bold mb-6 text-[var(--text-primary)]">
               FAQ Section
             </h2>
             <p className="text-[2rem] text-[var(--text-secondary)]">
