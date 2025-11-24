@@ -7,9 +7,9 @@ export default function Home() {
         {/* Home Section */}
         <section
           id="home"
-          className="min-h-screen flex items-center justify-center bg-transparent"
+          className="min-h-screen flex items-center justify-center bg-transparent relative overflow-hidden"
         >
-          <div className="text-center px-8 flex flex-col items-center">
+          <div className="text-center px-8 flex flex-col items-center relative z-10">
             <h1 className="text-[6rem] font-bold mb-8 text-[var(--text-primary)]">
               Home Section
             </h1>
