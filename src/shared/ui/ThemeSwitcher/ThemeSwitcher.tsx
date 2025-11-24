@@ -4,14 +4,19 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const THEME_STORAGE_KEY = "theme";
+const DEFAULT_THEME = "dark";
+
 type ThemeMode = "light" | "dark";
 
-const applyTheme = (mode: ThemeMode) => {
+const applyTheme = (mode: ThemeMode): void => {
     const root = document.documentElement;
+
     if (mode === "dark") {
+        root.classList.add("dark");
         root.setAttribute("data-theme", "dark");
         root.style.colorScheme = "dark";
     } else {
+        root.classList.remove("dark");
         root.removeAttribute("data-theme");
         root.style.colorScheme = "light";
     }
@@ -19,51 +24,37 @@ const applyTheme = (mode: ThemeMode) => {
 
 export const ThemeSwitcher = () => {
     const [mounted, setMounted] = useState(false);
-    const [theme, setTheme] = useState<ThemeMode>("light");
+    const [theme, setTheme] = useState<ThemeMode>(DEFAULT_THEME);
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        const saved = window.localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null;
-        const prefersDark = mediaQuery.matches;
-        const initial = saved ?? (prefersDark ? "dark" : "light");
+        const saved = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null;
+        const initial = saved ?? DEFAULT_THEME;
 
         applyTheme(initial);
 
-        const syncTheme = () => {
+        requestAnimationFrame(() => {
             setTheme(initial);
             setMounted(true);
-        };
-
-        if (typeof window.requestAnimationFrame === "function") {
-            window.requestAnimationFrame(syncTheme);
-        } else {
-            window.setTimeout(syncTheme, 0);
-        }
+        });
 
         const handlePreferenceChange = (event: MediaQueryListEvent) => {
-            if (window.localStorage.getItem(THEME_STORAGE_KEY)) {
-                return;
-            }
+            if (localStorage.getItem(THEME_STORAGE_KEY)) return;
+
             const next = event.matches ? "dark" : "light";
             setTheme(next);
             applyTheme(next);
         };
 
         mediaQuery.addEventListener("change", handlePreferenceChange);
-
-        return () => {
-            mediaQuery.removeEventListener("change", handlePreferenceChange);
-        };
+        return () => mediaQuery.removeEventListener("change", handlePreferenceChange);
     }, []);
 
-    useEffect(() => {
-        if (!mounted) return;
-        applyTheme(theme);
-        window.localStorage.setItem(THEME_STORAGE_KEY, theme);
-    }, [theme, mounted]);
-
     const toggleTheme = () => {
-        setTheme((prev) => (prev === "light" ? "dark" : "light"));
+        const next = theme === "light" ? "dark" : "light";
+        setTheme(next);
+        applyTheme(next);
+        localStorage.setItem(THEME_STORAGE_KEY, next);
     };
 
     const iconVariants = {

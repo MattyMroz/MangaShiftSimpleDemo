@@ -1,6 +1,6 @@
-import { Button } from "@/shared/ui/Button/Button";
 import { Hero } from "@/widgets/Hero/ui/Hero";
 import { Section } from "@/shared/ui/Section/Section";
+import { DemoSection } from "@/widgets/DemoSection/ui/DemoSection";
 
 export default function Home() {
   return (
@@ -8,17 +8,7 @@ export default function Home() {
       <main className="relative">
         <Hero />
 
-        <Section id="demo" title="Demo Section">
-          <div className="text-center flex flex-col items-center">
-            <p className="text-[2rem] text-[var(--text-secondary)] mb-12">
-              This is the demo section
-            </p>
-            <div className="flex gap-6 flex-wrap justify-center">
-              <Button variant="primary">View Demo</Button>
-              <Button variant="ghost">Documentation</Button>
-            </div>
-          </div>
-        </Section>
+        <DemoSection />
 
         <Section id="updates" title="Updates Section">
           <div className="text-center">
