@@ -182,7 +182,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
     useEffect(() => {
         if (!isSVGSupported) return;
-        
+
         updateDisplacementMap();
         [
             { ref: redChannelRef, offset: redOffset },
@@ -254,7 +254,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
             height: typeof height === 'number' ? `${height}px` : height,
             borderRadius: `${borderRadius}px`,
             '--glass-frost': backgroundOpacity,
-            '--glass-saturation': saturation
+            '--glass-saturation': saturation,
+            transform: 'translateZ(0)',
+            WebkitTransform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden'
         } as React.CSSProperties;
 
         if (isSVGSupported) {
