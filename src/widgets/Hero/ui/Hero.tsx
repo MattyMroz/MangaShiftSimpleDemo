@@ -7,9 +7,13 @@ import { smoothScrollTo } from "@/shared/lib/utils/smoothScroll";
 
 export const Hero = () => {
     const handleScrollLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
         const href = e.currentTarget.getAttribute('href');
-        if (href) smoothScrollTo(href);
+        if (href) {
+            const scrolled = smoothScrollTo(href);
+            if (scrolled) {
+                e.preventDefault();
+            }
+        }
     };
 
     return (

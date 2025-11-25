@@ -44,14 +44,17 @@ export const Header = () => {
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
+        const href = e.currentTarget.getAttribute('href');
+        if (!href) return;
 
         if (isOpen) {
             setIsOpen(false);
         }
 
-        const href = e.currentTarget.getAttribute('href');
-        if (href) smoothScrollTo(href);
+        const scrolled = smoothScrollTo(href);
+        if (scrolled) {
+            e.preventDefault();
+        }
     };
 
     const navLinks = [

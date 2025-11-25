@@ -1,9 +1,14 @@
-export const smoothScrollTo = (targetId: string, offset: number = 100) => {
-    const id = targetId.startsWith('/') ? targetId.slice(1) : targetId;
+export const smoothScrollTo = (href: string, offset: number = 100): boolean => {
+    const parts = href.split('/');
+    let id = parts[parts.length - 1];
+
+    id = id.replace('#', '');
+
+    id = id.split('?')[0];
 
     if (id === 'home' || id === '') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
+        return true;
     }
 
     const targetElement = document.getElementById(id);
@@ -16,5 +21,8 @@ export const smoothScrollTo = (targetId: string, offset: number = 100) => {
             top: Math.max(0, offsetPosition),
             behavior: 'smooth'
         });
+        return true;
     }
+
+    return false;
 };
