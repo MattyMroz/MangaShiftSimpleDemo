@@ -5,36 +5,41 @@ import { Button } from '@/shared/ui/Button/Button';
 export const DemoSection = () => {
     return (
         <Section id="demo" title="Demo">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-32">
-                <div className="w-full lg:w-1/2 flex justify-center">
-                    <TiltedCard
-                        imageSrc="/images/chainsawman/RezeArc.webp"
-                        altText="Chainsaw Man - Reze Arc Poster"
-                        captionText="Chainsaw Man - Reze Arc"
-                        containerHeight="500px"
-                        containerWidth="400px"
-                        imageHeight="500px"
-                        imageWidth="400px"
-                        rotateAmplitude={12}
-                        scaleOnHover={1.1}
-                        showMobileWarning={false}
-                        showTooltip={false}
-                        displayOverlayContent={true}
-                        overlayContent={
-                            <div className="w-full h-full flex items-start justify-start p-6">
-                                <p className="tilted-card-demo-text text-white font-bold text-xl drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
-                                    Colored Manga
-                                </p>
-                            </div>
-                        }
-                    />
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-32 items-center w-full">
+                <div className="order-2 xl:order-1 w-full flex justify-center py-32 xl:py-16 px-4 xl:px-8">
+                    <div className="relative">
+                        <TiltedCard
+                            imageSrc="/images/chainsawman/RezeArc.webp"
+                            altText="Chainsaw Man - Reze Arc Poster"
+                            captionText="Chainsaw Man - Reze Arc"
+                            containerHeight="500px"
+                            containerWidth="400px"
+                            imageHeight="500px"
+                            imageWidth="400px"
+                            rotateAmplitude={12}
+                            scaleOnHover={1.1}
+                            showMobileWarning={false}
+                            showTooltip={false}
+                            displayOverlayContent={true}
+                            overlayContent={
+                                <div className="w-full h-full flex items-start justify-start p-8">
+                                    <div className="px-6 py-3 rounded-full border border-white/30 bg-black/40 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(0,0,0,0.2)]">
+                                        <p className="text-white font-bold text-lg tracking-wide">
+                                            Colored Manga
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        />
+                        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 dark:bg-black/40 blur-xl rounded-full" />
+                    </div>
                 </div>
-                <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start gap-8 text-center lg:text-left">
+                <div className="order-1 xl:order-2 w-full flex flex-col items-center xl:items-start gap-8 text-center xl:text-left px-4 xl:px-8">
                     <h3 className="text-[3rem] font-bold text-[var(--text-primary)] leading-tight">
                         Discover Reze&apos;s Story
                     </h3>
                     <p className="text-[1.8rem] leading-relaxed text-[var(--text-primary)] opacity-90 max-w-2xl">
-                        Experience the Chainsaw Man: Reze Arc - Part 1 as a motion comic with AI-powered Polish dubbing and narration.
+                        Experience the Chainsaw Man: Reze Arc — Part 1 as a motion comic with AI-powered Polish dubbing and narration.
                         <br /><br />
                         Over 100 manga pages transformed into <br />an immersive animated experience.
                         <br /><br />

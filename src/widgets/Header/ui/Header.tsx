@@ -11,7 +11,6 @@ export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
-    // Nasłuchiwanie scrolla dla efektu tła
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20);
@@ -21,7 +20,6 @@ export const Header = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Blokowanie scrollowania body gdy menu mobilne jest otwarte
     useEffect(() => {
         if (isOpen) {
             document.body.classList.add("no-scroll");
@@ -31,7 +29,6 @@ export const Header = () => {
         return () => document.body.classList.remove("no-scroll");
     }, [isOpen]);
 
-    // Zamykanie menu przy zmianie rozmiaru okna
     useEffect(() => {
         const handleResize = () => {
             if (isOpen) {
@@ -45,7 +42,6 @@ export const Header = () => {
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
-    // Obsługa smooth scroll
     const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
 
@@ -54,29 +50,29 @@ export const Header = () => {
         }
 
         const targetId = href.replace('/', '');
+
+        if (targetId === 'home' || href === '/') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
-            const elementTop = targetElement.offsetTop;
-            const elementHeight = targetElement.offsetHeight;
-            const windowHeight = window.innerHeight;
-
-            // Oblicz pozycję aby wyśrodkować sekcję
-            const scrollTo = elementTop - (windowHeight / 2) + (elementHeight / 2);
+            const headerOffset = -50;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
             window.scrollTo({
-                top: scrollTo,
+                top: Math.max(0, offsetPosition),
                 behavior: 'smooth'
             });
-        } else if (targetId === 'home' || href === '/') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
-    // Lista linków (bez "Home" - logo działa jako link do home)
     const navLinks = [
+        { name: "Home", href: "/home" },
         { name: "Demo", href: "/demo" },
-        { name: "Updates", href: "/updates" },
         { name: "About", href: "/about" },
         { name: "Contact", href: "/contact" },
         { name: "FAQ", href: "/faq" },
@@ -145,7 +141,6 @@ export const Header = () => {
                 </GlassSurface>
             </header>
 
-            {/* Mobile Navigation Overlay */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -156,26 +151,12 @@ export const Header = () => {
                         className="fixed inset-0 z-[1020] bg-[var(--bg-primary)] pt-[18rem] px-12 pb-12 overflow-y-auto"
                     >
                         <ul className="flex flex-col items-center gap-6 mb-2 list-none">
-                            <motion.li
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 }}
-                            >
-                                <Link
-                                    href="/home"
-                                    onClick={(e) => handleNavLinkClick(e, "/home")}
-                                    className="block text-[2.8rem] font-bold text-[var(--text-primary)] transition-all duration-300"
-                                >
-                                    Home
-                                </Link>
-                            </motion.li>
-
                             {navLinks.map((link, index) => (
                                 <motion.li
                                     key={link.name}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.05 + 0.15 }}
+                                    transition={{ delay: index * 0.05 + 0.1 }}
                                 >
                                     <Link
                                         href={link.href}

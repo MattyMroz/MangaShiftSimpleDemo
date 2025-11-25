@@ -1,6 +1,7 @@
 import { Hero } from "@/widgets/Hero/ui/Hero";
 import { Section } from "@/shared/ui/Section/Section";
 import { DemoSection } from "@/widgets/DemoSection/ui/DemoSection";
+import { AboutSection } from "@/widgets/AboutSection/ui/AboutSection";
 
 export default function Home() {
   return (
@@ -10,21 +11,7 @@ export default function Home() {
 
         <DemoSection />
 
-        <Section id="updates" title="Updates Section">
-          <div className="text-center">
-            <p className="text-[2rem] text-[var(--text-secondary)]">
-              Latest updates and news
-            </p>
-          </div>
-        </Section>
-
-        <Section id="about" title="About Section">
-          <div className="text-center">
-            <p className="text-[2rem] text-[var(--text-secondary)]">
-              Learn more about us
-            </p>
-          </div>
-        </Section>
+        <AboutSection />
 
         <Section id="contact" title="Contact Section">
           <div className="text-center">

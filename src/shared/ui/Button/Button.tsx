@@ -41,7 +41,6 @@ export const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, c
         );
     }
 
-    // Ghost variant
     return (
         <button className={`${baseStyles} ${className || ''}`} {...props}>
             <GlassSurface
