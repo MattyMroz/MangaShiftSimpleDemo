@@ -9,7 +9,7 @@ export const DemoSection = () => {
                 <div className="order-2 xl:order-1 w-full flex justify-center py-32 xl:py-16 px-4 xl:px-8">
                     <div className="relative">
                         <TiltedCard
-                            imageSrc="/images/chainsawman/RezeArc.webp"
+                            imageSrc={`${process.env.NODE_ENV === 'production' ? '/MangaShiftSimpleDemo' : ''}/images/chainsawman/RezeArc.webp`}
                             altText="Chainsaw Man - Reze Arc Poster"
                             captionText="Chainsaw Man - Reze Arc"
                             containerHeight="500px"
