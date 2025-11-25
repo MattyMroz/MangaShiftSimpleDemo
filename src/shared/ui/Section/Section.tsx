@@ -9,10 +9,10 @@ interface SectionProps {
   isHero?: boolean;
 }
 
-export const Section = ({ 
-  id, 
-  className = "", 
-  children, 
+export const Section = ({
+  id,
+  className = "",
+  children,
   title,
   gridCols = 1,
   isHero = false

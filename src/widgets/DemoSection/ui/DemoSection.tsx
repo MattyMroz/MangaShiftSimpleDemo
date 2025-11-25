@@ -50,7 +50,7 @@ export const DemoSection = () => {
                             Discover a new dimension of storytelling where art comes alive.
                         </p>
                     </SmartText>
-                    <Button variant="primary">
+                    <Button variant="ghost">
                         <span className="flex items-center gap-3">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

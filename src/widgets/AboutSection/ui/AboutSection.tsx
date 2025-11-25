@@ -59,7 +59,7 @@ export const AboutSection = () => {
                         </SmartText>
                     </div>
                     <a href="https://www.youtube.com/watch?v=wZTBQfYB-qU" target="_blank" rel="noopener noreferrer" className="mb-32">
-                        <Button variant="primary">
+                        <Button variant="ghost">
                             <span className="flex items-center gap-3">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"

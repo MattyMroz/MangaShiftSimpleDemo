@@ -1306,7 +1306,6 @@ export default function SplashCursor({
         }
         document.body.addEventListener('touchstart', handleFirstTouchStart);
 
-        // Cleanup
         return () => {
             window.removeEventListener('mousedown', onMouseDown);
             window.removeEventListener('mousemove', onMouseMove);
