@@ -284,16 +284,17 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                         background: 'rgba(0, 0, 0, 0.4)',
                         border: '1px solid rgba(255, 255, 255, 0.2)',
                         boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)`
+                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.1),
+                        0 4px 16px rgba(0, 0, 0, 0.4)`
                     };
                 } else {
                     return {
                         ...baseStyles,
                         background: 'rgba(0, 0, 0, 0.6)',
-                        backdropFilter: 'blur(5px)',
-                        WebkitBackdropFilter: 'blur(5px)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        boxShadow: '0 4px 30px rgba(255, 255, 255, 0.1)'
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)'
                     };
                 }
             } else {
@@ -301,18 +302,19 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                     return {
                         ...baseStyles,
                         background: 'rgba(255, 255, 255, 0.4)',
-                        border: '1px solid rgba(255, 255, 255, 0.3)',
+                        border: '1px solid rgba(0, 0, 0, 0.1)',
                         boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
-                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.3)`
+                        inset 0 -1px 0 0 rgba(255, 255, 255, 0.3),
+                        0 4px 16px rgba(0, 0, 0, 0.1)`
                     };
                 } else {
                     return {
                         ...baseStyles,
                         background: 'rgba(255, 255, 255, 0.1)',
-                        backdropFilter: 'blur(5px)',
-                        WebkitBackdropFilter: 'blur(5px)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(0, 0, 0, 0.1)',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)'
                     };
                 }
             }
