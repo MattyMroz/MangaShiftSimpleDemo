@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Section } from '@/shared/ui/Section/Section';
 import TiltedCard from '@/shared/ui/TiltedCard/TiltedCard';
 import { Button } from '@/shared/ui/Button/Button';
@@ -50,26 +51,28 @@ export const DemoSection = () => {
                             Discover a new dimension of storytelling where art comes alive.
                         </p>
                     </SmartText>
-                    <Button variant="ghost">
-                        <span className="flex items-center gap-3">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="32"
-                                height="32"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-8 h-8"
-                            >
-                                <circle cx="12" cy="12" r="9" />
-                                <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
-                            </svg>
-                            Watch Demo
-                        </span>
-                    </Button>
+                    <Link href="/chainsawman">
+                        <Button variant="ghost">
+                            <span className="flex items-center gap-3">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="32"
+                                    height="32"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="w-8 h-8"
+                                >
+                                    <circle cx="12" cy="12" r="9" />
+                                    <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
+                                </svg>
+                                Watch Demo
+                            </span>
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </Section>

@@ -1,7 +1,17 @@
+'use client';
+
+import Link from "next/link";
 import { Button } from "@/shared/ui/Button/Button";
 import { SmartText } from "@/shared/ui/SmartText/SmartText";
+import { smoothScrollTo } from "@/shared/lib/utils/smoothScroll";
 
 export const Hero = () => {
+    const handleScrollLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        const href = e.currentTarget.getAttribute('href');
+        if (href) smoothScrollTo(href);
+    };
+
     return (
         <section
             id="home"
@@ -30,27 +40,31 @@ export const Hero = () => {
                 </div>
 
                 <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full md:w-auto px-4">
-                    <Button variant="primary" className="w-full md:w-auto justify-center">
-                        <span className="flex items-center gap-3">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="32"
-                                height="32"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="w-8 h-8"
-                            >
-                                <circle cx="12" cy="12" r="9" />
-                                <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
-                            </svg>
-                            Watch Demo
-                        </span>
-                    </Button>
-                    <Button variant="ghost" className="w-full md:w-auto justify-center">Learn More</Button>
+                    <Link href="/demo" onClick={handleScrollLink} className="w-full md:w-auto">
+                        <Button variant="primary" className="w-full justify-center">
+                            <span className="flex items-center gap-3">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="32"
+                                    height="32"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="w-8 h-8"
+                                >
+                                    <circle cx="12" cy="12" r="9" />
+                                    <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
+                                </svg>
+                                Watch Demo
+                            </span>
+                        </Button>
+                    </Link>
+                    <Link href="/about" onClick={handleScrollLink} className="w-full md:w-auto">
+                        <Button variant="ghost" className="w-full justify-center">Learn More</Button>
+                    </Link>
                 </div>
             </div>
         </section>

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Hamburger } from "@/shared/ui/Hamburger/Hamburger";
 import { ThemeSwitcher } from "@/shared/ui/ThemeSwitcher/ThemeSwitcher";
 import GlassSurface from "@/shared/ui/GlassSurface/GlassSurface";
+import { smoothScrollTo } from "@/shared/lib/utils/smoothScroll";
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -42,32 +43,15 @@ export const Header = () => {
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
-    const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
 
         if (isOpen) {
             setIsOpen(false);
         }
 
-        const targetId = href.replace('/', '');
-
-        if (targetId === 'home' || href === '/') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            return;
-        }
-
-        const targetElement = document.getElementById(targetId);
-
-        if (targetElement) {
-            const headerOffset = 100;
-            const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-            window.scrollTo({
-                top: Math.max(0, offsetPosition),
-                behavior: 'smooth'
-            });
-        }
+        const href = e.currentTarget.getAttribute('href');
+        if (href) smoothScrollTo(href);
     };
 
     const navLinks = [
@@ -105,7 +89,7 @@ export const Header = () => {
 
                         <Link
                             href="/home"
-                            onClick={(e) => handleNavLinkClick(e, "/home")}
+                            onClick={handleNavLinkClick}
                             className="z-[1030] whitespace-nowrap pl-6 md:pl-4 cursor-pointer"
                         >
                             <span className="text-[2.4rem] md:text-[2.8rem] font-bold text-[var(--text-primary)] tracking-tighter font-[family-name:var(--font-inter)]">
@@ -119,7 +103,7 @@ export const Header = () => {
                                     <li key={link.name}>
                                         <Link
                                             href={link.href}
-                                            onClick={(e) => handleNavLinkClick(e, link.href)}
+                                            onClick={handleNavLinkClick}
                                             className="nav-link relative inline-block py-2 text-[2rem] font-semibold text-[var(--text-primary)] transition-all duration-300"
                                         >
                                             {link.name}
@@ -160,7 +144,7 @@ export const Header = () => {
                                 >
                                     <Link
                                         href={link.href}
-                                        onClick={(e) => handleNavLinkClick(e, link.href)}
+                                        onClick={handleNavLinkClick}
                                         className="block text-[2.8rem] font-bold text-[var(--text-primary)] transition-all duration-300"
                                     >
                                         {link.name}

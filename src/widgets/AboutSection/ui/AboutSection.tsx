@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Section } from '@/shared/ui/Section/Section';
 import CardSwap, { Card } from '@/shared/ui/CardSwap/CardSwap';
 import { SmartText } from '@/shared/ui/SmartText/SmartText';
@@ -58,7 +59,7 @@ export const AboutSection = () => {
                             </p>
                         </SmartText>
                     </div>
-                    <a href="https://www.youtube.com/watch?v=wZTBQfYB-qU" target="_blank" rel="noopener noreferrer" className="mb-32">
+                    <Link href="https://www.youtube.com/watch?v=wZTBQfYB-qU" target="_blank" rel="noopener noreferrer" className="mb-32">
                         <Button variant="ghost">
                             <span className="flex items-center gap-3">
                                 <svg
@@ -79,7 +80,7 @@ export const AboutSection = () => {
                                 Watch Video
                             </span>
                         </Button>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="order-2 w-full flex justify-center items-center min-h-[400px] lg:min-h-[450px] py-24 md:py-96 lg:pt-64 lg:pb-144 px-4 md:px-12 lg:pl-12 lg:pr-24">
