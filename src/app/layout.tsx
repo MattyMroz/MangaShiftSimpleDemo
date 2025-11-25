@@ -32,9 +32,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
       <body
-        className={`${montserrat.variable} ${inter.variable} ${notoSansJP.variable} antialiased`}
+        className={`${montserrat.variable} ${inter.variable} ${notoSansJP.variable} antialiased overflow-x-hidden`}
       >
         <SplashCursor
           SIM_RESOLUTION={128}

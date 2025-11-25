@@ -7,7 +7,7 @@ import React, {
     isValidElement,
     ReactElement,
     ReactNode,
-    RefObject,
+    useCallback,
     useLayoutEffect,
     useMemo,
     useRef
@@ -35,12 +35,10 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(({ customClass, ...res
     <div
         ref={ref}
         {...rest}
-        className={`absolute top-1/2 left-1/2 rounded-2xl border border-[var(--border-secondary)] bg-[var(--bg-secondary)] shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4),0_2px_8px_rgba(0,0,0,0.3)] [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden] ${customClass ?? ''} ${rest.className ?? ''}`.trim()}
+        className={`absolute top-1/2 left-1/2 rounded-2xl border border-[var(--border-secondary)] bg-[var(--bg-secondary)] shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4),0_2px_8px_rgba(0,0,0,0.3)] [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden] cursor-pointer ${customClass ?? ''} ${rest.className ?? ''}`.trim()}
     />
 ));
 Card.displayName = 'Card';
-
-type CardRef = RefObject<HTMLDivElement | null>;
 
 interface Slot {
     x: number;
@@ -81,7 +79,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
     easing = 'elastic',
     children
 }) => {
-    const config = useMemo(() => 
+    const config = useMemo(() =>
         easing === 'elastic'
             ? {
                 ease: 'elastic.out(0.6,0.9)',
@@ -101,94 +99,97 @@ const CardSwap: React.FC<CardSwapProps> = ({
             }, [easing]);
 
     const childArr = useMemo(() => Children.toArray(children) as ReactElement<CardProps>[], [children]);
-    const refs = useMemo<CardRef[]>(() => Array.from({ length: childArr.length }).map(() => React.createRef<HTMLDivElement>()), [childArr.length]);
+    const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
 
     const order = useRef<number[]>(Array.from({ length: childArr.length }, (_, i) => i));
 
     const tlRef = useRef<gsap.core.Timeline | null>(null);
     const intervalRef = useRef<number>(0);
     const container = useRef<HTMLDivElement>(null);
+    const isHovered = useRef(false);
+
+    const swap = useCallback(() => {
+        if (order.current.length < 2) return;
+
+        const [front, ...rest] = order.current;
+        const elFront = elementsRef.current[front];
+        if (!elFront) return;
+
+        const tl = gsap.timeline();
+        tlRef.current = tl;
+
+        tl.to(elFront, {
+            y: '+=500',
+            duration: config.durDrop,
+            ease: config.ease
+        });
+
+        tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
+        rest.forEach((idx, i) => {
+            const el = elementsRef.current[idx];
+            if (el) {
+                const slot = makeSlot(i, cardDistance, verticalDistance, elementsRef.current.length);
+                tl.set(el, { zIndex: slot.zIndex }, 'promote');
+                tl.to(
+                    el,
+                    {
+                        x: slot.x,
+                        y: slot.y,
+                        z: slot.z,
+                        duration: config.durMove,
+                        ease: config.ease
+                    },
+                    `promote+=${i * 0.15}`
+                );
+            }
+        });
+
+        const backSlot = makeSlot(elementsRef.current.length - 1, cardDistance, verticalDistance, elementsRef.current.length);
+        tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
+        tl.call(
+            () => {
+                gsap.set(elFront, { zIndex: backSlot.zIndex });
+            },
+            undefined,
+            'return'
+        );
+        tl.to(
+            elFront,
+            {
+                x: backSlot.x,
+                y: backSlot.y,
+                z: backSlot.z,
+                duration: config.durReturn,
+                ease: config.ease
+            },
+            'return'
+        );
+
+        tl.call(() => {
+            order.current = [...rest, front];
+        });
+    }, [config, cardDistance, verticalDistance]);
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            const total = refs.length;
-            refs.forEach((r, i) => {
-                if (r.current) {
-                    placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount);
+            const total = elementsRef.current.length;
+            elementsRef.current.forEach((el, i) => {
+                if (el) {
+                    placeNow(el, makeSlot(i, cardDistance, verticalDistance, total), skewAmount);
                 }
             });
         }, container);
-
-        const swap = () => {
-            if (order.current.length < 2) return;
-
-            const [front, ...rest] = order.current;
-            const elFront = refs[front].current;
-            if (!elFront) return;
-
-            const tl = gsap.timeline();
-            tlRef.current = tl;
-
-            tl.to(elFront, {
-                y: '+=500',
-                duration: config.durDrop,
-                ease: config.ease
-            });
-
-            tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
-            rest.forEach((idx, i) => {
-                const el = refs[idx].current;
-                if (el) {
-                    const slot = makeSlot(i, cardDistance, verticalDistance, refs.length);
-                    tl.set(el, { zIndex: slot.zIndex }, 'promote');
-                    tl.to(
-                        el,
-                        {
-                            x: slot.x,
-                            y: slot.y,
-                            z: slot.z,
-                            duration: config.durMove,
-                            ease: config.ease
-                        },
-                        `promote+=${i * 0.15}`
-                    );
-                }
-            });
-
-            const backSlot = makeSlot(refs.length - 1, cardDistance, verticalDistance, refs.length);
-            tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
-            tl.call(
-                () => {
-                    gsap.set(elFront, { zIndex: backSlot.zIndex });
-                },
-                undefined,
-                'return'
-            );
-            tl.to(
-                elFront,
-                {
-                    x: backSlot.x,
-                    y: backSlot.y,
-                    z: backSlot.z,
-                    duration: config.durReturn,
-                    ease: config.ease
-                },
-                'return'
-            );
-
-            tl.call(() => {
-                order.current = [...rest, front];
-            });
-        };
 
         intervalRef.current = window.setInterval(swap, delay);
 
         const node = container.current;
         const pause = () => {
+            isHovered.current = true;
             tlRef.current?.pause();
             clearInterval(intervalRef.current);
         };
         const resume = () => {
+            isHovered.current = false;
             tlRef.current?.play();
             clearInterval(intervalRef.current);
             intervalRef.current = window.setInterval(swap, delay);
@@ -208,17 +209,38 @@ const CardSwap: React.FC<CardSwapProps> = ({
                 node.removeEventListener('mouseleave', resume);
             }
         };
-    }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, config, refs]);
+    }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, config, swap]);
 
+    const handleCardClickInternal = (i: number) => {
+        if (tlRef.current?.isActive()) {
+            if (tlRef.current.paused()) {
+                tlRef.current.play();
+            }
+            return;
+        }
+
+        swap();
+
+        if (!isHovered.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = window.setInterval(swap, delay);
+        }
+
+        onCardClick?.(i);
+    };
+
+    // eslint-disable-next-line react-hooks/refs
     const rendered = childArr.map((child, i) =>
         isValidElement<CardProps>(child)
             ? cloneElement(child, {
                 key: child.key || i,
-                ref: refs[i],
+                ref: (el: HTMLDivElement | null) => {
+                    elementsRef.current[i] = el;
+                },
                 style: { width, height, ...(child.props.style ?? {}) },
                 onClick: e => {
                     child.props.onClick?.(e as React.MouseEvent<HTMLDivElement>);
-                    onCardClick?.(i);
+                    handleCardClickInternal(i);
                 }
             } as CardProps & React.RefAttributes<HTMLDivElement>)
             : child

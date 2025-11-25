@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SmartText } from '@/shared/ui/SmartText/SmartText';
 
 export default function ChainsawmanPage() {
     return (
@@ -10,12 +11,14 @@ export default function ChainsawmanPage() {
 
                 <div className="max-w-4xl mx-auto">
                     <div className="bg-gray-800 rounded-lg p-8 mb-8">
-                        <p className="text-xl text-gray-300 text-center mb-4">
-                            Interaktywny player demonstracyjny
-                        </p>
-                        <p className="text-gray-400 text-center">
-                            🚧 W trakcie budowy - wkrótce dostępny!
-                        </p>
+                        <SmartText>
+                            <p className="text-xl text-gray-300 text-center mb-4">
+                                Interaktywny player demonstracyjny
+                            </p>
+                            <p className="text-gray-400 text-center">
+                                🚧 W trakcie budowy - wkrótce dostępny!
+                            </p>
+                        </SmartText>
                     </div>
 
                     <div className="bg-gray-800/50 rounded-lg p-6">

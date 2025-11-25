@@ -30,10 +30,10 @@ export const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, c
                     greenOffset={10}
                     blueOffset={20}
                     mixBlendMode="lighten"
-                    className="px-12 py-5 backdrop-invert"
+                    className="px-8 py-4 md:px-12 md:py-5 backdrop-invert"
                     style={{ boxShadow: 'none' }}
                 >
-                    <span className="text-[2.2rem] font-bold text-[var(--text-primary)] tracking-tight whitespace-nowrap">
+                    <span className="text-[length:var(--h2-font-size)] font-bold text-[var(--text-primary)] tracking-tight whitespace-nowrap">
                         {children}
                     </span>
                 </GlassSurface>
@@ -59,10 +59,10 @@ export const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, c
                 greenOffset={10}
                 blueOffset={20}
                 mixBlendMode="lighten"
-                className="px-12 py-5"
+                className="px-8 py-4 md:px-12 md:py-5"
                 style={{ boxShadow: 'none' }}
             >
-                <span className="text-[2.2rem] font-bold text-[var(--text-primary)] tracking-tight whitespace-nowrap">
+                <span className="text-[length:var(--h2-font-size)] font-bold text-[var(--text-primary)] tracking-tight whitespace-nowrap">
                     {children}
                 </span>
             </GlassSurface>

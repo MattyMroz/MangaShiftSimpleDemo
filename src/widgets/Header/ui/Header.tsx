@@ -59,7 +59,7 @@ export const Header = () => {
         const targetElement = document.getElementById(targetId);
 
         if (targetElement) {
-            const headerOffset = -50;
+            const headerOffset = 100;
             const elementPosition = targetElement.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
