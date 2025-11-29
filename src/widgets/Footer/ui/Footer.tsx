@@ -152,9 +152,16 @@ export const Footer = () => {
                                     href="https://github.com/MattyMroz"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors font-semibold"
+                                    className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-semibold inline-block"
                                 >
-                                    Mateusz Mróz
+                                    <motion.span
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                        className="inline-block"
+                                    >
+                                        Mateusz Mróz
+                                    </motion.span>
                                 </a>
                             </p>
                         </SmartText>
