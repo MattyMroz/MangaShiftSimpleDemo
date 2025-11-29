@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Section } from '@/shared/ui/Section/Section';
 import { SmartText } from '@/shared/ui/SmartText/SmartText';
 import { Button } from '@/shared/ui/Button/Button';
@@ -131,21 +132,24 @@ export const ContactSection = () => {
                 <div className="order-2 w-full flex flex-col gap-6 py-12 lg:py-16 px-6 md:px-12 lg:pl-12 lg:pr-24">
                     {contactMethods.map((method) => {
                         const isEmail = method.isEmail;
-                        const Component = isEmail ? 'div' : 'a';
+                        const Component = isEmail ? motion.div : motion.a;
                         const props = isEmail ? {
                             onClick: handleCopyEmail,
-                            className: "group block transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                            className: "group block cursor-pointer"
                         } : {
                             href: method.href,
                             target: "_blank",
                             rel: "noopener noreferrer",
-                            className: "group block transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                            className: "group block"
                         };
 
                         return (
                             <Component
                                 key={method.title}
                                 {...props}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
                             >
                                 <GlassSurface
                                     width="100%"

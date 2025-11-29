@@ -1,19 +1,29 @@
 'use client';
 
 import React from 'react';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import GlassSurface from '@/shared/ui/GlassSurface/GlassSurface';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends HTMLMotionProps<"button"> {
     variant?: 'primary' | 'ghost';
     children: React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, className, ...props }) => {
-    const baseStyles = "relative inline-block cursor-pointer transition-all duration-200 ease-in-out hover:scale-[1.02] active:scale-[0.95]";
+    const baseStyles = "relative inline-block cursor-pointer";
+    const animationProps = {
+        whileHover: { scale: 1.05 },
+        whileTap: { scale: 0.95 },
+        transition: { type: "spring" as const, stiffness: 300, damping: 20 }
+    };
 
     if (variant === 'primary') {
         return (
-            <button className={`${baseStyles} ${className || ''}`} {...props}>
+            <motion.button
+                className={`${baseStyles} ${className || ''}`}
+                {...props}
+                {...animationProps}
+            >
                 <GlassSurface
                     width="auto"
                     height="auto"
@@ -37,12 +47,16 @@ export const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, c
                         {children}
                     </span>
                 </GlassSurface>
-            </button>
+            </motion.button>
         );
     }
 
     return (
-        <button className={`${baseStyles} ${className || ''}`} {...props}>
+        <motion.button
+            className={`${baseStyles} ${className || ''}`}
+            {...props}
+            {...animationProps}
+        >
             <GlassSurface
                 width="auto"
                 height="auto"
@@ -66,6 +80,6 @@ export const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, c
                     {children}
                 </span>
             </GlassSurface>
-        </button>
+        </motion.button>
     );
 };
