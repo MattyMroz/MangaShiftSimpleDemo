@@ -114,12 +114,21 @@ export const Hamburger = ({ isOpen, toggle }: HamburgerProps) => {
         resetHoverState(isOpen);
     };
 
+    const handleTouchEnd = () => {
+        // Reset hover state after touch on tablets to prevent sticky hover
+        isHovered.current = false;
+        if (isChangingState.current) return;
+        gsap.killTweensOf([bar1Ref.current, bar2Ref.current, bar3Ref.current]);
+        resetHoverState(isOpen);
+    };
+
     return (
         <button
             className="burger"
             onClick={() => !isChangingState.current && toggle()}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onTouchEnd={handleTouchEnd}
             aria-label="Toggle menu"
         >
             <svg id="burger-svg" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
