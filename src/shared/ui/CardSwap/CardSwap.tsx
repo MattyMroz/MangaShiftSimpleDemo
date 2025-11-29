@@ -111,7 +111,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
 
     const swap = useCallback(() => {
         if (order.current.length < 2 || isAnimating.current) return;
-        
+
         isAnimating.current = true;
 
         const [front, ...rest] = order.current;
@@ -216,11 +216,9 @@ const CardSwap: React.FC<CardSwapProps> = ({
     }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, config, swap]);
 
     const handleCardClickInternal = (i: number) => {
-        if (tlRef.current?.isActive()) {
-            if (tlRef.current.paused()) {
-                tlRef.current.play();
-            }
-            return;
+        if (isAnimating.current && tlRef.current) {
+            tlRef.current.progress(1);
+            isAnimating.current = false;
         }
 
         swap();
@@ -253,7 +251,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
     return (
         <div
             ref={container}
-            className="relative perspective-[900px] overflow-visible"
+            className="relative perspective-[900px] overflow-visoble"
             style={{ width, height }}
         >
             {rendered}
