@@ -49,7 +49,7 @@ export const AboutSection = () => {
     return (
         <Section id="about" title="About" gridCols={1}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
-                <motion.div 
+                <motion.div
                     className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
                     initial={isMobileDevice ? { opacity: 0, x: -50 } : false}
                     whileInView={isMobileDevice ? { opacity: 1, x: 0 } : undefined}

@@ -24,7 +24,7 @@ export const Section = ({
     <motion.section
       id={id}
       className={`
-        w-full overflow-x-hidden
+        w-full overflow-hidden
         ${isHero ? 'pt-0' : 'pt-[var(--section-padding-top)]'}
         pb-[var(--section-padding-bottom)]
         px-[var(--container-padding)]
@@ -37,7 +37,7 @@ export const Section = ({
     >
       <div className="max-w-[var(--container-width)] mx-auto w-full">
         {title && (
-          <motion.h2 
+          <motion.h2
             className="font-bold text-center mb-12 text-[length:var(--section-title-font-size)] leading-tight"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

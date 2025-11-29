@@ -58,23 +58,33 @@
   /* Smart Design: horizontal gap = 0, vertical gap increases */
   --section-gap-horizontal: 0;
   --section-gap-vertical: 8rem;
-  
+
   /* Section Padding X (horizontal) */
-  --section-padding-x-mobile: 1.5rem;    /* 6 in Tailwind */
-  --section-padding-x-tablet: 3rem;      /* 12 in Tailwind */
-  --section-padding-x-desktop-sm: 6rem;  /* 24 in Tailwind */
-  --section-padding-x-desktop-lg: 6rem;  /* 24 in Tailwind */
-  
+  --section-padding-x-mobile: 1.5rem;
+  /* 6 in Tailwind */
+  --section-padding-x-tablet: 3rem;
+  /* 12 in Tailwind */
+  --section-padding-x-desktop-sm: 6rem;
+  /* 24 in Tailwind */
+  --section-padding-x-desktop-lg: 6rem;
+  /* 24 in Tailwind */
+
   /* Section Padding Y (vertical) */
-  --section-padding-y-mobile: 8rem;      /* 32 in Tailwind */
-  --section-padding-y-tablet: 24rem;     /* 96 in Tailwind */
-  --section-padding-y-desktop-sm: 16rem; /* 64 in Tailwind */
-  --section-padding-y-desktop-lg: 36rem; /* 144 in Tailwind */
-  
+  --section-padding-y-mobile: 8rem;
+  /* 32 in Tailwind */
+  --section-padding-y-tablet: 24rem;
+  /* 96 in Tailwind */
+  --section-padding-y-desktop-sm: 16rem;
+  /* 64 in Tailwind */
+  --section-padding-y-desktop-lg: 36rem;
+  /* 144 in Tailwind */
+
   /* Card Padding */
-  --card-padding-mobile: 2rem;           /* 8 in Tailwind */
-  --card-padding-desktop: 3.2rem;        /* Increased for better spacing */
-  
+  --card-padding-mobile: 2rem;
+  /* 8 in Tailwind */
+  --card-padding-desktop: 3.2rem;
+  /* Increased for better spacing */
+
   /* Card Gap */
   --card-gap: 2rem;
 
@@ -149,7 +159,8 @@
     --title-font-size: 7rem;
     --h1-font-size: 2.4rem;
     --h2-font-size: 1.8rem;
-    --h3-font-size: 1.5rem; /* Reduced for FAQ answers on mobile */
+    --h3-font-size: 1.5rem;
+    /* Reduced for FAQ answers on mobile */
     --japanese-text-font-size: 1rem;
   }
 }
@@ -256,7 +267,6 @@ body::-webkit-scrollbar-thumb:hover {
 .fixed.inset-0::-webkit-scrollbar-thumb:hover {
   background-color: var(--text-primary);
 }
-
 
 .burger {
   position: relative;

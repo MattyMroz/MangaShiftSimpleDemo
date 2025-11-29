@@ -24,14 +24,14 @@ export const Hero = () => {
         >
             <div className="flex-1" />
 
-            <motion.div 
+            <motion.div
                 className="relative z-10 flex flex-col items-center text-center px-4 shrink-0 w-full max-w-[100vw]"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
             >
                 <div className="relative flex items-center justify-center w-full">
-                    <motion.h1 
+                    <motion.h1
                         className="text-[clamp(5.5rem,15vw,16rem)] font-bold text-[var(--text-primary)] tracking-tighter drop-shadow-2xl leading-none font-[family-name:var(--font-inter)] whitespace-nowrap"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -43,7 +43,7 @@ export const Hero = () => {
             </motion.div>
 
             <div className="flex-1 flex flex-col items-center justify-start pt-8 z-10 px-4 w-full">
-                <motion.div 
+                <motion.div
                     className="flex flex-col items-center gap-3 mb-12 text-center"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
