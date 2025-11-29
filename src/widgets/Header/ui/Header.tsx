@@ -67,7 +67,9 @@ export const Header = () => {
 
     return (
         <>
-            <header className="fixed top-0 left-0 w-full h-[10rem] md:h-[15rem] z-[1030] flex items-center justify-center px-4 md:px-12">
+            <header 
+                className="fixed top-0 left-0 w-full h-[10rem] md:h-[15rem] z-[1030] flex items-center justify-center px-4 md:px-12"
+            >
                 <GlassSurface
                     width="100%"
                     height="9rem"

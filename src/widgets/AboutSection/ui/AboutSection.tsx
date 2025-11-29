@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Section } from '@/shared/ui/Section/Section';
 import CardSwap, { Card } from '@/shared/ui/CardSwap/CardSwap';
 import { SmartText } from '@/shared/ui/SmartText/SmartText';
@@ -38,11 +39,29 @@ export const AboutSection = () => {
     return (
         <Section id="about" title="About" gridCols={1}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
-                <div className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]">
-                    <h3 className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight">
+                <motion.div 
+                    className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <motion.h3
+                        className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         What is MangaShift?
-                    </h3>
-                    <div className="flex flex-col gap-[var(--card-gap)] max-w-2xl">
+                    </motion.h3>
+                    <motion.div
+                        className="flex flex-col gap-[var(--card-gap)] max-w-2xl"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                    >
                         <SmartText>
                             <p className="text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-primary)] opacity-90">
                                 MangaShift is an automated system that transforms static manga pages into dynamic,
@@ -59,32 +78,43 @@ export const AboutSection = () => {
                                 or motor impairments — while offering a new dimension of storytelling for all readers.
                             </p>
                         </SmartText>
-                    </div>
+                    </motion.div>
                     <Link href="https://www.youtube.com/watch?v=wZTBQfYB-qU" target="_blank" rel="noopener noreferrer" className="mb-32">
-                        <Button variant="ghost">
-                            <span className="flex items-center gap-3">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="32"
-                                    height="32"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="w-8 h-8"
-                                >
-                                    <circle cx="12" cy="12" r="9" />
-                                    <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
-                                </svg>
-                                Watch Video
-                            </span>
-                        </Button>
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <Button variant="ghost">
+                                <span className="flex items-center gap-3">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="w-8 h-8"
+                                    >
+                                        <circle cx="12" cy="12" r="9" />
+                                        <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
+                                    </svg>
+                                    Watch Video
+                                </span>
+                            </Button>
+                        </motion.div>
                     </Link>
-                </div>
+                </motion.div>
 
-                <div className="order-2 w-full flex justify-center items-center min-h-[400px] lg:min-h-[450px] py-[var(--section-padding-y-mobile)] md:py-[var(--section-padding-y-tablet)] lg:pt-[var(--section-padding-y-desktop-sm)] lg:pb-[var(--section-padding-y-desktop-lg)] px-[calc(var(--section-padding-x-mobile)*0.67)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">
+                <motion.div
+                    className="order-2 w-full flex justify-center items-center min-h-[400px] lg:min-h-[450px] py-[var(--section-padding-y-mobile)] md:py-[var(--section-padding-y-tablet)] lg:pt-[var(--section-padding-y-desktop-sm)] lg:pb-[var(--section-padding-y-desktop-lg)] px-[calc(var(--section-padding-x-mobile)*0.67)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]"
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                >
                     <LazySection className="w-full max-w-[40rem]">
                         <CardSwap
                             cardDistance={40}
@@ -122,7 +152,7 @@ export const AboutSection = () => {
                             ))}
                         </CardSwap>
                     </LazySection>
-                </div>
+                </motion.div>
             </div>
         </Section>
     );

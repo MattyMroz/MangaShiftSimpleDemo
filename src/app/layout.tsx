@@ -72,7 +72,7 @@ export default function RootLayout({
           />
         </div>
         <Header />
-        <main className="min-h-screen relative z-10">
+        <main className="min-h-screen relative z-10 overflow-hidden">
           {children}
         </main>
       </body>

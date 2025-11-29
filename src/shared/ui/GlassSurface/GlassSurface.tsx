@@ -259,7 +259,8 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
             transform: 'translateZ(0)',
             WebkitTransform: 'translateZ(0)',
             backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden'
+            WebkitBackfaceVisibility: 'hidden',
+            transition: 'backdrop-filter 0.6s ease-out, background 0.3s ease-out'
         } as React.CSSProperties;
 
         // Uproszczona wersja dla urządzeń mobilnych

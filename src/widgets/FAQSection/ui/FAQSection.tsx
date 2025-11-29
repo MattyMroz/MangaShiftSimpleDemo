@@ -43,18 +43,12 @@ export const FAQSection = () => {
 
     return (
         <Section id="faq" title="FAQ" gridCols={1}>
-            <div className="w-full max-w-[120rem] mx-auto px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)] mt-32">
+            <div className="w-full max-w-[120rem] mx-auto px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)] mt-32 overflow-hidden">
 
                 {/* Mobile/Tablet Layout (Accordion) */}
                 <div className="flex flex-col gap-[var(--card-gap)] lg:hidden">
                     {faqs.map((faq, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                        >
+                        <div key={index}>
                             <GlassSurface
                                 width="100%"
                                 height="auto"
@@ -124,18 +118,20 @@ export const FAQSection = () => {
                                     </AnimatePresence>
                                 </button>
                             </GlassSurface>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 
                 {/* Desktop Layout (Split View with Single Glass Surface) */}
                 <div className="hidden lg:grid grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
                     {/* Left Column: Single Glass Surface for Answer */}
-                    <div className="w-full flex justify-center items-center py-32 lg:py-16 px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]">
+                    <div 
+                        className="w-full flex justify-center items-center py-32 lg:py-16 px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
+                    >
                         <div className="w-full max-w-[50rem]">
                             <GlassSurface
                                 width="100%"
-                                height="250px"
+                                height="260px"
                                 borderRadius={32}
                                 borderWidth={0.07}
                                 brightness={50}
@@ -149,7 +145,7 @@ export const FAQSection = () => {
                                 greenOffset={0}
                                 blueOffset={0}
                                 mixBlendMode="lighten"
-                                className="p-8 shadow-2xl overflow-hidden"
+                                className="p-14 shadow-2xl overflow-hidden"
                             >
                                 <div className="w-full h-full flex flex-col justify-center relative">
                                     <AnimatePresence mode="wait">
@@ -179,7 +175,13 @@ export const FAQSection = () => {
                     </div>
 
                     {/* Right Column: Questions List */}
-                    <div className="w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">
+                    <motion.div 
+                        className="w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]"
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         <div className="flex flex-col gap-4 w-full">
                             {faqs.map((faq, index) => (
                                 <motion.button
@@ -205,7 +207,7 @@ export const FAQSection = () => {
                                 </motion.button>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </Section>

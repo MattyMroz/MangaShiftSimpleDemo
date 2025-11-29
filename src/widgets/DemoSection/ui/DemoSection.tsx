@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Section } from '@/shared/ui/Section/Section';
 import TiltedCard from '@/shared/ui/TiltedCard/TiltedCard';
 import { Button } from '@/shared/ui/Button/Button';
@@ -9,7 +12,13 @@ export const DemoSection = () => {
     return (
         <Section id="demo" title="Demo" gridCols={1}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
-                <div className="order-2 lg:order-1 w-full flex justify-center py-32 lg:py-16 px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]">
+                <motion.div
+                    className="order-2 lg:order-1 w-full flex justify-center py-32 lg:py-16 px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                >
                     <LazySection className="relative w-full max-w-[40rem]">
                         <TiltedCard
                             imageSrc={`${process.env.NODE_ENV === 'production' ? '/MangaShiftSimpleDemo' : ''}/images/chainsawman/RezeArc.webp`}
@@ -38,43 +47,67 @@ export const DemoSection = () => {
                         />
                         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 dark:bg-black/40 blur-xl rounded-full" />
                     </LazySection>
-                </div>
-                <div className="order-1 lg:order-2 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">
-                    <h3 className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight">
+                </motion.div>
+                <motion.div
+                    className="order-1 lg:order-2 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]"
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <motion.h3
+                        className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         Discover Reze&apos;s Story
-                    </h3>
-                    <SmartText>
-                        <p className="text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-primary)] opacity-90 max-w-2xl">
-                            Experience the Chainsaw Man: Reze Arc — Part 1 as a motion comic with AI-powered Polish dubbing and narration.
-                            <br /><br />
-                            Over 100 manga pages transformed into an immersive animated experience.
-                            <br /><br />
-                            Discover a new dimension of storytelling where art comes alive.
-                        </p>
-                    </SmartText>
+                    </motion.h3>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                    >
+                        <SmartText>
+                            <p className="text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-primary)] opacity-90 max-w-2xl">
+                                Experience the Chainsaw Man: Reze Arc — Part 1 as a motion comic with AI-powered Polish dubbing and narration.
+                                <br /><br />
+                                Over 100 manga pages transformed into an immersive animated experience.
+                                <br /><br />
+                                Discover a new dimension of storytelling where art comes alive.
+                            </p>
+                        </SmartText>
+                    </motion.div>
                     <Link href="/chainsawman">
-                        <Button variant="ghost">
-                            <span className="flex items-center gap-3">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="32"
-                                    height="32"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="w-8 h-8"
-                                >
-                                    <circle cx="12" cy="12" r="9" />
-                                    <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
-                                </svg>
-                                Watch Demo
-                            </span>
-                        </Button>
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <Button variant="ghost">
+                                <span className="flex items-center gap-3">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="w-8 h-8"
+                                    >
+                                        <circle cx="12" cy="12" r="9" />
+                                        <polygon points="11 9 16 12 11 15 11 9" fill="currentColor" />
+                                    </svg>
+                                    Watch Demo
+                                </span>
+                            </Button>
+                        </motion.div>
                     </Link>
-                </div>
+                </motion.div>
             </div>
         </Section>
     );

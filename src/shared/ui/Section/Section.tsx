@@ -1,4 +1,7 @@
+'use client';
+
 import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
 interface SectionProps {
   id: string;
@@ -18,7 +21,7 @@ export const Section = ({
   isHero = false
 }: SectionProps) => {
   return (
-    <section
+    <motion.section
       id={id}
       className={`
         w-full overflow-x-hidden
@@ -27,12 +30,22 @@ export const Section = ({
         px-[var(--container-padding)]
         ${className}
       `.trim()}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
     >
       <div className="max-w-[var(--container-width)] mx-auto w-full">
         {title && (
-          <h2 className="font-bold text-center mb-12 text-[length:var(--section-title-font-size)] leading-tight">
+          <motion.h2 
+            className="font-bold text-center mb-12 text-[length:var(--section-title-font-size)] leading-tight"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             {title}
-          </h2>
+          </motion.h2>
         )}
         {gridCols === 1 ? (
           children
@@ -42,6 +55,6 @@ export const Section = ({
           </div>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 };
