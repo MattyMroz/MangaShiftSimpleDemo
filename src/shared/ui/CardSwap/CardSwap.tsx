@@ -107,9 +107,12 @@ const CardSwap: React.FC<CardSwapProps> = ({
     const intervalRef = useRef<number>(0);
     const container = useRef<HTMLDivElement>(null);
     const isHovered = useRef(false);
+    const isAnimating = useRef(false);
 
     const swap = useCallback(() => {
-        if (order.current.length < 2) return;
+        if (order.current.length < 2 || isAnimating.current) return;
+        
+        isAnimating.current = true;
 
         const [front, ...rest] = order.current;
         const elFront = elementsRef.current[front];
@@ -167,6 +170,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
 
         tl.call(() => {
             order.current = [...rest, front];
+            isAnimating.current = false;
         });
     }, [config, cardDistance, verticalDistance]);
 

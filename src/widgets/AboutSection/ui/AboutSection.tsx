@@ -37,12 +37,12 @@ const milestones = [
 export const AboutSection = () => {
     return (
         <Section id="about" title="About" gridCols={1}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center w-full">
-                <div className="order-1 w-full flex flex-col items-center lg:items-start gap-8 text-center lg:text-left px-6 md:px-12 lg:pl-24 lg:pr-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
+                <div className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]">
                     <h3 className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight">
                         What is MangaShift?
                     </h3>
-                    <div className="flex flex-col gap-6 max-w-2xl">
+                    <div className="flex flex-col gap-[var(--card-gap)] max-w-2xl">
                         <SmartText>
                             <p className="text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-primary)] opacity-90">
                                 MangaShift is an automated system that transforms static manga pages into dynamic,
@@ -84,7 +84,7 @@ export const AboutSection = () => {
                     </Link>
                 </div>
 
-                <div className="order-2 w-full flex justify-center items-center min-h-[400px] lg:min-h-[450px] py-24 md:py-96 lg:pt-64 lg:pb-144 px-4 md:px-12 lg:pl-12 lg:pr-24">
+                <div className="order-2 w-full flex justify-center items-center min-h-[400px] lg:min-h-[450px] py-[var(--section-padding-y-mobile)] md:py-[var(--section-padding-y-tablet)] lg:pt-[var(--section-padding-y-desktop-sm)] lg:pb-[var(--section-padding-y-desktop-lg)] px-[calc(var(--section-padding-x-mobile)*0.67)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">
                     <LazySection className="w-full max-w-[40rem]">
                         <CardSwap
                             cardDistance={40}
@@ -98,21 +98,21 @@ export const AboutSection = () => {
                         >
                             {milestones.map((milestone) => (
                                 <Card key={milestone.number}>
-                                    <div className="p-5 md:p-8 h-full flex flex-col justify-between">
+                                    <div className="p-[var(--card-padding-mobile)] md:p-[var(--card-padding-desktop)] h-full flex flex-col justify-between">
                                         <div>
                                             <div className="flex items-center justify-between mb-4 md:mb-6">
-                                                <span className="text-[2.5rem] md:text-[4rem] font-black text-[var(--accent-primary)] opacity-60">
+                                                <span className="text-[4rem] md:text-[4rem] font-black text-[var(--accent-primary)] opacity-60">
                                                     {milestone.number}
                                                 </span>
-                                                <span className="text-[0.9rem] md:text-[1.2rem] font-semibold px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)]">
+                                                <span className="text-[1.3rem] md:text-[1.2rem] font-semibold px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)]">
                                                     {milestone.status}
                                                 </span>
                                             </div>
-                                            <h4 className="text-[1.5rem] md:text-[2rem] font-bold text-[var(--text-primary)] mb-2 md:mb-3 leading-tight">
+                                            <h4 className="text-[2.2rem] md:text-[2rem] font-bold text-[var(--text-primary)] mb-2 md:mb-3 leading-tight">
                                                 {milestone.title}
                                             </h4>
                                             <SmartText>
-                                                <p className="text-[1rem] md:text-[1.4rem] text-[var(--text-primary)] opacity-80 leading-relaxed">
+                                                <p className="text-[1.5rem] md:text-[1.4rem] text-[var(--text-primary)] opacity-80 leading-relaxed">
                                                     {milestone.description}
                                                 </p>
                                             </SmartText>

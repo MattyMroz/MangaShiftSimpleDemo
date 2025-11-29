@@ -8,8 +8,8 @@ import { LazySection } from '@/shared/ui/LazySection/LazySection';
 export const DemoSection = () => {
     return (
         <Section id="demo" title="Demo" gridCols={1}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center w-full">
-                <div className="order-2 lg:order-1 w-full flex justify-center py-32 lg:py-16 px-12 lg:pl-24 lg:pr-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
+                <div className="order-2 lg:order-1 w-full flex justify-center py-32 lg:py-16 px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]">
                     <LazySection className="relative w-full max-w-[40rem]">
                         <TiltedCard
                             imageSrc={`${process.env.NODE_ENV === 'production' ? '/MangaShiftSimpleDemo' : ''}/images/chainsawman/RezeArc.webp`}
@@ -39,7 +39,7 @@ export const DemoSection = () => {
                         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 dark:bg-black/40 blur-xl rounded-full" />
                     </LazySection>
                 </div>
-                <div className="order-1 lg:order-2 w-full flex flex-col items-center lg:items-start gap-8 text-center lg:text-left px-12 lg:pl-12 lg:pr-24">
+                <div className="order-1 lg:order-2 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">
                     <h3 className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight">
                         Discover Reze&apos;s Story
                     </h3>

@@ -88,14 +88,14 @@ export const ContactSection = () => {
 
     return (
         <Section id="contact" title="Contact" gridCols={1}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
 
                 {/* Text Column */}
-                <div className="order-1 w-full flex flex-col items-center lg:items-start gap-8 text-center lg:text-left px-6 md:px-12 lg:pl-24 lg:pr-12">
+                <div className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]">
                     <h3 className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight">
                         Let&apos;s Connect
                     </h3>
-                    <div className="flex flex-col gap-6 max-w-2xl">
+                    <div className="flex flex-col gap-[var(--card-gap)] max-w-2xl">
                         <SmartText>
                             <p className="text-[length:var(--h3-font-size)] leading-relaxed text-[var(--text-primary)] opacity-90">
                                 Have questions about MangaShift? Interested in collaboration or want to learn more about our technology?
@@ -129,7 +129,7 @@ export const ContactSection = () => {
                 </div>
 
                 {/* Contact Cards Column */}
-                <div className="order-2 w-full flex flex-col gap-6 py-12 lg:py-16 px-6 md:px-12 lg:pl-12 lg:pr-24">
+                <div className="order-2 w-full flex flex-col gap-[var(--card-gap)] py-12 lg:py-16 px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">
                     {contactMethods.map((method) => {
                         const isEmail = method.isEmail;
                         const Component = isEmail ? motion.div : motion.a;
@@ -167,7 +167,7 @@ export const ContactSection = () => {
                                     greenOffset={10}
                                     blueOffset={20}
                                     mixBlendMode="lighten"
-                                    className="p-6 md:p-8 hover:shadow-lg transition-shadow"
+                                    className="p-[var(--card-padding-mobile)] md:p-[var(--card-padding-desktop)] hover:shadow-lg transition-shadow"
                                 >
                                     <div className="w-full flex items-center justify-center">
                                         <div className="w-full max-w-[300px] flex items-center gap-6">

@@ -41,8 +41,8 @@ export const FAQSection = () => {
 
     return (
         <Section id="faq" title="FAQ" gridCols={1}>
-            <div className="w-full max-w-[80rem] mx-auto px-6 md:px-12 mt-32">
-                <div className="flex flex-col gap-4">
+            <div className="w-full max-w-[80rem] mx-auto px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] mt-32">
+                <div className="flex flex-col gap-[var(--card-gap)]">
                     {faqs.map((faq, index) => (
                         <motion.div
                             key={index}
@@ -54,7 +54,7 @@ export const FAQSection = () => {
                         >
                                 <motion.button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full text-left py-10 px-15 cursor-pointer"
+                                    className="w-full text-left py-10 px-[calc(var(--section-padding-x-mobile)*2.5)] md:px-[calc(var(--section-padding-x-tablet)*1.25)] cursor-pointer"
                                     whileTap={{ scale: 0.99 }}
                                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                 >
@@ -93,7 +93,7 @@ export const FAQSection = () => {
                                                 transition={{ duration: 0.3, ease: "easeInOut" }}
                                                 className="overflow-hidden"
                                             >
-                                                <div className="pt-6 p-6 border-t border-[var(--border-primary)] mt-4">
+                                                <div className="pt-6 p-[var(--card-gap)] border-t border-[var(--border-primary)] mt-4">
                                                     <SmartText>
                                                         <p className="text-[length:var(--h3-font-size)] text-[var(--text-primary)] leading-relaxed font-[family-name:var(--font-inter)]">
                                                             {faq.answer}
