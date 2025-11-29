@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
+import { isMobile } from 'react-device-detect';
 
 interface ColorRGB {
     r: number;
@@ -330,6 +331,54 @@ export default function SplashCursor({
 }: SplashCursorProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
+    // Optymalizacja ustawień dla mobile
+    const effectiveConfig = useMemo(() => isMobile ? {
+        SIM_RESOLUTION: 64,
+        DYE_RESOLUTION: 512,
+        CAPTURE_RESOLUTION: 256,
+        DENSITY_DISSIPATION,
+        VELOCITY_DISSIPATION,
+        PRESSURE,
+        PRESSURE_ITERATIONS: 10,
+        CURL,
+        SPLAT_RADIUS,
+        SPLAT_FORCE,
+        SHADING: false,
+        COLOR_UPDATE_SPEED,
+        BACK_COLOR,
+        TRANSPARENT
+    } : {
+        SIM_RESOLUTION,
+        DYE_RESOLUTION,
+        CAPTURE_RESOLUTION,
+        DENSITY_DISSIPATION,
+        VELOCITY_DISSIPATION,
+        PRESSURE,
+        PRESSURE_ITERATIONS,
+        CURL,
+        SPLAT_RADIUS,
+        SPLAT_FORCE,
+        SHADING,
+        COLOR_UPDATE_SPEED,
+        BACK_COLOR,
+        TRANSPARENT
+    }, [
+        SIM_RESOLUTION,
+        DYE_RESOLUTION,
+        CAPTURE_RESOLUTION,
+        DENSITY_DISSIPATION,
+        VELOCITY_DISSIPATION,
+        PRESSURE,
+        PRESSURE_ITERATIONS,
+        CURL,
+        SPLAT_RADIUS,
+        SPLAT_FORCE,
+        SHADING,
+        COLOR_UPDATE_SPEED,
+        BACK_COLOR,
+        TRANSPARENT
+    ]);
+
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -337,21 +386,21 @@ export default function SplashCursor({
         const pointers: Pointer[] = [pointerPrototype()];
 
         const config = {
-            SIM_RESOLUTION,
-            DYE_RESOLUTION,
-            CAPTURE_RESOLUTION,
-            DENSITY_DISSIPATION,
-            VELOCITY_DISSIPATION,
-            PRESSURE,
-            PRESSURE_ITERATIONS,
-            CURL,
-            SPLAT_RADIUS,
-            SPLAT_FORCE,
-            SHADING,
-            COLOR_UPDATE_SPEED,
+            SIM_RESOLUTION: effectiveConfig.SIM_RESOLUTION,
+            DYE_RESOLUTION: effectiveConfig.DYE_RESOLUTION,
+            CAPTURE_RESOLUTION: effectiveConfig.CAPTURE_RESOLUTION,
+            DENSITY_DISSIPATION: effectiveConfig.DENSITY_DISSIPATION,
+            VELOCITY_DISSIPATION: effectiveConfig.VELOCITY_DISSIPATION,
+            PRESSURE: effectiveConfig.PRESSURE,
+            PRESSURE_ITERATIONS: effectiveConfig.PRESSURE_ITERATIONS,
+            CURL: effectiveConfig.CURL,
+            SPLAT_RADIUS: effectiveConfig.SPLAT_RADIUS,
+            SPLAT_FORCE: effectiveConfig.SPLAT_FORCE,
+            SHADING: effectiveConfig.SHADING,
+            COLOR_UPDATE_SPEED: effectiveConfig.COLOR_UPDATE_SPEED,
             PAUSED: false,
-            BACK_COLOR,
-            TRANSPARENT
+            BACK_COLOR: effectiveConfig.BACK_COLOR,
+            TRANSPARENT: effectiveConfig.TRANSPARENT
         };
 
         const context = getWebGLContext(canvas);
@@ -1317,22 +1366,7 @@ export default function SplashCursor({
             cancelAnimationFrame(animationFrameId);
         };
 
-    }, [
-        SIM_RESOLUTION,
-        DYE_RESOLUTION,
-        CAPTURE_RESOLUTION,
-        DENSITY_DISSIPATION,
-        VELOCITY_DISSIPATION,
-        PRESSURE,
-        PRESSURE_ITERATIONS,
-        CURL,
-        SPLAT_RADIUS,
-        SPLAT_FORCE,
-        SHADING,
-        COLOR_UPDATE_SPEED,
-        BACK_COLOR,
-        TRANSPARENT
-    ]);
+    }, [effectiveConfig]);
 
     return (
         <div className="fixed top-0 left-0 z-0 pointer-events-none w-full h-full">

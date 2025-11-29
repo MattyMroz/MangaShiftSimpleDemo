@@ -3,13 +3,14 @@ import { Section } from '@/shared/ui/Section/Section';
 import TiltedCard from '@/shared/ui/TiltedCard/TiltedCard';
 import { Button } from '@/shared/ui/Button/Button';
 import { SmartText } from '@/shared/ui/SmartText/SmartText';
+import { LazySection } from '@/shared/ui/LazySection/LazySection';
 
 export const DemoSection = () => {
     return (
         <Section id="demo" title="Demo" gridCols={1}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center w-full">
                 <div className="order-2 lg:order-1 w-full flex justify-center py-32 lg:py-16 px-12 lg:pl-24 lg:pr-12">
-                    <div className="relative w-full max-w-[40rem]">
+                    <LazySection className="relative w-full max-w-[40rem]">
                         <TiltedCard
                             imageSrc={`${process.env.NODE_ENV === 'production' ? '/MangaShiftSimpleDemo' : ''}/images/chainsawman/RezeArc.webp`}
                             altText="Chainsaw Man - Reze Arc Poster"
@@ -36,7 +37,7 @@ export const DemoSection = () => {
                             }
                         />
                         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 dark:bg-black/40 blur-xl rounded-full" />
-                    </div>
+                    </LazySection>
                 </div>
                 <div className="order-1 lg:order-2 w-full flex flex-col items-center lg:items-start gap-8 text-center lg:text-left px-12 lg:pl-12 lg:pr-24">
                     <h3 className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight">

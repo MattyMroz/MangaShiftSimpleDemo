@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
+import { isMobile } from 'react-device-detect';
 
 export type RaysOrigin =
   | 'top-center'
@@ -154,7 +155,8 @@ const LightRays: React.FC<LightRaysProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!isVisible || !shouldRender || !containerRef.current) return;
+    // Wyłącz całkowicie na urządzeniach mobilnych
+    if (isMobile || !isVisible || !shouldRender || !containerRef.current) return;
 
     if (cleanupFunctionRef.current) {
       cleanupFunctionRef.current();
@@ -473,6 +475,7 @@ void main() {
     <div
       ref={containerRef}
       className={`w-full h-full pointer-events-none z-[3] overflow-hidden relative ${className}`.trim()}
+      style={{ display: isMobile ? 'none' : 'block' }}
     />
   );
 };

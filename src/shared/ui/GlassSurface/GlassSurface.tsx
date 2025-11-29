@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, useId, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
+import { isMobile } from 'react-device-detect';
 
 export interface GlassSurfaceProps {
     children?: React.ReactNode;
@@ -261,6 +262,25 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
             WebkitBackfaceVisibility: 'hidden'
         } as React.CSSProperties;
 
+        // Uproszczona wersja dla urządzeń mobilnych
+        if (isMobile) {
+            return {
+                ...baseStyles,
+                background: isDarkMode 
+                    ? `rgba(0, 0, 0, ${Math.max(backgroundOpacity, 0.4)})` 
+                    : `rgba(255, 255, 255, ${Math.max(backgroundOpacity, 0.4)})`,
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: isDarkMode 
+                    ? '1px solid rgba(255, 255, 255, 0.15)' 
+                    : '1px solid rgba(0, 0, 0, 0.1)',
+                boxShadow: isDarkMode
+                    ? '0 8px 32px rgba(0, 0, 0, 0.4)'
+                    : '0 8px 32px rgba(0, 0, 0, 0.15)'
+            };
+        }
+
+        // Pełna wersja dla desktop z SVG
         if (isSVGSupported) {
             return {
                 ...baseStyles,
@@ -334,7 +354,8 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
             className={`${glassSurfaceClasses} ${focusVisibleClasses} ${className}`}
             style={getContainerStyles()}
         >
-            {isSVGSupported && (
+            {/* Wyłączony SVG dla mobile */}
+            {isSVGSupported && !isMobile && (
                 <svg
                     className="w-full h-full pointer-events-none absolute inset-0 opacity-0 -z-10"
                     xmlns="http://www.w3.org/2000/svg"

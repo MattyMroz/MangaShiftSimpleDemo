@@ -5,6 +5,7 @@ import { Section } from '@/shared/ui/Section/Section';
 import CardSwap, { Card } from '@/shared/ui/CardSwap/CardSwap';
 import { SmartText } from '@/shared/ui/SmartText/SmartText';
 import { Button } from '@/shared/ui/Button/Button';
+import { LazySection } from '@/shared/ui/LazySection/LazySection';
 
 const milestones = [
     {
@@ -84,7 +85,7 @@ export const AboutSection = () => {
                 </div>
 
                 <div className="order-2 w-full flex justify-center items-center min-h-[400px] lg:min-h-[450px] py-24 md:py-96 lg:pt-64 lg:pb-144 px-4 md:px-12 lg:pl-12 lg:pr-24">
-                    <div className="w-full max-w-[40rem]">
+                    <LazySection className="w-full max-w-[40rem]">
                         <CardSwap
                             cardDistance={40}
                             verticalDistance={50}
@@ -120,7 +121,7 @@ export const AboutSection = () => {
                                 </Card>
                             ))}
                         </CardSwap>
-                    </div>
+                    </LazySection>
                 </div>
             </div>
         </Section>
