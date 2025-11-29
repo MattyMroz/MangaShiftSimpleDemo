@@ -59,12 +59,8 @@ export const Footer = () => {
     };
 
     return (
-        <motion.footer 
+        <footer
             className="w-full border-t border-[var(--border-primary)] bg-[var(--bg-secondary)]/25 backdrop-blur-sm"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
         >
             <div className="max-w-[var(--container-width)] mx-auto px-6 md:px-12 py-16 md:py-24">
 
@@ -72,7 +68,7 @@ export const Footer = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-start w-full mb-16">
 
                     {/* Left Column - Brand */}
-                    <motion.div 
+                    <motion.div
                         className="w-full flex flex-col items-center lg:items-start gap-8 text-center lg:text-left px-6 md:px-12 lg:pl-24 lg:pr-12 mb-16 lg:mb-0"
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -90,7 +86,7 @@ export const Footer = () => {
                     </motion.div>
 
                     {/* Right Column - Links */}
-                    <motion.div 
+                    <motion.div
                         className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 px-6 md:px-12 lg:pl-12 lg:pr-24"
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -187,6 +183,6 @@ export const Footer = () => {
                 </div>
 
             </div>
-        </motion.footer>
+        </footer>
     );
 };

@@ -12,12 +12,8 @@ export const DemoSection = () => {
     return (
         <Section id="demo" title="Demo" gridCols={1}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
-                <motion.div
+                <div
                     className="order-2 lg:order-1 w-full flex justify-center py-32 lg:py-16 px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
                 >
                     <LazySection className="relative w-full max-w-[40rem]">
                         <TiltedCard
@@ -47,13 +43,9 @@ export const DemoSection = () => {
                         />
                         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 dark:bg-black/40 blur-xl rounded-full" />
                     </LazySection>
-                </motion.div>
-                <motion.div
+                </div>
+                <div
                     className="order-1 lg:order-2 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]"
-                    initial={{ opacity: 0, x: 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
                 >
                     <motion.h3
                         className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight"
@@ -107,7 +99,7 @@ export const DemoSection = () => {
                             </Button>
                         </motion.div>
                     </Link>
-                </motion.div>
+                </div>
             </div>
         </Section>
     );

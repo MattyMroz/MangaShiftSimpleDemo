@@ -39,12 +39,8 @@ export const AboutSection = () => {
     return (
         <Section id="about" title="About" gridCols={1}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
-                <motion.div 
+                <div
                     className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
                 >
                     <motion.h3
                         className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight"
@@ -106,7 +102,7 @@ export const AboutSection = () => {
                             </Button>
                         </motion.div>
                     </Link>
-                </motion.div>
+                </div>
 
                 <motion.div
                     className="order-2 w-full flex justify-center items-center min-h-[400px] lg:min-h-[450px] py-[var(--section-padding-y-mobile)] md:py-[var(--section-padding-y-tablet)] lg:pt-[var(--section-padding-y-desktop-sm)] lg:pb-[var(--section-padding-y-desktop-lg)] px-[calc(var(--section-padding-x-mobile)*0.67)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]"

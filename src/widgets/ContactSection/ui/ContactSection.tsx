@@ -91,12 +91,8 @@ export const ContactSection = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
 
                 {/* Text Column */}
-                <motion.div
+                <div
                     className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
                 >
                     <motion.h3
                         className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight"
@@ -149,7 +145,7 @@ export const ContactSection = () => {
                             </Button>
                         </motion.div>
                     </a>
-                </motion.div>
+                </div>
 
                 {/* Contact Cards Column */}
                 <div className="order-2 w-full flex flex-col gap-[var(--card-gap)] py-12 lg:py-16 px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">
