@@ -2,6 +2,7 @@ import { Hero } from "@/widgets/Hero/ui/Hero";
 import { Section } from "@/shared/ui/Section/Section";
 import { DemoSection } from "@/widgets/DemoSection/ui/DemoSection";
 import { AboutSection } from "@/widgets/AboutSection/ui/AboutSection";
+import { ContactSection } from "@/widgets/ContactSection/ui/ContactSection";
 import { SmartText } from "@/shared/ui/SmartText/SmartText";
 
 export default function Home() {
@@ -14,15 +15,7 @@ export default function Home() {
 
         <AboutSection />
 
-        <Section id="contact" title="Contact Section">
-          <div className="text-center">
-            <SmartText>
-              <p className="text-[2rem] text-[var(--text-secondary)]">
-                Get in touch with us
-              </p>
-            </SmartText>
-          </div>
-        </Section>
+        <ContactSection />
 
         <Section id="faq" title="FAQ Section">
           <div className="text-center">
