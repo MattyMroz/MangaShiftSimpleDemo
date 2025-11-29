@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Section } from '@/shared/ui/Section/Section';
 import { SmartText } from '@/shared/ui/SmartText/SmartText';
+import GlassSurface from '@/shared/ui/GlassSurface/GlassSurface';
 
 const faqs = [
     {
@@ -33,6 +34,7 @@ const faqs = [
 ];
 
 export const FAQSection = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const toggleFAQ = (index: number) => {
@@ -41,8 +43,10 @@ export const FAQSection = () => {
 
     return (
         <Section id="faq" title="FAQ" gridCols={1}>
-            <div className="w-full max-w-[80rem] mx-auto px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] mt-32">
-                <div className="flex flex-col gap-[var(--card-gap)]">
+            <div className="w-full max-w-[120rem] mx-auto px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)] mt-32">
+
+                {/* Mobile/Tablet Layout (Accordion) */}
+                <div className="flex flex-col gap-[var(--card-gap)] lg:hidden">
                     {faqs.map((faq, index) => (
                         <motion.div
                             key={index}
@@ -50,13 +54,28 @@ export const FAQSection = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="w-full rounded-[20px] border border-[var(--border-primary)] bg-[var(--bg-primary)]/50 backdrop-blur-sm overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
                         >
-                                <motion.button
+                            <GlassSurface
+                                width="100%"
+                                height="auto"
+                                borderRadius={20}
+                                borderWidth={0.07}
+                                brightness={50}
+                                opacity={0.5}
+                                blur={11}
+                                displace={0.5}
+                                backgroundOpacity={0.05}
+                                saturation={1}
+                                distortionScale={-180}
+                                redOffset={0}
+                                greenOffset={0}
+                                blueOffset={0}
+                                mixBlendMode="lighten"
+                                className="overflow-hidden shadow-md"
+                            >
+                                <button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full text-left py-10 px-[calc(var(--section-padding-x-mobile)*2.5)] md:px-[calc(var(--section-padding-x-tablet)*1.25)] cursor-pointer"
-                                    whileTap={{ scale: 0.99 }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                    className="w-full text-left py-8 px-8 cursor-pointer"
                                 >
                                     <div className="flex items-center justify-between gap-4">
                                         <h3 className="text-[length:var(--h2-font-size)] font-bold text-[var(--text-primary)] pr-4">
@@ -69,8 +88,8 @@ export const FAQSection = () => {
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                width="32"
-                                                height="32"
+                                                width="24"
+                                                height="24"
                                                 viewBox="0 0 24 24"
                                                 fill="none"
                                                 stroke="currentColor"
@@ -93,9 +112,9 @@ export const FAQSection = () => {
                                                 transition={{ duration: 0.3, ease: "easeInOut" }}
                                                 className="overflow-hidden"
                                             >
-                                                <div className="pt-6 p-[var(--card-gap)] border-t border-[var(--border-primary)] mt-4">
+                                                <div className="pt-6 mt-4 border-t border-[var(--border-primary)]">
                                                     <SmartText>
-                                                        <p className="text-[length:var(--h3-font-size)] text-[var(--text-primary)] leading-relaxed font-[family-name:var(--font-inter)]">
+                                                        <p className="text-[length:var(--h3-font-size)] text-[var(--text-primary)] leading-relaxed opacity-90">
                                                             {faq.answer}
                                                         </p>
                                                     </SmartText>
@@ -103,9 +122,90 @@ export const FAQSection = () => {
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
-                                </motion.button>
+                                </button>
+                            </GlassSurface>
                         </motion.div>
                     ))}
+                </div>
+
+                {/* Desktop Layout (Split View with Single Glass Surface) */}
+                <div className="hidden lg:grid grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
+                    {/* Left Column: Single Glass Surface for Answer */}
+                    <div className="w-full flex justify-center items-center py-32 lg:py-16 px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]">
+                        <div className="w-full max-w-[50rem]">
+                            <GlassSurface
+                                width="100%"
+                                height="250px"
+                                borderRadius={32}
+                                borderWidth={0.07}
+                                brightness={50}
+                                opacity={0.5}
+                                blur={11}
+                                displace={0.5}
+                                backgroundOpacity={0.05}
+                                saturation={1}
+                                distortionScale={-180}
+                                redOffset={0}
+                                greenOffset={0}
+                                blueOffset={0}
+                                mixBlendMode="lighten"
+                                className="p-8 shadow-2xl overflow-hidden"
+                            >
+                                <div className="w-full h-full flex flex-col justify-center relative">
+                                    <AnimatePresence mode="wait">
+                                        <motion.div
+                                            key={activeIndex}
+                                            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+                                            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                            exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
+                                            transition={{ duration: 0.4, ease: "easeOut" }}
+                                            className="relative z-10"
+                                        >
+                                            <div className="mb-6">
+                                                <span className="text-[1.2rem] font-bold uppercase tracking-widest text-[var(--text-primary)] opacity-50">
+                                                    Answer {activeIndex + 1}
+                                                </span>
+                                            </div>
+                                            <SmartText>
+                                                <p className="text-[length:var(--normal-font-size)] leading-relaxed text-[var(--text-primary)]">
+                                                    {faqs[activeIndex].answer}
+                                                </p>
+                                            </SmartText>
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
+                            </GlassSurface>
+                        </div>
+                    </div>
+
+                    {/* Right Column: Questions List */}
+                    <div className="w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">
+                        <div className="flex flex-col gap-4 w-full">
+                            {faqs.map((faq, index) => (
+                                <motion.button
+                                    key={index}
+                                    onClick={() => setActiveIndex(index)}
+                                    className={`w-full text-left p-6 rounded-xl transition-all duration-300 border flex items-center gap-6 group ${activeIndex === index
+                                        ? 'bg-[var(--bg-secondary)] border-[var(--border-secondary)]'
+                                        : 'bg-transparent border-transparent hover:bg-[var(--bg-secondary)]/50'
+                                        }`}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <div className={`w-16 h-16 flex-shrink-0 rounded-lg flex items-center justify-center transition-colors duration-300 ${activeIndex === index
+                                        ? 'bg-[var(--text-primary)] text-[var(--bg-primary)]'
+                                        : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]'
+                                        }`}>
+                                        <span className="text-[2rem] font-bold">{index + 1}</span>
+                                    </div>
+                                    <h3 className={`text-[1.8rem] font-bold leading-tight transition-colors duration-300 ${activeIndex === index ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]'
+                                        }`}>
+                                        {faq.question}
+                                    </h3>
+                                </motion.button>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </Section>
