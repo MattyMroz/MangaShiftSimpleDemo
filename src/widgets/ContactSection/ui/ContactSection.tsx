@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { isMobile } from 'react-device-detect';
 import { Section } from '@/shared/ui/Section/Section';
 import { SmartText } from '@/shared/ui/SmartText/SmartText';
 import { Button } from '@/shared/ui/Button/Button';
@@ -78,6 +79,14 @@ const contactMethods = [
 
 export const ContactSection = () => {
     const [copied, setCopied] = useState(false);
+    const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsMobileDevice(isMobile);
+        }, 0);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleCopyEmail = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -91,8 +100,12 @@ export const ContactSection = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
 
                 {/* Text Column */}
-                <div
+                <motion.div
                     className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
+                    initial={isMobileDevice ? { opacity: 0, x: -50 } : false}
+                    whileInView={isMobileDevice ? { opacity: 1, x: 0 } : undefined}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
                 >
                     <motion.h3
                         className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight"
@@ -145,7 +158,7 @@ export const ContactSection = () => {
                             </Button>
                         </motion.div>
                     </a>
-                </div>
+                </motion.div>
 
                 {/* Contact Cards Column */}
                 <div className="order-2 w-full flex flex-col gap-[var(--card-gap)] py-12 lg:py-16 px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]">

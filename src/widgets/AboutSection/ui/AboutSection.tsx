@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { isMobile } from 'react-device-detect';
 import { Section } from '@/shared/ui/Section/Section';
 import CardSwap, { Card } from '@/shared/ui/CardSwap/CardSwap';
 import { SmartText } from '@/shared/ui/SmartText/SmartText';
 import { Button } from '@/shared/ui/Button/Button';
-import { LazySection } from '@/shared/ui/LazySection/LazySection';
 
 const milestones = [
     {
@@ -36,11 +37,24 @@ const milestones = [
 ];
 
 export const AboutSection = () => {
+    const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsMobileDevice(isMobile);
+        }, 0);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <Section id="about" title="About" gridCols={1}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--section-gap-horizontal)] items-center w-full">
-                <div
+                <motion.div 
                     className="order-1 w-full flex flex-col items-center lg:items-start gap-[var(--section-gap-vertical)] text-center lg:text-left px-[var(--section-padding-x-mobile)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-desktop-sm)] lg:pr-[var(--section-padding-x-tablet)]"
+                    initial={isMobileDevice ? { opacity: 0, x: -50 } : false}
+                    whileInView={isMobileDevice ? { opacity: 1, x: 0 } : undefined}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
                 >
                     <motion.h3
                         className="text-[length:var(--h1-font-size)] font-bold text-[var(--text-primary)] leading-tight"
@@ -102,16 +116,16 @@ export const AboutSection = () => {
                             </Button>
                         </motion.div>
                     </Link>
-                </div>
+                </motion.div>
 
                 <motion.div
                     className="order-2 w-full flex justify-center items-center min-h-[400px] lg:min-h-[450px] py-[var(--section-padding-y-mobile)] md:py-[var(--section-padding-y-tablet)] lg:pt-[var(--section-padding-y-desktop-sm)] lg:pb-[var(--section-padding-y-desktop-lg)] px-[calc(var(--section-padding-x-mobile)*0.67)] md:px-[var(--section-padding-x-tablet)] lg:pl-[var(--section-padding-x-tablet)] lg:pr-[var(--section-padding-x-desktop-sm)]"
-                    initial={{ opacity: 0, x: 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={isMobileDevice ? { opacity: 0, x: 50 } : false}
+                    whileInView={isMobileDevice ? { opacity: 1, x: 0 } : undefined}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                    <LazySection className="w-full max-w-[40rem]">
+                    <div className="w-full max-w-[40rem]">
                         <CardSwap
                             cardDistance={40}
                             verticalDistance={50}
@@ -147,7 +161,7 @@ export const AboutSection = () => {
                                 </Card>
                             ))}
                         </CardSwap>
-                    </LazySection>
+                    </div>
                 </motion.div>
             </div>
         </Section>

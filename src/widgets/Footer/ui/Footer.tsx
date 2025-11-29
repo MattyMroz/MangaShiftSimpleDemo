@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { isMobile } from 'react-device-detect';
 import { SmartText } from '@/shared/ui/SmartText/SmartText';
 import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
@@ -48,6 +50,15 @@ const footerLinks = {
 };
 
 export const Footer = () => {
+    const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsMobileDevice(isMobile);
+        }, 0);
+        return () => clearTimeout(timer);
+    }, []);
+
     const handleScrollLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
         const href = e.currentTarget.getAttribute('href');
         if (href) {
@@ -59,12 +70,14 @@ export const Footer = () => {
     };
 
     return (
-        <footer
+        <motion.footer 
             className="w-full border-t border-[var(--border-primary)] bg-[var(--bg-secondary)]/25 backdrop-blur-sm"
+            initial={isMobileDevice ? { opacity: 0, y: 50 } : false}
+            whileInView={isMobileDevice ? { opacity: 1, y: 0 } : undefined}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
         >
-            <div className="max-w-[var(--container-width)] mx-auto px-6 md:px-12 py-16 md:py-24">
-
-                {/* Main Content */}
+            <div className="max-w-[var(--container-width)] mx-auto px-6 md:px-12 py-16 md:py-24">                {/* Main Content */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-start w-full mb-16">
 
                     {/* Left Column - Brand */}
@@ -183,6 +196,6 @@ export const Footer = () => {
                 </div>
 
             </div>
-        </footer>
+        </motion.footer>
     );
 };
