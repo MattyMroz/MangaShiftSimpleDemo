@@ -52,7 +52,7 @@ const EffectsToggle = memo(({ effectsEnabled, onToggle }: EffectsToggleProps) =>
     <motion.button
         type="button"
         onClick={onToggle}
-        className="theme-toggle w-6 h-6 flex items-center justify-center pointer-events-auto cursor-pointer"
+        className="theme-toggle w-6 h-6 hidden lg:flex items-center justify-center pointer-events-auto cursor-pointer"
         aria-label={effectsEnabled ? "Disable effects" : "Enable effects"}
         whileHover={{ scale: 1.15 }}
         whileTap={{ scale: 0.9 }}
@@ -156,7 +156,6 @@ const ThemeToggle = memo(({ theme, onToggle }: ThemeToggleProps) => (
 ));
 ThemeToggle.displayName = "ThemeToggle";
 
-// Hook do synchronizacji z localStorage bez problemów hydration
 const useLocalStorageState = <T,>(
     key: string,
     defaultValue: T,
@@ -193,7 +192,6 @@ const useLocalStorageState = <T,>(
 };
 
 export const ThemeSwitcher = () => {
-    // Używamy useSyncExternalStore dla bezpiecznej hydration
     const [theme, setTheme] = useLocalStorageState<ThemeMode>(
         THEME_STORAGE_KEY,
         DEFAULT_THEME,
@@ -208,12 +206,10 @@ export const ThemeSwitcher = () => {
         (v) => v !== 'false'
     );
 
-    // Synchronizacja motywu z DOM
     useEffect(() => {
         applyTheme(theme);
     }, [theme]);
 
-    // Synchronizacja efektów z DOM
     useEffect(() => {
         applyEffects(effectsEnabled);
     }, [effectsEnabled]);

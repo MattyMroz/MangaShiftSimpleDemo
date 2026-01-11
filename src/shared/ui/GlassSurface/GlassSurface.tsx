@@ -135,7 +135,6 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         const timer = setTimeout(() => {
             setIsMounted(true);
             if (typeof window !== 'undefined') {
-                // Check SVG support
                 const checkSVG = () => {
                     if (typeof navigator === 'undefined') return false;
                     const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
@@ -151,7 +150,6 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                 };
                 setIsSVGSupported(checkSVG());
 
-                // Check Backdrop support
                 const checkBackdrop = () => {
                     return CSS.supports('backdrop-filter', 'blur(10px)');
                 };
@@ -284,45 +282,38 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
             WebkitTransform: 'translateZ(0)',
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
-            transition: 'backdrop-filter 0.6s ease-out, background 0.3s ease-out'
+            boxSizing: 'border-box',
+            transition: 'backdrop-filter 0.6s ease-out, background 0.3s ease-out, border-color 0.3s ease-out'
         } as React.CSSProperties;
 
-        // Simple blur fallback when effects are disabled
         if (!effectsEnabled) {
             return {
                 ...baseStyles,
-                background: isDarkMode 
-                    ? `rgba(10, 10, 10, ${Math.max(backgroundOpacity, 0.7)})` 
+                background: isDarkMode
+                    ? `rgba(10, 10, 10, ${Math.max(backgroundOpacity, 0.7)})`
                     : `rgba(252, 252, 252, ${Math.max(backgroundOpacity, 0.7)})`,
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
-                border: isDarkMode 
-                    ? '1px solid rgba(255, 255, 255, 0.1)' 
-                    : '1px solid rgba(0, 0, 0, 0.08)',
                 boxShadow: isDarkMode
-                    ? '0 4px 24px rgba(0, 0, 0, 0.3)'
-                    : '0 4px 24px rgba(0, 0, 0, 0.1)'
+                    ? '0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 4px 24px rgba(0, 0, 0, 0.3)'
+                    : '0 0 0 1px rgba(0, 0, 0, 0.08) inset, 0 4px 24px rgba(0, 0, 0, 0.1)'
             };
         }
 
         if (isMobile) {
             return {
                 ...baseStyles,
-                background: isDarkMode 
-                    ? `rgba(0, 0, 0, ${Math.max(backgroundOpacity, 0.4)})` 
+                background: isDarkMode
+                    ? `rgba(0, 0, 0, ${Math.max(backgroundOpacity, 0.4)})`
                     : `rgba(255, 255, 255, ${Math.max(backgroundOpacity, 0.4)})`,
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
-                border: isDarkMode 
-                    ? '1px solid rgba(255, 255, 255, 0.15)' 
-                    : '1px solid rgba(0, 0, 0, 0.1)',
                 boxShadow: isDarkMode
-                    ? '0 8px 32px rgba(0, 0, 0, 0.4)'
-                    : '0 8px 32px rgba(0, 0, 0, 0.15)'
+                    ? '0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 8px 32px rgba(0, 0, 0, 0.4)'
+                    : '0 0 0 1px rgba(0, 0, 0, 0.1) inset, 0 8px 32px rgba(0, 0, 0, 0.15)'
             };
         }
 
-        // Pełna wersja dla desktop z SVG
         if (isSVGSupported) {
             return {
                 ...baseStyles,
@@ -344,8 +335,8 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                     return {
                         ...baseStyles,
                         background: 'rgba(0, 0, 0, 0.4)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+                        boxShadow: `0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
                         inset 0 -1px 0 0 rgba(255, 255, 255, 0.1),
                         0 4px 16px rgba(0, 0, 0, 0.4)`
                     };
@@ -355,8 +346,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                         background: 'rgba(0, 0, 0, 0.6)',
                         backdropFilter: 'blur(10px)',
                         WebkitBackdropFilter: 'blur(10px)',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)'
+                        boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 8px 32px rgba(0, 0, 0, 0.4)'
                     };
                 }
             } else {
@@ -364,8 +354,8 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                     return {
                         ...baseStyles,
                         background: 'rgba(255, 255, 255, 0.4)',
-                        border: '1px solid rgba(0, 0, 0, 0.1)',
-                        boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+                        boxShadow: `0 0 0 1px rgba(0, 0, 0, 0.1) inset,
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
                         inset 0 -1px 0 0 rgba(255, 255, 255, 0.3),
                         0 4px 16px rgba(0, 0, 0, 0.1)`
                     };
@@ -375,8 +365,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
                         background: 'rgba(255, 255, 255, 0.1)',
                         backdropFilter: 'blur(10px)',
                         WebkitBackdropFilter: 'blur(10px)',
-                        border: '1px solid rgba(0, 0, 0, 0.1)',
-                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)'
+                        boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.1) inset, 0 8px 32px rgba(0, 0, 0, 0.15)'
                     };
                 }
             }
