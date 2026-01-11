@@ -4,7 +4,6 @@ import { Header } from "@/widgets/Header/ui/Header";
 import SplashCursor from "@/shared/ui/SplashCursor/SplashCursor";
 import LightRays from "@/shared/ui/LightRays/LightRays";
 import { JapaneseBackground } from "@/shared/ui/JapaneseBackground/JapaneseBackground";
-import { Preloader } from "@/shared/ui/Preloader/Preloader";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -57,7 +56,6 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${inter.variable} ${notoSansJP.variable} antialiased overflow-x-hidden`}
       >
-        <Preloader />
         <SplashCursor
           SIM_RESOLUTION={128}
           DYE_RESOLUTION={1440}
