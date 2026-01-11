@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 :root {
-  /* ========== COLORS ========== */
   --primary: #dc2626;
   --primary-hover: #b91c1c;
   --secondary: #ec4899;
@@ -23,7 +22,6 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 
-  /* ========== TYPOGRAPHY (SoloLeveling Pattern) ========== */
   --title-font-size: 16rem;
   --subtitle-font-size: 3rem;
   --japanese-text-font-size: 1.4rem;
@@ -36,7 +34,6 @@
   --small-font-size: 1.328rem;
   --tiny-font-size: 1.072rem;
 
-  /* Legacy text sizes (keep for compatibility) */
   --text-xs: 1.2rem;
   --text-sm: 1.4rem;
   --text-base: 1.6rem;
@@ -47,48 +44,30 @@
   --text-4xl: 3.6rem;
   --text-5xl: 4.8rem;
 
-  /* ========== LAYOUT ========== */
   --container-width: 120rem;
   --container-padding: 1.5rem;
   --section-margin-bottom: 10rem;
   --section-padding-top: 10rem;
   --section-padding-bottom: 10rem;
 
-  /* ========== UNIFIED SPACING SYSTEM ========== */
-  /* Smart Design: horizontal gap = 0, vertical gap increases */
   --section-gap-horizontal: 0;
   --section-gap-vertical: 8rem;
 
-  /* Section Padding X (horizontal) */
   --section-padding-x-mobile: 1.5rem;
-  /* 6 in Tailwind */
   --section-padding-x-tablet: 3rem;
-  /* 12 in Tailwind */
   --section-padding-x-desktop-sm: 6rem;
-  /* 24 in Tailwind */
   --section-padding-x-desktop-lg: 6rem;
-  /* 24 in Tailwind */
 
-  /* Section Padding Y (vertical) */
   --section-padding-y-mobile: 8rem;
-  /* 32 in Tailwind */
   --section-padding-y-tablet: 24rem;
-  /* 96 in Tailwind */
   --section-padding-y-desktop-sm: 16rem;
-  /* 64 in Tailwind */
   --section-padding-y-desktop-lg: 36rem;
-  /* 144 in Tailwind */
 
-  /* Card Padding */
   --card-padding-mobile: 2rem;
-  /* 8 in Tailwind */
   --card-padding-desktop: 3.2rem;
-  /* Increased for better spacing */
 
-  /* Card Gap */
   --card-gap: 2rem;
 
-  /* ========== SPACING ========== */
   --spacing-xs: 0.4rem;
   --spacing-sm: 0.8rem;
   --spacing-md: 1.6rem;
@@ -96,7 +75,6 @@
   --spacing-xl: 3.2rem;
   --spacing-2xl: 4.8rem;
 
-  /* ========== RADIUS ========== */
   --radius-sm: 0.4rem;
   --radius-md: 0.8rem;
   --radius-lg: 1.2rem;
@@ -115,29 +93,23 @@
   --bg-tertiary: #262626;
 
   --text-primary: #fafafa;
-  --text-secondary: #a3a3a3;
-  --text-tertiary: #525252;
+  --text-secondary: #c4c4c4;
+  --text-tertiary: #8a8a8a;
 
-  --border-primary: #262626;
-  --border-secondary: #3f3f46;
+  --border-primary: #2a2a2a;
+  --border-secondary: #404040;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
 }
 
-/* ========== RESPONSIVE FONT SCALING (SoloLeveling Pattern) ========== */
-/* Base: 62.5% = 10px (1rem = 10px) */
-
-/* @992px - Large Tablets / Small Desktops */
 @media screen and (max-width: 992px) {
   html {
     font-size: 55%;
-    /* 1rem = 8.8px - wszystko zmniejsza się o 10% */
   }
 }
 
-/* @768px - Tablets */
 @media screen and (max-width: 768px) {
   :root {
     --title-font-size: 11.5rem;
@@ -145,7 +117,6 @@
   }
 }
 
-/* @576px - Large Phones */
 @media screen and (max-width: 576px) {
   :root {
     --title-font-size: 8rem;
@@ -153,26 +124,22 @@
   }
 }
 
-/* @460px - Standard Phones */
 @media screen and (max-width: 460px) {
   :root {
     --title-font-size: 7rem;
     --h1-font-size: 2.4rem;
     --h2-font-size: 1.8rem;
     --h3-font-size: 1.5rem;
-    /* Reduced for FAQ answers on mobile */
     --japanese-text-font-size: 1rem;
   }
 }
 
-/* @390px - Small phones (prevent word break) */
 @media screen and (max-width: 390px) {
   :root {
     --title-font-size: 6.5rem;
   }
 }
 
-/* @320px - Extra Small Phones */
 @media screen and (max-width: 320px) {
   :root {
     --title-font-size: 5.5rem;
@@ -187,14 +154,17 @@
 
 html {
   font-size: 62.5%;
-  /* Base: 10px (1rem = 10px) */
   scroll-behavior: smooth;
   overflow-x: hidden;
-  /* Prevent horizontal scroll */
   -webkit-overflow-scrolling: touch;
-  /* Smooth scrolling on iOS */
   width: 100%;
-  /* Prevent width changes */
+  background-color: #0a0a0a;
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  background-color: #fcfcfc;
+  color-scheme: light;
 }
 
 body {
@@ -205,12 +175,8 @@ body {
   background-color: var(--bg-primary);
   position: relative;
   overflow-x: hidden;
-  /* Prevent horizontal scroll */
   -webkit-overflow-scrolling: touch;
-  /* Smooth scrolling on iOS */
   width: 100%;
-  /* Prevent width changes */
-  /* Prevent scrollbar from causing layout shift */
   scrollbar-gutter: stable;
 }
 

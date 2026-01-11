@@ -26,13 +26,33 @@ export const metadata: Metadata = {
   description: "Automatyczny Generator Audiowizualnych Adaptacji Mangi",
 };
 
+// Inline script to prevent FOUC (Flash of Unstyled Content)
+const themeInitScript = `
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme') || 'dark';
+      var effects = localStorage.getItem('effects');
+      var root = document.documentElement;
+      root.setAttribute('data-theme', theme);
+      root.setAttribute('data-effects', effects === 'false' ? 'disabled' : 'enabled');
+      root.style.colorScheme = theme;
+      if (theme === 'dark') {
+        root.classList.add('dark');
+      }
+    } catch (e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
+    <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#0a0a0a' }}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body
         className={`${montserrat.variable} ${inter.variable} ${notoSansJP.variable} antialiased overflow-x-hidden`}
       >

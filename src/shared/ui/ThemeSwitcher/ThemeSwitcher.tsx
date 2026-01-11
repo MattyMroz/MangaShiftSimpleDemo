@@ -1,82 +1,105 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useCallback, memo, useSyncExternalStore } from "react";
+import type { MouseEvent } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const THEME_STORAGE_KEY = "theme";
-const DEFAULT_THEME = "dark";
+const EFFECTS_STORAGE_KEY = "effects";
+const DEFAULT_THEME: ThemeMode = "dark";
+const DEFAULT_EFFECTS = true;
 
 type ThemeMode = "light" | "dark";
 
 const applyTheme = (mode: ThemeMode): void => {
+    if (typeof document === 'undefined') return;
     const root = document.documentElement;
-
     if (mode === "dark") {
         root.classList.add("dark");
         root.setAttribute("data-theme", "dark");
         root.style.colorScheme = "dark";
     } else {
         root.classList.remove("dark");
-        root.removeAttribute("data-theme");
+        root.setAttribute("data-theme", "light");
         root.style.colorScheme = "light";
     }
 };
 
-export const ThemeSwitcher = () => {
-    const [mounted, setMounted] = useState(false);
-    const [theme, setTheme] = useState<ThemeMode>(DEFAULT_THEME);
+const applyEffects = (enabled: boolean): void => {
+    if (typeof document === 'undefined') return;
+    const root = document.documentElement;
+    root.setAttribute("data-effects", enabled ? "enabled" : "disabled");
+};
 
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        const saved = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null;
-        const initial = saved ?? DEFAULT_THEME;
+const iconVariants = {
+    initial: { scale: 0, rotate: -180, opacity: 0 },
+    animate: { scale: 1, rotate: 0, opacity: 1 },
+    exit: { scale: 0, rotate: 180, opacity: 0 }
+};
 
-        applyTheme(initial);
+const iconVariantsDisabled = {
+    initial: { scale: 0, rotate: -180 - 45, opacity: 0 },
+    animate: { scale: 1, rotate: -45, opacity: 1 },
+    exit: { scale: 0, rotate: 180 - 45, opacity: 0 }
+};
 
-        requestAnimationFrame(() => {
-            setTheme(initial);
-            setMounted(true);
-        });
+interface EffectsToggleProps {
+    effectsEnabled: boolean;
+    onToggle: (e: MouseEvent) => void;
+}
 
-        const handlePreferenceChange = (event: MediaQueryListEvent) => {
-            if (localStorage.getItem(THEME_STORAGE_KEY)) return;
+const EffectsToggle = memo(({ effectsEnabled, onToggle }: EffectsToggleProps) => (
+    <motion.button
+        type="button"
+        onClick={onToggle}
+        className="theme-toggle w-6 h-6 flex items-center justify-center pointer-events-auto cursor-pointer"
+        aria-label={effectsEnabled ? "Disable effects" : "Enable effects"}
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
+        <AnimatePresence mode="wait">
+            <motion.svg
+                key={effectsEnabled ? "effects-on" : "effects-off"}
+                variants={effectsEnabled ? iconVariants : iconVariantsDisabled}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{ duration: 0.2 }}
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ width: '24px', height: '24px', display: 'block' }}
+            >
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+            </motion.svg>
+        </AnimatePresence>
+    </motion.button>
+));
+EffectsToggle.displayName = "EffectsToggle";
 
-            const next = event.matches ? "dark" : "light";
-            setTheme(next);
-            applyTheme(next);
-        };
+interface ThemeToggleProps {
+    theme: ThemeMode;
+    onToggle: (e: MouseEvent) => void;
+}
 
-        mediaQuery.addEventListener("change", handlePreferenceChange);
-        return () => mediaQuery.removeEventListener("change", handlePreferenceChange);
-    }, []);
-
-    const toggleTheme = () => {
-        const next = theme === "light" ? "dark" : "light";
-        setTheme(next);
-        applyTheme(next);
-        localStorage.setItem(THEME_STORAGE_KEY, next);
-    };
-
-    const iconVariants = {
-        initial: { scale: 0, rotate: -180 },
-        animate: { scale: 1, rotate: 0 },
-        exit: { scale: 0, rotate: 180 }
-    };
-
-    if (!mounted) {
-        return <div className="w-16 h-16" aria-hidden="true" />;
-    }
-
-    return (
-        <motion.button
-            type="button"
-            onClick={toggleTheme}
-            className="theme-toggle"
-            aria-label="Toggle theme"
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9, rotate: 15 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
+const ThemeToggle = memo(({ theme, onToggle }: ThemeToggleProps) => (
+    <motion.button
+        type="button"
+        onClick={onToggle}
+        className="theme-toggle w-6 h-6 flex items-center justify-center pointer-events-auto cursor-pointer"
+        aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
+        <AnimatePresence mode="wait">
             {theme === "light" ? (
                 <motion.svg
                     key="sun"
@@ -84,7 +107,7 @@ export const ThemeSwitcher = () => {
                     initial="initial"
                     animate="animate"
                     exit="exit"
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: 0.2 }}
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -94,6 +117,7 @@ export const ThemeSwitcher = () => {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    style={{ width: '24px', height: '24px', display: 'block' }}
                 >
                     <circle cx="12" cy="12" r="4" />
                     <path d="M12 2v2" />
@@ -112,7 +136,7 @@ export const ThemeSwitcher = () => {
                     initial="initial"
                     animate="animate"
                     exit="exit"
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: 0.2 }}
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -122,10 +146,100 @@ export const ThemeSwitcher = () => {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    style={{ width: '24px', height: '24px', display: 'block' }}
                 >
                     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
                 </motion.svg>
             )}
-        </motion.button>
+        </AnimatePresence>
+    </motion.button>
+));
+ThemeToggle.displayName = "ThemeToggle";
+
+// Hook do synchronizacji z localStorage bez problemów hydration
+const useLocalStorageState = <T,>(
+    key: string,
+    defaultValue: T,
+    serialize: (value: T) => string = String,
+    deserialize: (value: string) => T = (v) => v as T
+): [T, (value: T | ((prev: T) => T)) => void] => {
+    const getSnapshot = useCallback(() => {
+        if (typeof window === 'undefined') return serialize(defaultValue);
+        return localStorage.getItem(key) ?? serialize(defaultValue);
+    }, [key, defaultValue, serialize]);
+
+    const getServerSnapshot = useCallback(() => serialize(defaultValue), [defaultValue, serialize]);
+
+    const subscribe = useCallback((callback: () => void) => {
+        const handleStorage = (e: StorageEvent) => {
+            if (e.key === key) callback();
+        };
+        window.addEventListener('storage', handleStorage);
+        return () => window.removeEventListener('storage', handleStorage);
+    }, [key]);
+
+    const storedValue = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+    const value = deserialize(storedValue);
+
+    const setValue = useCallback((newValue: T | ((prev: T) => T)) => {
+        const resolvedValue = typeof newValue === 'function'
+            ? (newValue as (prev: T) => T)(value)
+            : newValue;
+        localStorage.setItem(key, serialize(resolvedValue));
+        window.dispatchEvent(new StorageEvent('storage', { key }));
+    }, [key, value, serialize]);
+
+    return [value, setValue];
+};
+
+export const ThemeSwitcher = () => {
+    // Używamy useSyncExternalStore dla bezpiecznej hydration
+    const [theme, setTheme] = useLocalStorageState<ThemeMode>(
+        THEME_STORAGE_KEY,
+        DEFAULT_THEME,
+        (v) => v,
+        (v) => (v === 'light' || v === 'dark' ? v : DEFAULT_THEME)
+    );
+
+    const [effectsEnabled, setEffectsEnabled] = useLocalStorageState<boolean>(
+        EFFECTS_STORAGE_KEY,
+        DEFAULT_EFFECTS,
+        (v) => String(v),
+        (v) => v !== 'false'
+    );
+
+    // Synchronizacja motywu z DOM
+    useEffect(() => {
+        applyTheme(theme);
+    }, [theme]);
+
+    // Synchronizacja efektów z DOM
+    useEffect(() => {
+        applyEffects(effectsEnabled);
+    }, [effectsEnabled]);
+
+    const handleToggleTheme = useCallback((e: MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    }, [setTheme]);
+
+    const handleToggleEffects = useCallback((e: MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setEffectsEnabled((prev) => !prev);
+    }, [setEffectsEnabled]);
+
+    return (
+        <div className="flex items-center gap-2 touch-none select-none relative z-50 pointer-events-auto" suppressHydrationWarning>
+            <EffectsToggle
+                effectsEnabled={effectsEnabled}
+                onToggle={handleToggleEffects}
+            />
+            <ThemeToggle
+                theme={theme}
+                onToggle={handleToggleTheme}
+            />
+        </div>
     );
 };

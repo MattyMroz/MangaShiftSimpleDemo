@@ -67,6 +67,28 @@ const useDarkMode = () => {
     return isDark;
 };
 
+const useEffectsEnabled = () => {
+    const [effectsEnabled, setEffectsEnabled] = useState(true);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        const checkEffects = () => {
+            const effects = document.documentElement.getAttribute('data-effects');
+            setEffectsEnabled(effects !== 'disabled');
+        };
+
+        checkEffects();
+
+        const observer = new MutationObserver(checkEffects);
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-effects'] });
+
+        return () => observer.disconnect();
+    }, []);
+
+    return effectsEnabled;
+};
+
 const GlassSurface: React.FC<GlassSurfaceProps> = ({
     children,
     width = 200,
@@ -102,6 +124,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null);
 
     const isDarkMode = useDarkMode();
+    const effectsEnabled = useEffectsEnabled();
     const pathname = usePathname();
     const [filterUrl, setFilterUrl] = useState(`url(#${filterId})`);
     const [isSVGSupported, setIsSVGSupported] = useState(false);
@@ -182,7 +205,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     }, [generateDisplacementMap]);
 
     useEffect(() => {
-        if (!isSVGSupported) return;
+        if (!isSVGSupported || !effectsEnabled) return;
 
         updateDisplacementMap();
         [
@@ -200,6 +223,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         gaussianBlurRef.current?.setAttribute('stdDeviation', displace.toString());
     }, [
         isSVGSupported,
+        effectsEnabled,
         width,
         height,
         borderRadius,
@@ -263,7 +287,24 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
             transition: 'backdrop-filter 0.6s ease-out, background 0.3s ease-out'
         } as React.CSSProperties;
 
-        // Uproszczona wersja dla urządzeń mobilnych
+        // Simple blur fallback when effects are disabled
+        if (!effectsEnabled) {
+            return {
+                ...baseStyles,
+                background: isDarkMode 
+                    ? `rgba(10, 10, 10, ${Math.max(backgroundOpacity, 0.7)})` 
+                    : `rgba(252, 252, 252, ${Math.max(backgroundOpacity, 0.7)})`,
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: isDarkMode 
+                    ? '1px solid rgba(255, 255, 255, 0.1)' 
+                    : '1px solid rgba(0, 0, 0, 0.08)',
+                boxShadow: isDarkMode
+                    ? '0 4px 24px rgba(0, 0, 0, 0.3)'
+                    : '0 4px 24px rgba(0, 0, 0, 0.1)'
+            };
+        }
+
         if (isMobile) {
             return {
                 ...baseStyles,
@@ -349,14 +390,15 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         ? 'focus-visible:outline-2 focus-visible:outline-[#0A84FF] focus-visible:outline-offset-2'
         : 'focus-visible:outline-2 focus-visible:outline-[#007AFF] focus-visible:outline-offset-2';
 
+    const shouldUseSVG = isSVGSupported && !isMobile && effectsEnabled;
+
     return (
         <div
             ref={containerRef}
             className={`${glassSurfaceClasses} ${focusVisibleClasses} ${className}`}
             style={getContainerStyles()}
         >
-            {/* Wyłączony SVG dla mobile */}
-            {isSVGSupported && !isMobile && (
+            {shouldUseSVG && (
                 <svg
                     className="w-full h-full pointer-events-none absolute inset-0 opacity-0 -z-10"
                     xmlns="http://www.w3.org/2000/svg"

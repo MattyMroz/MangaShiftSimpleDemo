@@ -151,10 +151,10 @@ export const FAQSection = () => {
                                     <AnimatePresence mode="wait">
                                         <motion.div
                                             key={activeIndex}
-                                            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+                                            initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
                                             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                            exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
-                                            transition={{ duration: 0.4, ease: "easeOut" }}
+                                            exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+                                            transition={{ duration: 0.15, ease: "easeOut" }}
                                             className="relative z-10"
                                         >
                                             <div className="mb-6">

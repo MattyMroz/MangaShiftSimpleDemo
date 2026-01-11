@@ -58,11 +58,11 @@ export const Header = () => {
     };
 
     const navLinks = [
-        { name: "Home", href: "/home" },
-        { name: "Demo", href: "/demo" },
-        { name: "About", href: "/about" },
-        { name: "Contact", href: "/contact" },
-        { name: "FAQ", href: "/faq" },
+        { name: "Home", href: "#home" },
+        { name: "Demo", href: "#demo" },
+        { name: "About", href: "#about" },
+        { name: "Contact", href: "#contact" },
+        { name: "FAQ", href: "#faq" },
     ];
 
     return (
@@ -93,7 +93,7 @@ export const Header = () => {
                     <nav className="relative flex items-center justify-between w-full h-full">
 
                         <Link
-                            href="/home"
+                            href="#home"
                             onClick={handleNavLinkClick}
                             className="z-[1030] whitespace-nowrap pl-6 md:pl-4 cursor-pointer"
                         >

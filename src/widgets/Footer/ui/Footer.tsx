@@ -9,11 +9,11 @@ import { smoothScrollTo } from '@/shared/lib/utils/smoothScroll';
 
 const footerLinks = {
     navigation: [
-        { name: 'Home', href: '/' },
-        { name: 'Demo', href: '/demo' },
-        { name: 'About', href: '/about' },
-        { name: 'Contact', href: '/contact' },
-        { name: 'FAQ', href: '/faq' }
+        { name: 'Home', href: '#home' },
+        { name: 'Demo', href: '#demo' },
+        { name: 'About', href: '#about' },
+        { name: 'Contact', href: '#contact' },
+        { name: 'FAQ', href: '#faq' }
     ],
     social: [
         {
