@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #dc2626;
-  --primary-hover: #b91c1c;
-  --secondary: #ec4899;
-  --secondary-hover: #db2777;
+  --primary: #ff4500;
+  --primary-hover: #ff6347;
+  --secondary: #ff1493;
+  --secondary-hover: #ff69b4;
   --accent-primary: #525252;
 
-  --bg-primary: #fcfcfc;
-  --bg-secondary: #f5f5f5;
-  --bg-tertiary: #e5e5e5;
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #171717;
+  --bg-tertiary: #262626;
 
-  --text-primary: #1a1a1a;
-  --text-secondary: #525252;
-  --text-tertiary: #a3a3a3;
+  --text-primary: #fafafa;
+  --text-secondary: #c4c4c4;
+  --text-tertiary: #8a8a8a;
 
-  --border-primary: #e5e5e5;
-  --border-secondary: #d4d4d8;
+  --border-primary: #2a2a2a;
+  --border-secondary: #404040;
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
 
   --title-font-size: 16rem;
   --subtitle-font-size: 3rem;
@@ -82,26 +82,26 @@
   --radius-full: 9999px;
 }
 
-[data-theme="dark"] {
-  --primary: #ff4500;
-  --primary-hover: #ff6347;
-  --secondary: #ff1493;
-  --secondary-hover: #ff69b4;
+[data-theme="light"] {
+  --primary: #dc2626;
+  --primary-hover: #b91c1c;
+  --secondary: #ec4899;
+  --secondary-hover: #db2777;
 
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #171717;
-  --bg-tertiary: #262626;
+  --bg-primary: #fcfcfc;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #e5e5e5;
 
-  --text-primary: #fafafa;
-  --text-secondary: #c4c4c4;
-  --text-tertiary: #8a8a8a;
+  --text-primary: #1a1a1a;
+  --text-secondary: #525252;
+  --text-tertiary: #a3a3a3;
 
-  --border-primary: #2a2a2a;
-  --border-secondary: #404040;
+  --border-primary: #e5e5e5;
+  --border-secondary: #d4d4d8;
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
 @media screen and (max-width: 992px) {
@@ -171,8 +171,8 @@ body {
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   font-size: 1.6rem;
   line-height: 1.6;
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
+  color: var(--text-primary, #fafafa);
+  background-color: var(--bg-primary, #0a0a0a);
   position: relative;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;

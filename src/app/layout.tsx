@@ -33,12 +33,38 @@ const themeInitScript = `
       var theme = localStorage.getItem('theme') || 'dark';
       var effects = localStorage.getItem('effects');
       var root = document.documentElement;
+      var bg = theme === 'dark' ? '#0a0a0a' : '#fcfcfc';
       root.setAttribute('data-theme', theme);
       root.setAttribute('data-effects', effects === 'false' ? 'disabled' : 'enabled');
       root.style.colorScheme = theme;
+      root.style.backgroundColor = bg;
       if (theme === 'dark') {
         root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
       }
+
+      var pinBackground = function() {
+        try {
+          root.style.backgroundColor = bg;
+          if (document.body) document.body.style.backgroundColor = bg;
+
+          if (!document.getElementById('__reload_shield')) {
+            var shield = document.createElement('div');
+            shield.id = '__reload_shield';
+            shield.setAttribute('aria-hidden', 'true');
+            shield.style.position = 'fixed';
+            shield.style.inset = '0';
+            shield.style.background = bg;
+            shield.style.zIndex = '2147483647';
+            shield.style.pointerEvents = 'none';
+            document.documentElement.appendChild(shield);
+          }
+        } catch (e) {}
+      };
+
+      window.addEventListener('beforeunload', pinBackground, { capture: true });
+      window.addEventListener('pagehide', pinBackground, { capture: true });
     } catch (e) {}
   })();
 `;
@@ -51,6 +77,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#0a0a0a' }}>
       <head>
+        <meta name="theme-color" content="#0a0a0a" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
