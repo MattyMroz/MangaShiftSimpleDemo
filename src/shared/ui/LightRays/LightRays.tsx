@@ -124,6 +124,12 @@ const LightRays: React.FC<LightRaysProps> = ({
     hideCanvasImmediately(canvasRef.current);
   }, []);
 
+  const showCanvas = useCallback(() => {
+    if (canvasRef.current && isInitializedRef.current) {
+      canvasRef.current.classList.add('light-rays-ready');
+    }
+  }, []);
+
   useEffect(() => {
     window.addEventListener('beforeunload', hideCanvas);
     window.addEventListener('pagehide', hideCanvas);
@@ -132,6 +138,8 @@ const LightRays: React.FC<LightRaysProps> = ({
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
         hideCanvas();
+      } else if (document.visibilityState === 'visible') {
+        showCanvas();
       }
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -142,7 +150,7 @@ const LightRays: React.FC<LightRaysProps> = ({
       window.removeEventListener('unload', hideCanvas);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [hideCanvas]);
+  }, [hideCanvas, showCanvas]);
 
   useEffect(() => {
     if (!hideInLightMode) return;

@@ -38,11 +38,15 @@ const themeInitScript = `
       root.setAttribute('data-effects', effects === 'false' ? 'disabled' : 'enabled');
       root.style.colorScheme = theme;
       root.style.backgroundColor = bg;
+      document.body && (document.body.style.backgroundColor = bg);
       if (theme === 'dark') {
         root.classList.add('dark');
       } else {
         root.classList.remove('dark');
       }
+      // Update meta theme-color
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', bg);
     } catch (e) {}
   })();
 `;

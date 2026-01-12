@@ -328,10 +328,29 @@ body::-webkit-scrollbar-thumb:hover {
   opacity: 0 !important;
   visibility: hidden !important;
   background: transparent !important;
+  transition: none;
 }
 
 .light-rays-container canvas.light-rays-ready {
   opacity: 1 !important;
   visibility: visible !important;
-  transition: opacity 0.15s ease-out;
+  transition: opacity 0.2s ease-out, visibility 0s;
+}
+
+/* SplashCursor - canvas domyślnie ukryty, JS pokazuje po inicjalizacji */
+.splash-cursor-container {
+  background: transparent !important;
+}
+
+.splash-cursor-container canvas {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  background: transparent !important;
+  transition: none;
+}
+
+.splash-cursor-container canvas.splash-cursor-ready {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity 0.2s ease-out, visibility 0s;
 }

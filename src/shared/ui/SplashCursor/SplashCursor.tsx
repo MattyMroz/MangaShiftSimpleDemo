@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo, useCallback } from 'react';
 import { isMobile } from 'react-device-detect';
 
 interface ColorRGB {
@@ -330,6 +330,41 @@ export default function SplashCursor({
     TRANSPARENT = true
 }: SplashCursorProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const isInitializedRef = useRef(false);
+
+    const hideCanvas = useCallback(() => {
+        if (canvasRef.current) {
+            canvasRef.current.classList.remove('splash-cursor-ready');
+        }
+    }, []);
+
+    const showCanvas = useCallback(() => {
+        if (canvasRef.current && isInitializedRef.current) {
+            canvasRef.current.classList.add('splash-cursor-ready');
+        }
+    }, []);
+
+    useEffect(() => {
+        window.addEventListener('beforeunload', hideCanvas);
+        window.addEventListener('pagehide', hideCanvas);
+        window.addEventListener('unload', hideCanvas);
+
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'hidden') {
+                hideCanvas();
+            } else if (document.visibilityState === 'visible') {
+                showCanvas();
+            }
+        };
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            window.removeEventListener('beforeunload', hideCanvas);
+            window.removeEventListener('pagehide', hideCanvas);
+            window.removeEventListener('unload', hideCanvas);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [hideCanvas, showCanvas]);
 
     // Optymalizacja ustawień dla mobile
     const effectiveConfig = useMemo(() => isMobile ? {
@@ -952,6 +987,16 @@ export default function SplashCursor({
             applyInputs();
             step(dt);
             render(null);
+
+            if (!isInitializedRef.current && canvas) {
+                requestAnimationFrame(() => {
+                    if (canvas) {
+                        canvas.classList.add('splash-cursor-ready');
+                    }
+                });
+                isInitializedRef.current = true;
+            }
+
             animationFrameId = requestAnimationFrame(updateFrame);
         }
 
@@ -1364,12 +1409,17 @@ export default function SplashCursor({
             document.body.removeEventListener('mousemove', handleFirstMouseMove);
             document.body.removeEventListener('touchstart', handleFirstTouchStart);
             cancelAnimationFrame(animationFrameId);
+
+            if (canvas) {
+                canvas.classList.remove('splash-cursor-ready');
+            }
+            isInitializedRef.current = false;
         };
 
     }, [effectiveConfig]);
 
     return (
-        <div className="fixed top-0 left-0 z-0 pointer-events-none w-screen h-screen overflow-hidden">
+        <div className="splash-cursor-container fixed top-0 left-0 z-0 pointer-events-none w-screen h-screen overflow-hidden">
             <canvas ref={canvasRef} id="fluid" className="w-screen h-screen block"></canvas>
         </div>
     );
