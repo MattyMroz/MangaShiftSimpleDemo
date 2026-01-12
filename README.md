@@ -6,12 +6,152 @@ _Wszystko może i na pewno ulegnie zmianie w przyszłości!_
 
 [https://mattymroz.github.io/MangaShiftSimpleDemo/](https://mattymroz.github.io/MangaShiftSimpleDemo/)
 
+---
+
+## 🎬 PLAN IMPLEMENTACJI VIDEO PLAYERA W SEKCJI DEMO
+
+### 📋 Podsumowanie zadania
+
+**Cel:** Zintegrować odtwarzacz video (plyr-react) w sekcji Demo zamiast osobnej podstrony chainsawman.
+
+### ✅ Wymagania
+
+1. **Usunięcie podstrony `/chainsawman`** - Projekt staje się w pełni one-page
+2. **Modyfikacja sekcji Demo:**
+   - Usunięcie przycisku "Watch Demo"
+   - Wyśrodkowanie tekstu
+   - Dodanie playera na dole sekcji
+3. **Video Player (plyr-react):**
+   - Czarno-biała kolorystyka
+   - Interfejs po angielsku
+   - Głośność po lewej stronie
+   - Kontrolki: play, rewind, fast-forward, progress, time, mute, volume, captions, settings, pip, download, fullscreen
+   - Obsługa napisów (ASS via subtitles-octopus)
+   - Obsługa ścieżek audio
+4. **Canvas z efektem kolorów:**
+   - Wyświetla kolorki z wideo w tle
+   - Blur + brightness
+   - Gradient opacity (zanika na górze i dole)
+   - Przezroczystość
+5. **Responsywność:**
+   - Mobile-friendly
+   - iOS compatible (fullscreen native)
+6. **Plik testowy:** 4K 60FPS demo video
+
+### 🏗️ Architektura
+
+```
+src/
+├── features/
+│   └── VideoPlayer/
+│       ├── ui/
+│       │   ├── VideoPlayer.tsx      # Główny komponent playera
+│       │   ├── VideoCanvas.tsx      # Canvas z efektem kolorów
+│       │   ├── VideoLoader.tsx      # Loader podczas ładowania
+│       │   └── index.ts
+│       ├── lib/
+│       │   ├── plyrConfig.ts        # Konfiguracja Plyr (options, i18n)
+│       │   └── useVideoCanvas.ts    # Hook do obsługi canvas
+│       └── index.ts
+├── widgets/
+│   └── DemoSection/
+│       └── ui/
+│           └── DemoSection.tsx      # Zmodyfikowana sekcja Demo
+└── app/
+    └── globals.css                  # Style dla playera (CSS vars)
+```
+
+### 📦 Zależności do instalacji
+
+```bash
+pnpm add plyr-react plyr
+```
+
+### 🎨 Styl playera (CSS Variables)
+
+```css
+:root {
+  /* Plyr - czarno-biała kolorystyka */
+  --plyr-color-main: rgb(255, 255, 255);
+  --plyr-video-background: rgb(15, 15, 15);
+  --plyr-badge-background: rgba(255, 255, 255, 0.9);
+  --plyr-badge-text-color: #000000;
+  --plyr-menu-background: rgba(0, 0, 0, 0.7);
+  --plyr-menu-color: #ffffff;
+  --plyr-range-thumb-background: #ffffff;
+  --plyr-video-control-color: rgb(255, 255, 255, 0.9);
+  --plyr-video-control-background-hover: rgba(0, 0, 0, .6);
+}
+```
+
+### 🎯 Konfiguracja Plyr (English i18n)
+
+```typescript
+const plyrOptions = {
+  fullscreen: { iosNative: true },
+  tooltips: { controls: true },
+  hideControls: true,
+  keyboard: { focused: false, global: true },
+  seekTime: 5,
+  controls: [
+    'play-large', 'restart', 'rewind', 'play', 'fast-forward',
+    'progress', 'current-time', 'duration',
+    'mute', 'volume', // Volume na lewej stronie (po mute)
+    'captions', 'settings', 'pip', 'airplay', 'download', 'fullscreen'
+  ],
+  i18n: {
+    restart: 'Restart',
+    rewind: 'Rewind {seektime}s',
+    play: 'Play',
+    pause: 'Pause',
+    // ... reszta po angielsku
+  }
+};
+```
+
+### 🖼️ Canvas z gradient opacity
+
+```tsx
+// VideoCanvas.tsx - efekt z gradient mask
+const canvasStyle = {
+  filter: 'blur(50px) brightness(1.2)',
+  maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
+  WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
+  opacity: 0.5,
+};
+```
+
+### 📱 Mobile/iOS Compatibility
+
+1. `playsinline` attribute na video
+2. `fullscreen: { iosNative: true }` w Plyr config
+3. Responsive container z `aspect-ratio: 16/9`
+4. Touch-friendly controls
+
+### 🔄 Kolejność implementacji
+
+1. ✅ Instalacja zależności (`pnpm add plyr-react plyr`)
+2. ✅ Usunięcie folderu `src/app/chainsawman`
+3. ✅ Utworzenie struktury `src/features/VideoPlayer/`
+4. ✅ Implementacja `VideoCanvas.tsx` - efekt kolorów
+5. ✅ Implementacja `VideoPlayer.tsx` - główny player
+6. ✅ Konfiguracja Plyr (czarno-biały, angielski)
+7. ✅ Aktualizacja `DemoSection.tsx` - usunięcie przycisku, dodanie playera
+8. ✅ Style CSS dla playera w `globals.css`
+9. ✅ Testowanie na mobile/iOS
+10. ✅ Walidacja TypeScript i ESLint
+
+### 📁 Assets (testowy plik)
+
+- **Video:** `https://huggingface.co/MattyMroz/ANIME/resolve/main/Spare%20Me%2C%20Great%20Lord!%20-%20Opening%204K%2060FPS.mkv?raw=true`
+- **Poster:** `/assets/demo/spare-me-great-lord.gif`
+
+---
 
 ## 📋 Opis Projektu
 
 Projekt składa się z:
-- **Landing Page (One-Page)** - Nowoczesna strona główna prezentująca projekt MangaShift
-- **Chainsawman Demo** - Interaktywny player demonstracyjny pokazujący działanie systemu odczytu paneli manga z narracją audio
+- **Landing Page (One-Page)** - Nowoczesna strona główna prezentująca projekt MangaShift z zintegrowanym demo playerem
 
 ## 🚀 Technologie
 

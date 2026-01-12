@@ -354,3 +354,153 @@ body::-webkit-scrollbar-thumb:hover {
   visibility: visible !important;
   transition: opacity 0.2s ease-out, visibility 0s;
 }
+
+/* ========================================
+   PLYR VIDEO PLAYER - Black & White Theme
+   ======================================== */
+
+/* Plyr CSS Variables - Black & White Theme */
+.plyr {
+  --plyr-color-main: rgb(255, 255, 255);
+  --plyr-video-background: rgb(15, 15, 15);
+  --plyr-tab-focus-color: var(--plyr-color-main);
+  
+  /* Badge colors */
+  --plyr-badge-background: rgba(255, 255, 255, 0.9);
+  --plyr-badge-text-color: #000000;
+  --plyr-badge-border-radius: 2px;
+  
+  /* Captions */
+  --plyr-captions-background: rgba(0, 0, 0, 0.4);
+  --plyr-captions-text-color: #ffffff;
+  
+  /* Controls */
+  --plyr-control-icon-size: 18px;
+  --plyr-control-spacing: 10px;
+  --plyr-control-padding: calc(var(--plyr-control-spacing) * 0.7);
+  --plyr-control-radius: 8px;
+  --plyr-control-toggle-checked-background: rgba(0, 0, 0, 1);
+  
+  /* Video controls background gradient */
+  --plyr-video-controls-background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));
+  
+  /* Icon colors */
+  --plyr-video-control-color: rgba(255, 255, 255, 0.9);
+  --plyr-video-control-color-hover: #ffffff;
+  --plyr-video-control-background-hover: rgba(0, 0, 0, 0.6);
+  
+  /* Audio controls */
+  --plyr-audio-controls-background: rgba(0, 0, 0, 0.6);
+  --plyr-audio-control-color: rgba(255, 255, 255, 0.9);
+  --plyr-audio-control-color-hover: #ffffff;
+  --plyr-audio-control-background-hover: rgba(0, 0, 0, 0.6);
+  
+  /* Menu */
+  --plyr-menu-background: rgba(0, 0, 0, 0.7);
+  --plyr-menu-color: #ffffff;
+  --plyr-menu-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --plyr-menu-border-radius: 4px;
+  --plyr-menu-arrow-size: 6px;
+  --plyr-menu-arrow-color: rgba(255, 255, 255, 0.75);
+  --plyr-menu-item-arrow-size: 4px;
+  --plyr-menu-border-color: #dcdfe5;
+  --plyr-menu-border-shadow-color: #ffffff;
+  
+  /* Progress bar */
+  --plyr-progress-loading-size: 25px;
+  --plyr-progress-loading-background: rgba(2, 5, 9, 0.6);
+  --plyr-video-progress-buffered-background: rgba(255, 255, 255, 0.25);
+  --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.25);
+  
+  /* Range slider */
+  --plyr-range-thumb-height: 13px;
+  --plyr-range-thumb-background: #ffffff;
+  --plyr-range-thumb-shadow: 0 1px 1px rgb(255, 255, 255), 0 0 0 1px rgb(255, 255, 255);
+  --plyr-range-thumb-active-shadow-width: 3px;
+  --plyr-range-track-height: 5px;
+  --plyr-range-fill-background: var(--plyr-color-main);
+  --plyr-video-range-track-background: var(--plyr-video-progress-buffered-background);
+  --plyr-video-range-thumb-active-shadow-color: rgba(255, 255, 255, 0.5);
+  --plyr-audio-range-track-background: var(--plyr-video-progress-buffered-background);
+  --plyr-audio-range-thumb-active-shadow-color: rgb(255, 255, 255);
+  
+  /* Tooltip */
+  --plyr-tooltip-background: rgba(255, 255, 255, 0.9);
+  --plyr-tooltip-color: #4a5464;
+  --plyr-tooltip-padding: calc(var(--plyr-control-spacing) / 2);
+  --plyr-tooltip-arrow-size: 4px;
+  --plyr-tooltip-radius: 3px;
+  --plyr-tooltip-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  
+  /* Typography */
+  --plyr-font-size-base: 15px;
+  --plyr-font-size-small: 13px;
+  --plyr-font-size-large: 18px;
+  --plyr-font-size-xlarge: 21px;
+  --plyr-font-size-time: var(--plyr-font-size-small);
+  --plyr-font-size-menu: var(--plyr-font-size-small);
+  --plyr-font-size-badge: 9px;
+  --plyr-font-weight-regular: 400;
+  --plyr-font-weight-bold: 600;
+  --plyr-line-height: 1.7;
+}
+
+/* Menu radio button styling */
+.plyr__menu__container .plyr__control[role=menuitemradio]:before {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.plyr__menu__container .plyr__control[role=menuitemradio]:hover:before {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Make plyr fill its container */
+.plyr,
+.plyr__video-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.plyr video {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+/* Rounded corners for video */
+.plyr--video {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* Caption styling */
+.plyr__caption {
+  font-size: clamp(14px, 2vw, 24px);
+  line-height: 1.5;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Large play button */
+.plyr__control--overlaid {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.plyr__control--overlaid:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .plyr {
+    --plyr-control-icon-size: 16px;
+    --plyr-control-spacing: 8px;
+    --plyr-font-size-base: 13px;
+    --plyr-font-size-small: 11px;
+  }
+  
+  .plyr__caption {
+    font-size: 14px;
+  }
+}
