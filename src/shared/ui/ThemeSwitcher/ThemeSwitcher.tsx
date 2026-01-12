@@ -3,6 +3,7 @@
 import { useEffect, useCallback, memo, useSyncExternalStore, useState, useLayoutEffect } from "react";
 import type { MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { isMobile } from 'react-device-detect';
 
 const THEME_STORAGE_KEY = "theme";
 const EFFECTS_STORAGE_KEY = "effects";
@@ -255,6 +256,7 @@ const useLocalStorageState = <T,>(
 
 export const ThemeSwitcher = () => {
     const [mounted, setMounted] = useState(false);
+    const [isMobileDevice] = useState(() => typeof window !== 'undefined' && isMobile);
 
     const [theme, setTheme] = useLocalStorageState<ThemeMode>(
         THEME_STORAGE_KEY,
@@ -299,11 +301,13 @@ export const ThemeSwitcher = () => {
 
     return (
         <div className="flex items-center gap-2 touch-none select-none relative z-50 pointer-events-auto" suppressHydrationWarning>
-            <EffectsToggle
-                effectsEnabled={effectsEnabled}
-                onToggle={handleToggleEffects}
-                mounted={mounted}
-            />
+            {!isMobileDevice && (
+                <EffectsToggle
+                    effectsEnabled={effectsEnabled}
+                    onToggle={handleToggleEffects}
+                    mounted={mounted}
+                />
+            )}
             <ThemeToggle
                 theme={theme}
                 onToggle={handleToggleTheme}
