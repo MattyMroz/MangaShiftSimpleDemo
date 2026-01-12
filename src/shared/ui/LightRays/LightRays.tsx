@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
 import { isMobile } from 'react-device-detect';
 
@@ -29,6 +29,12 @@ interface LightRaysProps {
   className?: string;
   hideInLightMode?: boolean;
 }
+
+const hideCanvasImmediately = (canvas: HTMLCanvasElement | null) => {
+  if (canvas) {
+    canvas.classList.remove('light-rays-ready');
+  }
+};
 
 const DEFAULT_COLOR = '#ffffff';
 
@@ -103,6 +109,7 @@ const LightRays: React.FC<LightRaysProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const uniformsRef = useRef<Uniforms | null>(null);
   const rendererRef = useRef<Renderer | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const smoothMouseRef = useRef({ x: 0.5, y: 0.5 });
   const animationIdRef = useRef<number | null>(null);
@@ -111,6 +118,31 @@ const LightRays: React.FC<LightRaysProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const [isDark, setIsDark] = useState(false);
+  const isInitializedRef = useRef(false);
+
+  const hideCanvas = useCallback(() => {
+    hideCanvasImmediately(canvasRef.current);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', hideCanvas);
+    window.addEventListener('pagehide', hideCanvas);
+    window.addEventListener('unload', hideCanvas);
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        hideCanvas();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('beforeunload', hideCanvas);
+      window.removeEventListener('pagehide', hideCanvas);
+      window.removeEventListener('unload', hideCanvas);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [hideCanvas]);
 
   useEffect(() => {
     if (!hideInLightMode) return;
@@ -172,18 +204,26 @@ const LightRays: React.FC<LightRaysProps> = ({
 
       const renderer = new Renderer({
         dpr: Math.min(window.devicePixelRatio, 2),
-        alpha: true
+        alpha: true,
+        premultipliedAlpha: false,
+        preserveDrawingBuffer: true
       });
       rendererRef.current = renderer;
 
       const gl = renderer.gl;
-      gl.canvas.style.width = '100%';
-      gl.canvas.style.height = '100%';
+      const canvas = gl.canvas as HTMLCanvasElement;
+      canvasRef.current = canvas;
+
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
 
       while (containerRef.current.firstChild) {
         containerRef.current.removeChild(containerRef.current.firstChild);
       }
-      containerRef.current.appendChild(gl.canvas);
+      containerRef.current.appendChild(canvas);
 
       const vert = `
 attribute vec2 position;
@@ -225,13 +265,13 @@ float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord,
   float cosAngle = dot(dirNorm, rayRefDirection);
 
   float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2;
-  
+
   float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001));
 
   float distance = length(sourceToCoord);
   float maxDistance = iResolution.x * rayLength;
   float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0);
-  
+
   float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0);
   float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0;
 
@@ -246,7 +286,7 @@ float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord,
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
   vec2 coord = vec2(fragCoord.x, iResolution.y - fragCoord.y);
-  
+
   vec2 finalRayDir = rayDir;
   if (mouseInfluence > 0.0) {
     vec2 mouseScreenPos = mousePos * iResolution.xy;
@@ -354,6 +394,16 @@ void main() {
 
         try {
           renderer.render({ scene: mesh });
+
+          if (!isInitializedRef.current && canvasRef.current) {
+            requestAnimationFrame(() => {
+              if (canvasRef.current) {
+                canvasRef.current.classList.add('light-rays-ready');
+              }
+            });
+            isInitializedRef.current = true;
+          }
+
           animationIdRef.current = requestAnimationFrame(loop);
         } catch (error) {
           console.warn('WebGL rendering error:', error);
@@ -375,7 +425,10 @@ void main() {
 
         if (renderer) {
           try {
-            const canvas = renderer.gl.canvas;
+            const canvas = renderer.gl.canvas as HTMLCanvasElement;
+
+            hideCanvasImmediately(canvas);
+
             const loseContextExt = renderer.gl.getExtension('WEBGL_lose_context');
             if (loseContextExt) {
               loseContextExt.loseContext();
@@ -392,6 +445,8 @@ void main() {
         rendererRef.current = null;
         uniformsRef.current = null;
         meshRef.current = null;
+        canvasRef.current = null;
+        isInitializedRef.current = false;
       };
     };
 
@@ -474,7 +529,7 @@ void main() {
   return (
     <div
       ref={containerRef}
-      className={`w-full h-full pointer-events-none z-[3] overflow-hidden relative ${className}`.trim()}
+      className={`light-rays-container w-full h-full pointer-events-none z-[3] overflow-hidden relative ${className}`.trim()}
       style={{ display: isMobile ? 'none' : 'block' }}
     />
   );

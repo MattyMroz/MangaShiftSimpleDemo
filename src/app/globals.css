@@ -318,3 +318,20 @@ body::-webkit-scrollbar-thumb:hover {
     height: 4rem;
   }
 }
+
+/* LightRays - canvas domyślnie ukryty, JS pokazuje po inicjalizacji */
+.light-rays-container {
+  background: transparent !important;
+}
+
+.light-rays-container canvas {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  background: transparent !important;
+}
+
+.light-rays-container canvas.light-rays-ready {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity 0.15s ease-out;
+}

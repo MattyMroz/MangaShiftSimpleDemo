@@ -43,28 +43,6 @@ const themeInitScript = `
       } else {
         root.classList.remove('dark');
       }
-
-      var pinBackground = function() {
-        try {
-          root.style.backgroundColor = bg;
-          if (document.body) document.body.style.backgroundColor = bg;
-
-          if (!document.getElementById('__reload_shield')) {
-            var shield = document.createElement('div');
-            shield.id = '__reload_shield';
-            shield.setAttribute('aria-hidden', 'true');
-            shield.style.position = 'fixed';
-            shield.style.inset = '0';
-            shield.style.background = bg;
-            shield.style.zIndex = '2147483647';
-            shield.style.pointerEvents = 'none';
-            document.documentElement.appendChild(shield);
-          }
-        } catch (e) {}
-      };
-
-      window.addEventListener('beforeunload', pinBackground, { capture: true });
-      window.addEventListener('pagehide', pinBackground, { capture: true });
     } catch (e) {}
   })();
 `;
