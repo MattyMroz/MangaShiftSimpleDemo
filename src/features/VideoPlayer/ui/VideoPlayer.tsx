@@ -9,13 +9,15 @@ import { plyrOptions, demoVideoSource } from '../lib/plyrConfig';
 interface VideoPlayerProps {
     /** Additional className for the container */
     className?: string;
+    /** Disable canvas ambient light effect (e.g., for mobile) */
+    disableCanvas?: boolean;
 }
 
 /**
  * Video Player component with ambient light canvas effect
  * Works exactly like the HTML 4K60FPS reference
  */
-export const VideoPlayer = ({ className = '' }: VideoPlayerProps) => {
+export const VideoPlayer = ({ className = '', disableCanvas = false }: VideoPlayerProps) => {
     const playerRef = useRef<APITypes>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -23,7 +25,9 @@ export const VideoPlayer = ({ className = '' }: VideoPlayerProps) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     // Canvas animation - copy video to canvas like in HTML reference
+    // Skip if canvas is disabled (mobile)
     useEffect(() => {
+        if (disableCanvas) return;
         let animationFrameId: number;
         let isCopyingActive = true;
 
@@ -55,7 +59,7 @@ export const VideoPlayer = ({ className = '' }: VideoPlayerProps) => {
             cancelAnimationFrame(animationFrameId);
             document.removeEventListener('fullscreenchange', handleFullscreen);
         };
-    }, []);
+    }, [disableCanvas]);
 
     // Setup video event listeners - like handleVideoLoading() in HTML
     useEffect(() => {
@@ -92,23 +96,25 @@ export const VideoPlayer = ({ className = '' }: VideoPlayerProps) => {
 
     return (
         <div className={`relative w-full ${className}`}>
-            {/* Ambient light canvas - like #canvas in HTML */}
-            <canvas
-                ref={canvasRef}
-                width={1920}
-                height={1080}
-                className="absolute w-full max-h-full pointer-events-none"
-                style={{
-                    display: isLoaded ? 'block' : 'none',
-                    filter: 'blur(50px) drop-shadow(0 0 1rem rgba(0,0,0,1)) brightness(1.2)',
-                    animation: isLoaded ? 'fadeInCanvas 0.5s ease-out 0.5s forwards' : 'none',
-                    opacity: 0,
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%) scale(1.2)',
-                    zIndex: 0,
-                }}
-            />
+            {/* Ambient light canvas - like #canvas in HTML (disabled on mobile) */}
+            {!disableCanvas && (
+                <canvas
+                    ref={canvasRef}
+                    width={1920}
+                    height={1080}
+                    className="absolute w-full max-h-full pointer-events-none"
+                    style={{
+                        display: isLoaded ? 'block' : 'none',
+                        filter: 'blur(50px) drop-shadow(0 0 1rem rgba(0,0,0,1)) brightness(1.2)',
+                        animation: isLoaded ? 'fadeInCanvas 0.5s ease-out 0.5s forwards' : 'none',
+                        opacity: 0,
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%) scale(1.2)',
+                        zIndex: 0,
+                    }}
+                />
+            )}
 
             {/* Player container */}
             <div

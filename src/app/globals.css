@@ -177,7 +177,6 @@ body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   width: 100%;
-  scrollbar-gutter: stable;
 }
 
 h1,

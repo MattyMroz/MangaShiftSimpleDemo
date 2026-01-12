@@ -124,5 +124,5 @@ export const demoVideoSource = {
             size: 1080,
         },
     ],
-    poster: 'https://peach.blender.org/wp-content/uploads/12701-CBB-001-1080p-web.png?x11217',
+    poster: '/assets/demo/spare-me-great-lord.gif',
 };

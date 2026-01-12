@@ -117,13 +117,13 @@ export const DemoSection = () => {
 
                 {/* Bottom section - Video Player */}
                 <motion.div
-                    className="w-full px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)] py-24 lg:py-48"
+                    className="w-full px-3 sm:px-4 md:px-[var(--section-padding-x-tablet)] lg:px-[var(--section-padding-x-desktop-sm)] py-12 sm:py-16 md:py-24 lg:py-48"
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-100px' }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                    <VideoPlayer />
+                    <VideoPlayer disableCanvas={isMobileDevice} />
                 </motion.div>
             </div>
         </Section>
