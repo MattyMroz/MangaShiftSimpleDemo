@@ -53,14 +53,14 @@ export const Hero = () => {
                         <p className="text-[clamp(1.75rem,5vw,3rem)] text-[var(--text-secondary)] font-light tracking-wide font-[family-name:var(--font-montserrat)] leading-tight">
                             <span className="whitespace-nowrap">Turning Static Pages</span>{' '}<span className="whitespace-nowrap">Into Living Worlds</span>
                         </p>
-                        <p className="text-[clamp(1rem,3vw,2rem)] text-[var(--text-tertiary)] font-mono tracking-[0.5em] uppercase opacity-80 font-[family-name:var(--font-montserrat)] whitespace-nowrap">
+                        <p className="text-[clamp(1rem,3vw,2rem)] text-[var(--text-tertiary)] font-mono tracking-[0.5em] uppercase font-[family-name:var(--font-montserrat)] whitespace-nowrap">
                             Culture Without Barriers
                         </p>
                     </SmartText>
                 </motion.div>
 
                 <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full md:w-auto px-4">
-                    <Link href="/demo" onClick={handleScrollLink} className="w-full md:w-auto">
+                    <Link href="#demo" onClick={handleScrollLink} className="w-full md:w-auto">
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -87,12 +87,12 @@ export const Hero = () => {
                             </Button>
                         </motion.div>
                     </Link>
-                    <Link href="/about" onClick={handleScrollLink} className="w-full md:w-auto">
+                    <Link href="#about" onClick={handleScrollLink} className="w-full md:w-auto">
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <Button variant="ghost" className="w-full justify-center">Learn More</Button>
+                            <Button variant="ghost" className="w-full justify-center">Join Waiting List</Button>
                         </motion.div>
                     </Link>
                 </div>

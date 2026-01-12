@@ -22,8 +22,52 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "MangaShift",
-  description: "Automatyczny Generator Audiowizualnych Adaptacji Mangi",
+  title: {
+    default: "MangaShift - Automatic Manga to Video Generator",
+    template: "%s | MangaShift"
+  },
+  description: "Transform manga and manhwa into immersive audiovisual experiences. MangaShift automatically generates videos from static pages using AI-powered OCR, translation, and text-to-speech technology.",
+  keywords: ["manga", "manhwa", "video generator", "AI", "OCR", "translation", "text-to-speech", "anime", "webtoon"],
+  authors: [{ name: "MangaShift Team" }],
+  creator: "MangaShift",
+  publisher: "MangaShift",
+  metadataBase: new URL("https://mattymroz.github.io/MangaShiftSimpleDemo"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://mattymroz.github.io/MangaShiftSimpleDemo",
+    siteName: "MangaShift",
+    title: "MangaShift - Automatic Manga to Video Generator",
+    description: "Transform manga and manhwa into immersive audiovisual experiences with AI-powered technology.",
+    images: [
+      {
+        url: "/images/chainsawman/RezeArc.webp",
+        width: 644,
+        height: 1024,
+        alt: "MangaShift - Chainsaw Man Demo"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MangaShift - Automatic Manga to Video Generator",
+    description: "Transform manga and manhwa into immersive audiovisual experiences with AI-powered technology.",
+    images: ["/images/chainsawman/RezeArc.webp"]
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
+  },
+  icons: {
+    icon: "/favicon.ico"
+  }
 };
 
 // Inline script to prevent FOUC (Flash of Unstyled Content)
