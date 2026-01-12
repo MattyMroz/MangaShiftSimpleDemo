@@ -139,7 +139,7 @@ export const Footer = () => {
                             <h4 className="text-[length:var(--h2-font-size)] font-bold text-[var(--text-primary)]">
                                 Connect
                             </h4>
-                            <div className="flex flex-col gap-4">
+                            <div className="flex flex-col items-center lg:items-start gap-4">
                                 {footerLinks.social.map((social) => (
                                     <motion.a
                                         key={social.name}
