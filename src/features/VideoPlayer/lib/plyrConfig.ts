@@ -97,17 +97,32 @@ export const plyrOptions: Options = {
 };
 
 /**
- * Video source configuration
+ * Video source configuration (ORIGINAL - commented out)
  * 4K 60FPS anime opening from HuggingFace
+ */
+// export const demoVideoSource = {
+//     type: 'video' as const,
+//     sources: [
+//         {
+//             src: 'https://huggingface.co/MattyMroz/ANIME/resolve/main/Spare%20Me%2C%20Great%20Lord!%20-%20Opening%204K%2060FPS.mkv?raw=true',
+//             type: 'video/mp4',
+//             size: 2160,
+//         },
+//     ],
+//     poster: '/assets/demo/spare-me-great-lord.gif',
+// };
+
+/**
+ * Video source configuration - Example with standard MP4
  */
 export const demoVideoSource = {
     type: 'video' as const,
     sources: [
         {
-            src: 'https://huggingface.co/MattyMroz/ANIME/resolve/main/Spare%20Me%2C%20Great%20Lord!%20-%20Opening%204K%2060FPS.mkv?raw=true',
+            src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
             type: 'video/mp4',
-            size: 2160,
+            size: 1080,
         },
     ],
-    poster: '/assets/demo/spare-me-great-lord.gif',
+    poster: 'https://peach.blender.org/wp-content/uploads/12701-CBB-001-1080p-web.png?x11217',
 };
