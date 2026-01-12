@@ -69,7 +69,7 @@ export const FAQSection = () => {
                             >
                                 <button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full text-left py-8 px-8 cursor-pointer"
+                                    className="w-full text-left py-8 px-12 cursor-pointer"
                                 >
                                     <div className="flex items-center justify-between gap-4">
                                         <h3 className="text-[length:var(--h2-font-size)] font-bold text-[var(--text-primary)] pr-4">
