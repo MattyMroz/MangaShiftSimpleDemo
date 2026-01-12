@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter, Noto_Sans_JP } from "next/font/google";
+import dynamic from "next/dynamic";
 import { Header } from "@/widgets/Header/ui/Header";
-import SplashCursor from "@/shared/ui/SplashCursor/SplashCursor";
-import LightRays from "@/shared/ui/LightRays/LightRays";
 import { JapaneseBackground } from "@/shared/ui/JapaneseBackground/JapaneseBackground";
 import "./globals.css";
+
+const SplashCursor = dynamic(() => import("@/shared/ui/SplashCursor/SplashCursor"), {
+  ssr: false,
+  loading: () => null
+});
+
+const LightRays = dynamic(() => import("@/shared/ui/LightRays/LightRays"), {
+  ssr: false,
+  loading: () => null
+});
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -104,6 +113,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="overflow-x-hidden" style={{ backgroundColor: '#0a0a0a' }}>
       <head>
         <meta name="theme-color" content="#0a0a0a" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
