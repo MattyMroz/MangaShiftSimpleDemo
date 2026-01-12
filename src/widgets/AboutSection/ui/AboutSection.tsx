@@ -14,13 +14,13 @@ const milestones = [
         number: '01',
         title: 'Intelligent Analysis',
         description: 'AI-powered module that understands manga structure, detects panels, speech bubbles, and extracts text with proper reading order.',
-        status: 'In Progress'
+        status: 'Done'
     },
     {
         number: '02',
         title: 'Content Enhancement',
         description: 'Translation to any language, AI voice synthesis for narration and dubbing, plus image upscaling for crystal-clear visuals.',
-        status: 'Planned'
+        status: 'In Progress'
     },
     {
         number: '03',
