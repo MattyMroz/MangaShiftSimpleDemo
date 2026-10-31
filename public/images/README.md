@@ -25,5 +25,6 @@ images/
 ## Optymalizacja:
 
 Next.js automatycznie optymalizuje obrazy z `next/image`, ale dla GitHub Pages (static export):
+
 - Używaj już zoptymalizowanych obrazów (< 500KB na panel)
 - Rozdzielczość: 1920px szerokość max

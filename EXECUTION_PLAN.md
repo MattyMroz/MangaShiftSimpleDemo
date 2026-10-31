@@ -4,81 +4,81 @@
 > **Wersja:** 1.0
 > **Status:** ✅ AKTYWNY
 
----
+______________________________________________________________________
 
 ## 🎯 OCENA ROZWIĄZAŃ (1-10 ⭐)
 
 ### Problem 1: React Error #418 (Hydration Mismatch)
 
-| Rozwiązanie | Jakość | Ryzyko | Czas | Trudność | **SCORE** |
-|-------------|--------|--------|------|----------|-----------|
-| A) suppressHydrationWarning | ⭐⭐⭐⭐⭐⭐ (6) | ⭐⭐⭐ (LOW) | 5min | ⭐⭐ | **7.5/10** |
-| B) CSS-only hiding | ⭐⭐⭐⭐⭐⭐⭐⭐ (8) | ⭐⭐ (LOW) | 15min | ⭐⭐⭐ | **8.5/10** ✅ |
-| C) Server-aware components | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐⭐⭐⭐⭐ (MED) | 45min | ⭐⭐⭐⭐⭐ | **7/10** |
+| Rozwiązanie                 | Jakość                 | Ryzyko           | Czas  | Trudność   | **SCORE**     |
+| --------------------------- | ---------------------- | ---------------- | ----- | ---------- | ------------- |
+| A) suppressHydrationWarning | ⭐⭐⭐⭐⭐⭐ (6)       | ⭐⭐⭐ (LOW)     | 5min  | ⭐⭐       | **7.5/10**    |
+| B) CSS-only hiding          | ⭐⭐⭐⭐⭐⭐⭐⭐ (8)   | ⭐⭐ (LOW)       | 15min | ⭐⭐⭐     | **8.5/10** ✅ |
+| C) Server-aware components  | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐⭐⭐⭐⭐ (MED) | 45min | ⭐⭐⭐⭐⭐ | **7/10**      |
 
 **Wybór:** B - CSS-only hiding z `suppressHydrationWarning` jako backup
 
----
+______________________________________________________________________
 
 ### Problem 2: 404 Navigation Errors
 
-| Rozwiązanie | Jakość | Ryzyko | Czas | Trudność | **SCORE** |
-|-------------|--------|--------|------|----------|-----------|
-| A) Hash links (#section) | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐ (NONE) | 10min | ⭐ | **9.5/10** ✅ |
-| B) Next.js scroll behavior | ⭐⭐⭐⭐⭐⭐⭐ (7) | ⭐⭐⭐ (LOW) | 30min | ⭐⭐⭐ | **7/10** |
-| C) Custom router | ⭐⭐⭐⭐⭐⭐ (6) | ⭐⭐⭐⭐⭐⭐ (HIGH) | 2h | ⭐⭐⭐⭐⭐⭐ | **4/10** |
+| Rozwiązanie                | Jakość                 | Ryzyko              | Czas  | Trudność     | **SCORE**     |
+| -------------------------- | ---------------------- | ------------------- | ----- | ------------ | ------------- |
+| A) Hash links (#section)   | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐ (NONE)           | 10min | ⭐           | **9.5/10** ✅ |
+| B) Next.js scroll behavior | ⭐⭐⭐⭐⭐⭐⭐ (7)     | ⭐⭐⭐ (LOW)        | 30min | ⭐⭐⭐       | **7/10**      |
+| C) Custom router           | ⭐⭐⭐⭐⭐⭐ (6)       | ⭐⭐⭐⭐⭐⭐ (HIGH) | 2h    | ⭐⭐⭐⭐⭐⭐ | **4/10**      |
 
 **Wybór:** A - Proste hash links z `#section` format
 
----
+______________________________________________________________________
 
 ### Problem 3: FOUC (Flash of White)
 
-| Rozwiązanie | Jakość | Ryzyko | Czas | Trudność | **SCORE** |
-|-------------|--------|--------|------|----------|-----------|
-| A) Inline blocking script | ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10) | ⭐⭐ (LOW) | 20min | ⭐⭐⭐ | **9/10** ✅ |
-| B) CSS :not([data-theme]) | ⭐⭐⭐⭐⭐⭐ (6) | ⭐⭐⭐ (LOW) | 10min | ⭐⭐ | **7/10** |
-| C) next-themes library | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐⭐⭐⭐ (MED) | 45min | ⭐⭐⭐⭐ | **7.5/10** |
-| D) Loader/Skeleton | ⭐⭐⭐⭐ (4) | ⭐⭐ (LOW) | 15min | ⭐⭐ | **5/10** |
+| Rozwiązanie               | Jakość                    | Ryzyko         | Czas  | Trudność | **SCORE**   |
+| ------------------------- | ------------------------- | -------------- | ----- | -------- | ----------- |
+| A) Inline blocking script | ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10) | ⭐⭐ (LOW)     | 20min | ⭐⭐⭐   | **9/10** ✅ |
+| B) CSS :not([data-theme]) | ⭐⭐⭐⭐⭐⭐ (6)          | ⭐⭐⭐ (LOW)   | 10min | ⭐⭐     | **7/10**    |
+| C) next-themes library    | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9)    | ⭐⭐⭐⭐ (MED) | 45min | ⭐⭐⭐⭐ | **7.5/10**  |
+| D) Loader/Skeleton        | ⭐⭐⭐⭐ (4)              | ⭐⭐ (LOW)     | 15min | ⭐⭐     | **5/10**    |
 
 **Wybór:** A - Inline blocking script w `<head>`
 
----
+______________________________________________________________________
 
 ### Problem 4: GlassSurface Performance
 
-| Rozwiązanie | Jakość | Ryzyko | Czas | Trudność | **SCORE** |
-|-------------|--------|--------|------|----------|-----------|
-| A) Reduce SVG on mobile | ⭐⭐⭐⭐⭐⭐⭐⭐ (8) | ⭐⭐ (LOW) | 20min | ⭐⭐⭐ | **8.5/10** ✅ |
-| B) Lazy initialization | ⭐⭐⭐⭐⭐⭐⭐ (7) | ⭐⭐⭐ (LOW) | 30min | ⭐⭐⭐ | **7.5/10** |
-| C) Complete rewrite | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐⭐⭐⭐⭐⭐⭐ (HIGH) | 3h | ⭐⭐⭐⭐⭐⭐⭐ | **5/10** |
-| D) Simple blur fallback | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐ (NONE) | 15min | ⭐⭐ | **9/10** ✅ |
+| Rozwiązanie             | Jakość                 | Ryzyko                | Czas  | Trudność       | **SCORE**     |
+| ----------------------- | ---------------------- | --------------------- | ----- | -------------- | ------------- |
+| A) Reduce SVG on mobile | ⭐⭐⭐⭐⭐⭐⭐⭐ (8)   | ⭐⭐ (LOW)            | 20min | ⭐⭐⭐         | **8.5/10** ✅ |
+| B) Lazy initialization  | ⭐⭐⭐⭐⭐⭐⭐ (7)     | ⭐⭐⭐ (LOW)          | 30min | ⭐⭐⭐         | **7.5/10**    |
+| C) Complete rewrite     | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐⭐⭐⭐⭐⭐⭐ (HIGH) | 3h    | ⭐⭐⭐⭐⭐⭐⭐ | **5/10**      |
+| D) Simple blur fallback | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐ (NONE)             | 15min | ⭐⭐           | **9/10** ✅   |
 
 **Wybór:** A+D - Połączenie optymalizacji i lepszego fallbacku
 
----
+______________________________________________________________________
 
 ### Problem 5: Kontrast UI
 
-| Rozwiązanie | Jakość | Ryzyko | Czas | Trudność | **SCORE** |
-|-------------|--------|--------|------|----------|-----------|
-| A) CSS variables update | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐ (NONE) | 10min | ⭐ | **9.5/10** ✅ |
-| B) Component-level styles | ⭐⭐⭐⭐⭐⭐⭐ (7) | ⭐⭐ (LOW) | 25min | ⭐⭐⭐ | **7/10** |
+| Rozwiązanie               | Jakość                 | Ryzyko     | Czas  | Trudność | **SCORE**     |
+| ------------------------- | ---------------------- | ---------- | ----- | -------- | ------------- |
+| A) CSS variables update   | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐ (NONE)  | 10min | ⭐       | **9.5/10** ✅ |
+| B) Component-level styles | ⭐⭐⭐⭐⭐⭐⭐ (7)     | ⭐⭐ (LOW) | 25min | ⭐⭐⭐   | **7/10**      |
 
 **Wybór:** A - Aktualizacja CSS variables
 
----
+______________________________________________________________________
 
 ### Problem 6: ThemeSwitcher Icon
 
-| Rozwiązanie | Jakość | Ryzyko | Czas | Trudność | **SCORE** |
-|-------------|--------|--------|------|----------|-----------|
-| A) Dodanie ikony sparkle | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐ (NONE) | 15min | ⭐⭐ | **9/10** ✅ |
-| B) Dropdown z opcjami | ⭐⭐⭐⭐⭐⭐ (6) | ⭐⭐⭐ (LOW) | 45min | ⭐⭐⭐⭐ | **6/10** |
+| Rozwiązanie              | Jakość                 | Ryzyko       | Czas  | Trudność | **SCORE**   |
+| ------------------------ | ---------------------- | ------------ | ----- | -------- | ----------- |
+| A) Dodanie ikony sparkle | ⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9) | ⭐ (NONE)    | 15min | ⭐⭐     | **9/10** ✅ |
+| B) Dropdown z opcjami    | ⭐⭐⭐⭐⭐⭐ (6)       | ⭐⭐⭐ (LOW) | 45min | ⭐⭐⭐⭐ | **6/10**    |
 
 **Wybór:** A - Prosta ikona przed buttonem
 
----
+______________________________________________________________________
 
 ## 📁 ARCHITEKTURA ZMIAN
 
@@ -110,13 +110,15 @@ src/
             └── Footer.tsx           # ⚡ MODYFIKACJA: Nav links (#hash)
 ```
 
----
+______________________________________________________________________
 
 ## 🔧 SZCZEGÓŁOWY PLAN WYKONANIA
 
 ### KROK 1: FOUC Fix - Inline Theme Script
+
 **Plik:** `src/app/layout.tsx`
 **Zmiany:**
+
 ```tsx
 // Dodać script PRZED <body> lub jako pierwszy element <body>
 <script dangerouslySetInnerHTML={{
@@ -132,15 +134,17 @@ src/
 ```
 
 **Korzyści:**
+
 - ✅ Blocking script - wykonuje się PRZED renderowaniem
 - ✅ Brak FOUC
 - ✅ Zachowuje preferencje użytkownika
 
 **Ryzyko:** NISKIE - standardowa praktyka
 
----
+______________________________________________________________________
 
 ### KROK 2: Navigation Links Fix
+
 **Pliki:** `Header.tsx`, `Footer.tsx`
 **Zmiany:**
 
@@ -161,6 +165,7 @@ const navLinks = [
 ```
 
 **Aktualizacja smoothScroll.ts:**
+
 ```typescript
 // Upewnić się że obsługuje hash format poprawnie
 if (href.startsWith('#')) {
@@ -168,9 +173,10 @@ if (href.startsWith('#')) {
 }
 ```
 
----
+______________________________________________________________________
 
 ### KROK 3: Hydration Fix
+
 **Plik:** `ThemeSwitcher.tsx`
 **Zmiany:**
 
@@ -192,9 +198,10 @@ if (!mounted) {
 >
 ```
 
----
+______________________________________________________________________
 
 ### KROK 4: GlassSurface Optimization
+
 **Plik:** `GlassSurface.tsx`
 **Zmiany:**
 
@@ -211,9 +218,10 @@ interface GlassSurfaceProps {
 }
 ```
 
----
+______________________________________________________________________
 
 ### KROK 5: Kontrast CSS
+
 **Plik:** `globals.css`
 **Zmiany:**
 
@@ -225,9 +233,10 @@ interface GlassSurfaceProps {
 }
 ```
 
----
+______________________________________________________________________
 
 ### KROK 6: ThemeSwitcher Icon
+
 **Plik:** `ThemeSwitcher.tsx`
 **Zmiany:**
 
@@ -242,18 +251,18 @@ Dodać ikonę "sparkle" lub "effects" przed przyciskiem theme:
 </div>
 ```
 
----
+______________________________________________________________________
 
 ## ⚠️ RYZYKA I MITYGACJE
 
-| Ryzyko | Prawdopodobieństwo | Wpływ | Mitygacja |
-|--------|-------------------|-------|-----------|
-| Regression w nawigacji | NISKIE | WYSOKI | Testy manualne wszystkich linków |
-| Performance regression | BARDZO NISKIE | ŚREDNI | Lighthouse przed/po |
-| Hydration errors persist | NISKIE | ŚREDNI | suppressHydrationWarning jako backup |
-| CSS conflicts | NISKIE | NISKI | Zachować istniejące selektory |
+| Ryzyko                   | Prawdopodobieństwo | Wpływ  | Mitygacja                            |
+| ------------------------ | ------------------ | ------ | ------------------------------------ |
+| Regression w nawigacji   | NISKIE             | WYSOKI | Testy manualne wszystkich linków     |
+| Performance regression   | BARDZO NISKIE      | ŚREDNI | Lighthouse przed/po                  |
+| Hydration errors persist | NISKIE             | ŚREDNI | suppressHydrationWarning jako backup |
+| CSS conflicts            | NISKIE             | NISKI  | Zachować istniejące selektory        |
 
----
+______________________________________________________________________
 
 ## ✅ CHECKLIST WYKONANIA
 
@@ -267,11 +276,12 @@ Dodać ikonę "sparkle" lub "effects" przed przyciskiem theme:
 - [ ] **KROK 8:** Test końcowy - wszystkie błędy naprawione
 - [ ] **KROK 9:** Lighthouse re-test
 
----
+______________________________________________________________________
 
 ## 📈 OCZEKIWANE REZULTATY
 
 Po implementacji:
+
 - ✅ Brak React Error #418
 - ✅ Brak 404 errors dla nawigacji
 - ✅ Brak FOUC - płynne ładowanie w dark mode
@@ -280,7 +290,7 @@ Po implementacji:
 - ✅ Lepsza wydajność (mniej long tasks)
 - ✅ Ikona do toggle effects
 
----
+______________________________________________________________________
 
 *Plan zatwierdzony: 2026-01-11*
 *Wykonanie: ROZPOCZĘTE*

@@ -3,32 +3,36 @@
 > **AUDIENCE:** Frontend Developers pracujący w projekcie MangaShift
 > **PURPOSE:** Zapewnienie spójności, accessibility i performance w każdym komponencie
 
----
+______________________________________________________________________
 
 ## 📐 ZASADY FUNDAMENTALNE
 
 ### 1. CSS Variables > Hardcoded Values
 
 **❌ NIE ROB TEGO:**
+
 ```tsx
 <h1 className="text-[5rem] md:text-[8rem] xl:text-[12rem]">
 ```
 
 **✅ ROB TO:**
+
 ```tsx
 <h1 className="text-[length:var(--title-font-size)]">
 ```
 
 **DLACZEGO:**
+
 - Centralna kontrola w `globals.css`
 - Automatyczne Media Queries
 - Łatwiejsze utrzymanie
 
----
+______________________________________________________________________
 
 ### 2. Mobile-First Breakpoints
 
 **KOLEJNOŚĆ BREAKPOINTÓW:**
+
 ```tsx
 // Base (320px+) - Mobile
 className="px-4 py-2 text-base"
@@ -51,11 +55,12 @@ className="px-4 py-2 2xl:px-20 text-base 2xl:text-2xl"
 
 **KRYTYCZNE:** Najpierw definiuj style mobile, potem dodawaj modyfikatory dla większych ekranów.
 
----
+______________________________________________________________________
 
 ### 3. Overflow Protection (ZAWSZE)
 
 **KAŻDA SEKCJA MUSI MIEĆ:**
+
 ```tsx
 <section className="w-full overflow-x-hidden">
   <div className="max-w-[var(--container-width)] mx-auto px-[var(--container-padding)]">
@@ -65,6 +70,7 @@ className="px-4 py-2 2xl:px-20 text-base 2xl:text-2xl"
 ```
 
 **KAŻDY ELEMENT Z ANIMACJĄ:**
+
 ```tsx
 // Jeśli element animuje się poza parent (transform, translateX, scale)
 <div className="overflow-hidden">
@@ -72,11 +78,12 @@ className="px-4 py-2 2xl:px-20 text-base 2xl:text-2xl"
 </div>
 ```
 
----
+______________________________________________________________________
 
 ### 4. Grid System (Standardowy Wzorzec)
 
 **2-COLUMN LAYOUT:**
+
 ```tsx
 <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-16">
   <div>{/* Lewa kolumna */}</div>
@@ -85,6 +92,7 @@ className="px-4 py-2 2xl:px-20 text-base 2xl:text-2xl"
 ```
 
 **3-COLUMN LAYOUT:**
+
 ```tsx
 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
   <div>{/* Card 1 */}</div>
@@ -94,30 +102,31 @@ className="px-4 py-2 2xl:px-20 text-base 2xl:text-2xl"
 ```
 
 **CARDS GRID:**
+
 ```tsx
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
   {items.map(item => <Card key={item.id} {...item} />)}
 </div>
 ```
 
----
+______________________________________________________________________
 
 ## 🎨 TYPOGRAFIA
 
 ### Hierarchia Font Sizes (CSS Variables)
 
-| Element | CSS Variable | Desktop Size | Mobile Size | Użycie |
-|---------|--------------|--------------|-------------|---------|
-| Hero Title | `--title-font-size` | 16rem (160px) | 6-11.5rem | Główny H1 na stronie |
-| Hero Subtitle | `--subtitle-font-size` | 3rem (30px) | 1.75-2.3rem | Podtytuł Hero |
-| Section Title | `--section-title-font-size` | 5rem (50px) | Auto-scale | H2 w sekcjach |
-| Section Subtitle | `--section-subtitle-font-size` | 2.2rem (22px) | Auto-scale | Podtytuły sekcji |
-| H1 | `--h1-font-size` | 3.2rem (32px) | 2.4rem (460px-) | Duże nagłówki |
-| H2 | `--h2-font-size` | 2.4rem (24px) | 1.8rem (460px-) | Średnie nagłówki |
-| H3 | `--h3-font-size` | 1.872rem (~19px) | Auto-scale | Małe nagłówki |
-| Body | `--normal-font-size` | 1.6rem (16px) | Auto-scale | Paragrafy |
-| Small | `--small-font-size` | 1.328rem (~13px) | Auto-scale | Drobny tekst |
-| Tiny | `--tiny-font-size` | 1.072rem (~11px) | Auto-scale | Captions, labels |
+| Element          | CSS Variable                   | Desktop Size     | Mobile Size     | Użycie               |
+| ---------------- | ------------------------------ | ---------------- | --------------- | -------------------- |
+| Hero Title       | `--title-font-size`            | 16rem (160px)    | 6-11.5rem       | Główny H1 na stronie |
+| Hero Subtitle    | `--subtitle-font-size`         | 3rem (30px)      | 1.75-2.3rem     | Podtytuł Hero        |
+| Section Title    | `--section-title-font-size`    | 5rem (50px)      | Auto-scale      | H2 w sekcjach        |
+| Section Subtitle | `--section-subtitle-font-size` | 2.2rem (22px)    | Auto-scale      | Podtytuły sekcji     |
+| H1               | `--h1-font-size`               | 3.2rem (32px)    | 2.4rem (460px-) | Duże nagłówki        |
+| H2               | `--h2-font-size`               | 2.4rem (24px)    | 1.8rem (460px-) | Średnie nagłówki     |
+| H3               | `--h3-font-size`               | 1.872rem (~19px) | Auto-scale      | Małe nagłówki        |
+| Body             | `--normal-font-size`           | 1.6rem (16px)    | Auto-scale      | Paragrafy            |
+| Small            | `--small-font-size`            | 1.328rem (~13px) | Auto-scale      | Drobny tekst         |
+| Tiny             | `--tiny-font-size`             | 1.072rem (~11px) | Auto-scale      | Captions, labels     |
 
 ### Jak Używać
 
@@ -148,7 +157,7 @@ className="px-4 py-2 2xl:px-20 text-base 2xl:text-2xl"
 </span>
 ```
 
----
+______________________________________________________________________
 
 ## 🔲 SPACING SYSTEM
 
@@ -184,7 +193,7 @@ className="mb-8 lg:mb-12" // Średni odstęp
 className="mb-12 lg:mb-16" // Duży odstęp
 ```
 
----
+______________________________________________________________________
 
 ## 🎯 KOMPONENTY - TEMPLATE
 
@@ -206,7 +215,7 @@ interface MyComponentProps {
 
 /**
  * MyComponent - Krótki opis co robi
- * 
+ *
  * @example
  * <MyComponent variant="primary">
  *   <p>Content</p>
@@ -266,7 +275,7 @@ export const ResponsiveComponent = () => {
 };
 ```
 
----
+______________________________________________________________________
 
 ## ♿ ACCESSIBILITY (A11y) CHECKLIST
 
@@ -284,27 +293,27 @@ export const ResponsiveComponent = () => {
 ```tsx
 <button
   className="
-    px-8 py-4 
+    px-8 py-4
     text-[length:var(--h2-font-size)]
     bg-primary text-white
     rounded-full
-    
+
     // Focus state
     focus-visible:outline-none
     focus-visible:ring-2
     focus-visible:ring-offset-2
     focus-visible:ring-primary
-    
+
     // Hover state
     hover:bg-primary-hover
-    
+
     // Active state
     active:scale-95
-    
+
     // Disabled state
     disabled:opacity-50
     disabled:cursor-not-allowed
-    
+
     // Touch target
     min-w-[44px] min-h-[44px]
   "
@@ -315,7 +324,7 @@ export const ResponsiveComponent = () => {
 </button>
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 PERFORMANCE BEST PRACTICES
 
@@ -372,7 +381,7 @@ const handleClick = useCallback(() => {
 
 **UWAGA:** Nie optymalizuj przedwcześnie. Użyj tylko gdy profile pokazuje problem.
 
----
+______________________________________________________________________
 
 ## 🧪 TESTOWANIE KOMPONENTU
 
@@ -381,6 +390,7 @@ const handleClick = useCallback(() => {
 Przed PR każdy komponent testuj na:
 
 1. **Rozdzielczościach:**
+
    - [ ] 320px (iPhone SE)
    - [ ] 375px (iPhone X)
    - [ ] 768px (iPad Portrait)
@@ -388,18 +398,20 @@ Przed PR każdy komponent testuj na:
    - [ ] 1920px (Desktop)
 
 2. **Interakcje:**
+
    - [ ] Click/Tap (palcem w DevTools)
    - [ ] Tab navigation (klawiatura)
    - [ ] Hover states (na desktop)
    - [ ] Scroll behavior
 
 3. **Edge Cases:**
+
    - [ ] Bardzo długi tekst (overflow handling)
    - [ ] Brak danych (empty state)
    - [ ] Loading state
    - [ ] Error state
 
----
+______________________________________________________________________
 
 ## 🎨 STYLING CONVENTIONS
 
@@ -409,34 +421,34 @@ Przed PR każdy komponent testuj na:
 className="
   // Layout
   flex flex-col items-center justify-between
-  
+
   // Sizing
   w-full h-screen max-w-[120rem]
-  
+
   // Spacing
   p-6 lg:p-12 m-4 gap-8
-  
+
   // Typography
   text-[length:var(--h1-font-size)] font-bold leading-tight
-  
+
   // Visual
   bg-primary text-white rounded-lg shadow-lg
-  
+
   // Borders
   border border-gray-200
-  
+
   // Effects
   overflow-hidden opacity-90
-  
+
   // Transitions
   transition-all duration-300
-  
+
   // States
   hover:bg-primary-hover
   focus-visible:ring-2
   active:scale-95
   disabled:opacity-50
-  
+
   // Responsive
   md:flex-row lg:p-16 xl:gap-16
 "
@@ -457,7 +469,7 @@ className="max-w-[var(--container-width)]"
 className="px-[var(--container-padding)]"
 ```
 
----
+______________________________________________________________________
 
 ## 📦 FILE STRUCTURE
 
@@ -490,39 +502,44 @@ src/
 - **Constants:** UPPER_SNAKE_CASE (`API_URL`, `MAX_ITEMS`)
 - **Types:** PascalCase + suffix (`ButtonProps`, `User`, `ApiResponse`)
 
----
+______________________________________________________________________
 
 ## 🔍 CODE REVIEW CHECKLIST
 
 Przed wysłaniem PR sprawdź:
 
 ### Funkcjonalność
+
 - [ ] Komponent działa zgodnie z wymaganiami
 - [ ] Brak console.log / debugger
 - [ ] Brak hardcoded wartości (używam CSS Variables)
 
 ### Responsive
+
 - [ ] Testowane na 5 breakpointach (320, 768, 992, 1200, 1920)
 - [ ] Brak horizontal scroll na mobile
 - [ ] Grid/Flex układa się poprawnie
 
 ### Accessibility
+
 - [ ] Semantic HTML
 - [ ] Keyboard navigation działa
 - [ ] Focus states widoczne
 - [ ] ARIA labels gdzie potrzeba
 
 ### Performance
+
 - [ ] Używam `next/image` dla obrazów
 - [ ] Lazy loading dla komponentów poniżej fold
 - [ ] Brak niepotrzebnych re-renderów
 
 ### Code Quality
+
 - [ ] TypeScript strict mode (brak `any`)
 - [ ] Props mają interfejsy z JSDoc
 - [ ] Kod jest czytelny (max 100 linii na komponent)
 
----
+______________________________________________________________________
 
 ## 🚨 ANTI-PATTERNS (NIE RÓB TEGO)
 
@@ -566,7 +583,7 @@ useEffect(() => {
 // ✅ DOBRZE - Użyj React Query lub Server Component
 ```
 
----
+______________________________________________________________________
 
 ## 📚 DALSZE ZASOBY
 
@@ -576,6 +593,6 @@ useEffect(() => {
 - [Next.js Image Optimization](https://nextjs.org/docs/app/building-your-application/optimizing/images)
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 
----
+______________________________________________________________________
 
 **PAMIĘTAJ:** Każdy komponent to kamień w fundamencie aplikacji. Jakość kodu dziś = brak bugów jutro.
