@@ -75,7 +75,7 @@ repos:
 # Scope lives in the published hook definitions; do not repeat files/types here.
 
   - repo: https://github.com/MattyMroz/agents
-    rev: hooks-v1.2.0
+    rev: hooks-v1.3.0
     hooks:
       - id: no-test-prose
       # U+FFFD is what a botched encoding leaves behind.
